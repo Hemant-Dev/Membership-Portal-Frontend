@@ -15,9 +15,16 @@ export class UserService {
     return this._http.get<User[]>(this.userAPIUrl);
   }
 
+  getUserDataById(userId: number) : Observable<User> {
+    return this._http.get<User>(this.userAPIUrl + `/${userId}`);
+  }
   addUserData(userObj: User) : Observable<User> {
     return this._http.post<User>(this.userAPIUrl, userObj);
   }
-
-
+  updateUserData(userId: number, userObj: User) : Observable<User> {
+    return this._http.put<User>(this.userAPIUrl+`/${userId}`, userObj);
+  }
+  deleteUserData(userId: number) : Observable<boolean> {
+    return this._http.delete<boolean>(this.userAPIUrl + `/${userId}`);
+  }
 }
