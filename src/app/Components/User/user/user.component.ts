@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ShowListComponent } from "../show-list/show-list.component";
-import { User } from '../../Models/user';
-import { UserService } from '../../Services/user.service';
-import { GenericListComponent } from "../generic-list/generic-list.component";
+import { User } from '../../../Models/user';
+import { UserService } from '../../../Services/user.service';
+import { GenericListComponent } from '../../generic-list/generic-list.component';
 
 @Component({
     selector: 'app-user',

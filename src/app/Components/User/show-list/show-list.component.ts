@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { User } from '../../Models/user';
+import { User } from '../../../Models/user';
 import { Router, RouterModule } from '@angular/router';
-import { UserService } from '../../Services/user.service';
+import { UserService } from '../../../Services/user.service';
 import { ToastrService } from 'ngx-toastr';
 import { NgIf } from '@angular/common';
 

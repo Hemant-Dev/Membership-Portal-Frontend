@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { User } from '../../Models/user';
-import { UserService } from '../../Services/user.service';
+import { User } from '../../../Models/user';
+import { UserService } from '../../../Services/user.service';
 import { NgFor, NgIf } from '@angular/common';
 import { ActivatedRoute, Route, Router, RouterModule } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { ValidationService } from '../../Services/validation.service';
+import { ValidationService } from '../../../Services/validation.service';
 
 @Component({
   selector: 'app-user-form',

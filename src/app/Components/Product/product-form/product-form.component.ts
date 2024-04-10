@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Product } from '../../Models/product';
-import { ProductService } from '../../Services/product.service';
+import { Product } from '../../../Models/product';
+import { ProductService } from '../../../Services/product.service';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { ValidationService } from '../../Services/validation.service';
+import { ValidationService } from '../../../Services/validation.service';
 import { NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 

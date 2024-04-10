@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { User } from '../Models/user';
 import { Product } from '../Models/product';
+import { Gender } from '../Models/gender';
 
 @Injectable({
   providedIn: 'root'
@@ -111,5 +112,24 @@ export class ValidationService {
     }
 
     return this.isValid;
+  }
+
+  validateGenderForm(genderObj: Gender) : boolean {
+    this.isValid = true;
+    this.errorMessages = [];
+    genderObj.genderName = genderObj.genderName.trim();
+
+    if(genderObj.genderName === undefined || genderObj.genderName === null || genderObj.genderName.length === 0){
+      this.errorMessages.push('Gender Name cannot be empty.');
+      this.isValid = false;
+    }else{
+      if(genderObj.genderName.length > 11){
+        this.errorMessages.push('Gender Name cannot exceed 10 chars');
+        this.isValid = false;
+      }
+    }
+
+    return this.isValid;
+
   }
 }
