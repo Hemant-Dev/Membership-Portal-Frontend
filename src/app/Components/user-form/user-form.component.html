@@ -2,12 +2,12 @@
     
     <form class="flex flex-col flex-shrink-0 gap-4" (ngSubmit)="handleSubmit()">
         <div class="heading-content font-bold" *ngIf="this.initialUserObj.id == 0; else elseUpdate">
-            <h1 class="text-3xl mb-4 text-center">Registration Form</h1>
+            <h1 class="text-3xl mb-4 text-center">Registration User Form</h1>
             <p>To Register please complete all below fields.</p>
         </div>
         <ng-template #elseUpdate>
             <div class="heading-content font-bold">
-                <h1 class="text-3xl mb-4 text-center">Update Form</h1>
+                <h1 class="text-3xl mb-4 text-center">Update User Form</h1>
                 <p>To Update please complete all below fields.</p>
             </div>
         </ng-template>
@@ -40,6 +40,7 @@
         </label>
         <span [class.hide]="isContactNumberValid" class="text-red-500">Please enter valid Contact Number</span>
         <button *ngIf="this.initialUserObj.id === 0; else elseBlock" type="submit" class="btn w-full">Submit</button>
+        <button [routerLink]="['/showList']" class="btn w-full" >Back</button>
         <ng-template #elseBlock>
             <button type="submit" class="btn w-full">Update</button>
             <button [routerLink]="['/showList']" class="btn w-full" >Back</button>

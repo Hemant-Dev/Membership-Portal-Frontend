@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { User } from '../Models/user';
+import { Product } from '../Models/product';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class ValidationService {
     return this.errorMessages;
   }
 
-  validateUserForm(userObj: User){
+  validateUserForm(userObj: User) : boolean {
     this.errorMessages = [];
     this.isValid = true;
     userObj.firstName = userObj.firstName.trim();
@@ -76,6 +77,37 @@ export class ValidationService {
     if (!phoneRegex.test(userObj.contactNumber)) {
       this.errorMessages.push('Contact number is invalid.');
       this.isValid = false;
+    }
+
+    return this.isValid;
+  }
+
+  validateProductForm(productObj: Product) : boolean {
+    this.isValid = true;
+    this.errorMessages = [];
+    productObj.productName = productObj.productName.trim();
+    
+    if(productObj.productName.length === 0 || productObj.productName === null){
+      this.errorMessages.push('Product Name cannot be empty.');
+      this.isValid = false;
+    }else{
+      if(productObj.productName.length > 50){
+        this.errorMessages.push('First Name cannot be greater than 50 chars.');
+        this.isValid = false;
+      }
+    }
+
+    if(productObj.price === null || productObj.price === undefined){
+      this.errorMessages.push('Price cannot be empty.');
+      this.isValid = false;
+    }else{
+      if(productObj.price === 0){
+        this.errorMessages.push('Price cannot be 0.')
+      }
+      if(productObj.price > 999999){
+        this.errorMessages.push('Price cannot be greater than 999999')
+        this.isValid = false;
+      }
     }
 
     return this.isValid;

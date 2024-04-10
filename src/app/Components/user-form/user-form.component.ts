@@ -62,7 +62,7 @@ export class UserFormComponent implements OnInit {
         // Update Form
         this._userService.updateUserData(this.idParam, this.initialUserObj).subscribe({
           next: (res) => {
-            console.log(res);
+            // console.log(res);
             this._router.navigate(['/showList']);
             this.showUpdationSuccess();
           },
@@ -83,7 +83,7 @@ export class UserFormComponent implements OnInit {
       this._userService.getUserDataById(this.initialUserObj.id).subscribe({
         next: (data) => {
           this.initialUserObj = data;
-          console.log(data);
+          // console.log(data);
         }
       });
     }else{
