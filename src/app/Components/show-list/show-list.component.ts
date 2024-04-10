@@ -2,19 +2,21 @@ import { Component, Input, OnInit } from '@angular/core';
 import { User } from '../../Models/user';
 import { Router, RouterModule } from '@angular/router';
 import { UserService } from '../../Services/user.service';
-import { info } from 'console';
+import { ToastrService } from 'ngx-toastr';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-show-list',
   standalone: true,
-  imports: [RouterModule],
+  imports: [RouterModule, NgIf],
   templateUrl: './show-list.component.html',
   styleUrl: './show-list.component.css'
 })
 export class ShowListComponent implements OnInit{
   @Input() usersList!: User[];
+  // @Input() genericLists!: T[];
   
-  constructor(private _router: Router, private _userService: UserService){}
+  constructor(private _router: Router, private _userService: UserService, private _toastr: ToastrService){}
   ngOnInit(): void {
     this.getAllUserData();
   }
@@ -38,10 +40,14 @@ export class ShowListComponent implements OnInit{
           // console.log(res);
           this.getAllUserData();
           // info('Data Deleted Successfully!');
+          this.showSuccess();
         },
         error: (err) => console.log(err),
       });
     }
-    
+  }
+
+  showSuccess(){
+    this._toastr.success('Data Deleted Successfully!', 'Deletion')
   }
 }

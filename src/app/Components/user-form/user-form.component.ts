@@ -2,13 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { User } from '../../Models/user';
 import { UserService } from '../../Services/user.service';
-import { NgIf } from '@angular/common';
-import { ActivatedRoute, Route, Router } from '@angular/router';
+import { NgFor, NgIf } from '@angular/common';
+import { ActivatedRoute, Route, Router, RouterModule } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { ValidationService } from '../../Services/validation.service';
 
 @Component({
   selector: 'app-user-form',
   standalone: true,
-  imports: [FormsModule, NgIf],
+  imports: [FormsModule, NgIf, NgFor, RouterModule],
   templateUrl: './user-form.component.html',
   styleUrl: './user-form.component.css'
 })
@@ -22,35 +24,58 @@ export class UserFormComponent implements OnInit {
     contactNumber: ''
   }
   idParam!: number;
-  constructor(private _userService: UserService, private _route: ActivatedRoute, private _router:Router){}
+  errorMessages: string[] = [];
+
+  //Invalid Inputs Marking
+  isFirstNameValid = true;
+  isLastNameValid = true;
+  isEmailValid = true;
+  isPasswordValid = true;
+  isContactNumberValid = true;
+
+  constructor(private _userService: UserService, private _route: ActivatedRoute, 
+              private _router:Router, private _toastr: ToastrService,
+              private _validationService: ValidationService
+            ){}
   ngOnInit(): void {
     this.idParam = Number(this._route.snapshot.paramMap.get('id'));
     this.initialUserObj.id = this.idParam;
     this.handleUpdateForm();
+    this.errorMessages = [];
   }
 
   handleSubmit(){
     // alert(JSON.stringify(this.initialUserObj));
-    if(this.initialUserObj.id === 0){
-      // Add Form
-      this._userService.addUserData(this.initialUserObj).subscribe({
-        next: (res) => {
-          console.log(res);
-          this._router.navigate(['/showList']);
-        },
-        error : (err) => console.log(err),
-      });
-    }else{
-      // Update Form
-      this._userService.updateUserData(this.idParam, this.initialUserObj).subscribe({
-        next: (res) => {
-          console.log(res);
-          this._router.navigate(['/showList']);
-        },
-        error: (err) => console.log(err),
-      });
+    if(this._validationService.validateUserForm(this.initialUserObj)){
+      // It is Valid Form 
+      if(this.initialUserObj.id === 0){
+        // Add Form
+        this._userService.addUserData(this.initialUserObj).subscribe({
+          next: (res) => {
+            // console.log(res);
+            this._router.navigate(['/showList']);
+            this.showCreationSuccess();
+          },
+          error : (err) => console.log(err),
+        });
+      }else{
+        // Update Form
+        this._userService.updateUserData(this.idParam, this.initialUserObj).subscribe({
+          next: (res) => {
+            console.log(res);
+            this._router.navigate(['/showList']);
+            this.showUpdationSuccess();
+          },
+          error: (err) => console.log(err),
+        });
+      }
     }
-    
+    else{
+      // Not a valid form
+      this.errorMessages = this._validationService.getErrorMessages();
+      this.markInvalidInputs(this.errorMessages);
+      this.showError();
+    }
   }
 
   handleUpdateForm(){
@@ -65,4 +90,24 @@ export class UserFormComponent implements OnInit {
       // console.log('Some Error Occured in User Form');
     }
   }
+
+  showCreationSuccess(){
+    this._toastr.success('User Added Successfully!', 'Creation');
+  }
+  showUpdationSuccess(){
+    this._toastr.success('User Updated Successfully!', 'Updation');
+  }
+  showError(){
+    this._toastr.error('User Form is invalid!.', 'Error');
+  }
+
+  markInvalidInputs(errorMessages: string[]) {
+    this.isFirstNameValid = !errorMessages.some(error => error.includes("First Name"));
+    this.isLastNameValid = !errorMessages.some(error => error.includes("Last Name"));
+    this.isEmailValid = !errorMessages.some(error => error.includes("Email"));
+    this.isPasswordValid = !errorMessages.some(error => error.includes("Password"));
+    this.isContactNumberValid = !errorMessages.some(error => error.includes("Contact"));
+  }
+
+
 }
