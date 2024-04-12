@@ -3,6 +3,7 @@ import { User } from '../Models/user';
 import { Product } from '../Models/product';
 import { Gender } from '../Models/gender';
 import { Tax } from '../Models/tax';
+import { Subscriber } from '../Models/subscriber';
 
 @Injectable({
   providedIn: 'root'
@@ -166,6 +167,14 @@ export class ValidationService {
       }
     }
 
+    return this.isValid;
+  }
+
+  validateSubscriberForm(subscriberObj: Subscriber): boolean {
+    this.isValid = true;
+    this.errorMessages = [];
+
+    
     return this.isValid;
   }
 }

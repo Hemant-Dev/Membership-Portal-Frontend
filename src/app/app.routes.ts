@@ -89,14 +89,14 @@ export const routes: Routes = [
     },
     {
         path: 'subscriber',
-        component: Subscriber
-    },
-    {
-        path: 'subscriber-form',
         component: SubscriberComponent
     },
     {
-        path: 'subsciber-form/:id',
+        path: 'subscriber-form',
+        component: SubscriberFormComponent
+    },
+    {
+        path: 'subscriber-form/:id',
         component: SubscriberFormComponent
     },
     {
