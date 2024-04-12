@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { User } from '../Models/user';
 import { Product } from '../Models/product';
 import { Gender } from '../Models/gender';
+import { Tax } from '../Models/tax';
 
 @Injectable({
   providedIn: 'root'
@@ -131,5 +132,40 @@ export class ValidationService {
 
     return this.isValid;
 
+  }
+
+  validateTaxForm(taxObj: Tax) : boolean {
+    this.isValid = true;
+    this.errorMessages = [];
+    
+    if(taxObj.sgst === 0 || taxObj.sgst === null || taxObj.sgst === undefined){
+      this.errorMessages.push('SGST cannot be empty.');
+      this.isValid = false;
+    }else{
+      if(taxObj.sgst >= 100){
+        this.errorMessages.push('SGST cannot be greater then equal to 100%');
+        this.isValid = false;
+      }
+    }
+    if(taxObj.cgst === 0 || taxObj.cgst === null || taxObj.cgst === undefined){
+      this.errorMessages.push('CGST cannot be empty.');
+      this.isValid = false;
+    }else{
+      if(taxObj.cgst >= 100){
+        this.errorMessages.push('CGST cannot be greater then equal to 100%');
+        this.isValid = false;
+      }
+    }
+    if(taxObj.totalTax === 0 || taxObj.totalTax === null || taxObj.totalTax === undefined){
+      this.errorMessages.push('Total Tax cannot be empty.');
+      this.isValid = false;
+    }else{
+      if(taxObj.totalTax > 100){
+        this.errorMessages.push('Total Tax cannot be greater then equal to 100%');
+        this.isValid = false;
+      }
+    }
+
+    return this.isValid;
   }
 }

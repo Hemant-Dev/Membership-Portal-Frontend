@@ -10,6 +10,9 @@ import { ProductFormComponent } from './Components/Product/product-form/product-
 import { GenderComponent } from './Components/Gender/gender/gender.component';
 import { GenderFormComponent } from './Components/Gender/gender-form/gender-form.component';
 import { GenderListComponent } from './Components/Gender/gender-list/gender-list.component';
+import { TaxComponent } from './Components/Tax/tax/tax.component';
+import { TaxFormComponent } from './Components/Tax/tax-form/tax-form.component';
+import { TaxListComponent } from './Components/Tax/tax-list/tax-list.component';
 
 export const routes: Routes = [
     {
@@ -63,6 +66,22 @@ export const routes: Routes = [
     {
         path: 'gender-list',
         component: GenderListComponent
+    },
+    {
+        path: 'tax',
+        component: TaxComponent
+    },
+    {
+        path: 'tax-form',
+        component: TaxFormComponent
+    },
+    {
+        path: 'tax-form/:id',
+        component: TaxFormComponent
+    },
+    {
+        path: 'tax-list',
+        component: TaxListComponent
     },
     {
         path: '**',

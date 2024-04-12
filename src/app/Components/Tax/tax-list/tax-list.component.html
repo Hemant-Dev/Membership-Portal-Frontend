@@ -1,9 +1,9 @@
 <div class="overflow-x-auto">
     <div class="btn-container flex flex-1">
-        <button class="btn btn-info btn-xs sm:btn-sm md:btn-md lg:btn-md ml-auto mr-40 mt-2 mb-2" [routerLink]="['/gender-form']">
+        <button class="btn btn-info btn-xs sm:btn-sm md:btn-md lg:btn-md ml-auto mr-40 mt-2 mb-2" [routerLink]="['/tax-form']">
             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="h-6 w-6" viewBox="0 -0.5 21 21" version="1.1">
     
-                <title>Add Gender</title>
+                <title>Add Tax</title>
                 <desc>Created with Sketch.</desc>
                 <defs>
             
@@ -18,32 +18,35 @@
                     </g>
                 </g>
             </svg>
-            <h2>Add Gender</h2>
+            <h2>Add Tax</h2>
         </button>
     </div>
 
     <!-- Rendering the add gender form here -->
     <!-- <app-gender-form></app-gender-form> -->
-    <h1 class="text-center text-3xl font-bold mt-4">Gender List</h1>
+    <h1 class="text-center text-3xl font-bold mt-4">Tax List</h1>
     <table class="table"
-        *ngIf="genderList !== undefined && genderList.length > 0; else elseTable"
+        *ngIf="taxList !== undefined && taxList.length > 0; else elseTable"
     >
       <!-- head -->
       <thead class="text-blue-500">
         <tr>
           <!-- <th></th> -->
-          <th>Gender Name</th>
+          <th>SGST %</th>
+          <th>CGST %</th>
+          <th>Total Tax %</th>
           <th>Actions</th>
         </tr>
       </thead>
       <tbody>
-        @for (gender of genderList; track gender) {
+        @for (tax of taxList; track tax) {
             <tr class="hover:bg-blue-200">
                 <!-- <th>1</th> -->
-                <td>{{gender.genderName}}</td>
+                <td>{{tax.sgst}}</td>
+                <td>{{tax.cgst}}</td>
+                <td>{{tax.totalTax}}</td>
                 <td class="flex gap-2">
-                    <button class="btn btn-circle btn-outline bg-green-400 hover:bg-green-300" (click)="handleEdit(gender.id)">
-                        <!-- <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg> -->
+                    <button class="btn btn-circle btn-outline bg-green-400 hover:bg-green-300" (click)="handleEdit(tax.id)">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000" version="1.1" id="Capa_1" viewBox="0 0 494.936 494.936" xml:space="preserve">
                             <g>
                                 <g>
@@ -53,8 +56,7 @@
                             </g>
                         </svg>
                     </button>
-                    <button class="btn btn-circle btn-outline bg-red-400 hover:bg-red-300" (click)="handleDelete(gender.id)">
-                        <!-- <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg> -->
+                    <button class="btn btn-circle btn-outline bg-red-400 hover:bg-red-300" (click)="handleDelete(tax.id)">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none">
                             <path d="M10 12V17" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             <path d="M14 12V17" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -74,4 +76,3 @@
   </div>
 
 
-  
