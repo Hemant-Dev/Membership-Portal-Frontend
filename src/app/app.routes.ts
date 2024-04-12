@@ -13,6 +13,10 @@ import { GenderListComponent } from './Components/Gender/gender-list/gender-list
 import { TaxComponent } from './Components/Tax/tax/tax.component';
 import { TaxFormComponent } from './Components/Tax/tax-form/tax-form.component';
 import { TaxListComponent } from './Components/Tax/tax-list/tax-list.component';
+import { Subscriber } from 'rxjs';
+import { SubscriberComponent } from './Components/Subscriber/subscriber/subscriber.component';
+import { SubscriberFormComponent } from './Components/Subscriber/subscriber-form/subscriber-form.component';
+import { SubscriberListComponent } from './Components/Subscriber/subscriber-list/subscriber-list.component';
 
 export const routes: Routes = [
     {
@@ -82,6 +86,22 @@ export const routes: Routes = [
     {
         path: 'tax-list',
         component: TaxListComponent
+    },
+    {
+        path: 'subscriber',
+        component: Subscriber
+    },
+    {
+        path: 'subscriber-form',
+        component: SubscriberComponent
+    },
+    {
+        path: 'subsciber-form/:id',
+        component: SubscriberFormComponent
+    },
+    {
+        path: 'subscriber-list',
+        component: SubscriberListComponent
     },
     {
         path: '**',
