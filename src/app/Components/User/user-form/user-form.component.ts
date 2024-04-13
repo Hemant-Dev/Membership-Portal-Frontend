@@ -12,17 +12,17 @@ import { ValidationService } from '../../../Services/validation.service';
   standalone: true,
   imports: [FormsModule, NgIf, NgFor, RouterModule],
   templateUrl: './user-form.component.html',
-  styleUrl: './user-form.component.css'
+  styleUrl: './user-form.component.css',
 })
 export class UserFormComponent implements OnInit {
-  initialUserObj : User = {
+  initialUserObj: User = {
     id: 0,
     firstName: '',
     lastName: '',
     email: '',
     password: '',
-    contactNumber: ''
-  }
+    contactNumber: '',
+  };
   idParam!: number;
   errorMessages: string[] = [];
 
@@ -33,10 +33,13 @@ export class UserFormComponent implements OnInit {
   isPasswordValid = true;
   isContactNumberValid = true;
 
-  constructor(private _userService: UserService, private _route: ActivatedRoute, 
-              private _router:Router, private _toastr: ToastrService,
-              private _validationService: ValidationService
-            ){}
+  constructor(
+    private _userService: UserService,
+    private _route: ActivatedRoute,
+    private _router: Router,
+    private _toastr: ToastrService,
+    private _validationService: ValidationService
+  ) {}
   ngOnInit(): void {
     this.idParam = Number(this._route.snapshot.paramMap.get('id'));
     this.initialUserObj.id = this.idParam;
@@ -44,11 +47,11 @@ export class UserFormComponent implements OnInit {
     this.errorMessages = [];
   }
 
-  handleSubmit(){
+  handleSubmit() {
     // alert(JSON.stringify(this.initialUserObj));
-    if(this._validationService.validateUserForm(this.initialUserObj)){
-      // It is Valid Form 
-      if(this.initialUserObj.id === 0){
+    if (this._validationService.validateUserForm(this.initialUserObj)) {
+      // It is Valid Form
+      if (this.initialUserObj.id === 0) {
         // Add Form
         this._userService.addUserData(this.initialUserObj).subscribe({
           next: (res) => {
@@ -56,21 +59,22 @@ export class UserFormComponent implements OnInit {
             this._router.navigate(['/showList']);
             this.showCreationSuccess();
           },
-          error : (err) => console.log(err),
-        });
-      }else{
-        // Update Form
-        this._userService.updateUserData(this.idParam, this.initialUserObj).subscribe({
-          next: (res) => {
-            // console.log(res);
-            this._router.navigate(['/showList']);
-            this.showUpdationSuccess();
-          },
           error: (err) => console.log(err),
         });
+      } else {
+        // Update Form
+        this._userService
+          .updateUserData(this.idParam, this.initialUserObj)
+          .subscribe({
+            next: (res) => {
+              // console.log(res);
+              this._router.navigate(['/showList']);
+              this.showUpdationSuccess();
+            },
+            error: (err) => console.log(err),
+          });
       }
-    }
-    else{
+    } else {
       // Not a valid form
       this.errorMessages = this._validationService.getErrorMessages();
       this.markInvalidInputs(this.errorMessages);
@@ -78,36 +82,42 @@ export class UserFormComponent implements OnInit {
     }
   }
 
-  handleUpdateForm(){
-    if(this.initialUserObj.id !== 0){
+  handleUpdateForm() {
+    if (this.initialUserObj.id !== 0) {
       this._userService.getUserDataById(this.initialUserObj.id).subscribe({
         next: (data) => {
           this.initialUserObj = data;
           // console.log(data);
-        }
+        },
       });
-    }else{
+    } else {
       // console.log('Some Error Occured in User Form');
     }
   }
 
-  showCreationSuccess(){
+  showCreationSuccess() {
     this._toastr.success('User Added Successfully!', 'Creation');
   }
-  showUpdationSuccess(){
+  showUpdationSuccess() {
     this._toastr.success('User Updated Successfully!', 'Updation');
   }
-  showError(){
+  showError() {
     this._toastr.error('User Form is invalid!.', 'Error');
   }
 
   markInvalidInputs(errorMessages: string[]) {
-    this.isFirstNameValid = !errorMessages.some(error => error.includes("First Name"));
-    this.isLastNameValid = !errorMessages.some(error => error.includes("Last Name"));
-    this.isEmailValid = !errorMessages.some(error => error.includes("Email"));
-    this.isPasswordValid = !errorMessages.some(error => error.includes("Password"));
-    this.isContactNumberValid = !errorMessages.some(error => error.includes("Contact"));
+    this.isFirstNameValid = !errorMessages.some((error) =>
+      error.includes('First Name')
+    );
+    this.isLastNameValid = !errorMessages.some((error) =>
+      error.includes('Last Name')
+    );
+    this.isEmailValid = !errorMessages.some((error) => error.includes('Email'));
+    this.isPasswordValid = !errorMessages.some((error) =>
+      error.includes('Password')
+    );
+    this.isContactNumberValid = !errorMessages.some((error) =>
+      error.includes('Contact')
+    );
   }
-
-
 }

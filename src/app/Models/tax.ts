@@ -1,6 +1,6 @@
 export interface Tax {
-    id: number;
-    sgst: number;
-    cgst: number;
-    totalTax: number;
+  id: number;
+  sgst: number | null;
+  cgst: number | null;
+  totalTax: number | null;
 }
