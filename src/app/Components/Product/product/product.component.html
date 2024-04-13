@@ -1,4 +1,9 @@
 <div class="list-display">
-    <!-- <app-product-list [productList]="productList"></app-product-list> -->
-    <app-product-list></app-product-list>
+  <!-- <app-product-list></app-product-list> -->
+  <app-generic-list
+    [itemsList]="productList"
+    [itemsKeys]="productKeys"
+    [itemsTitle]="Title"
+    [itemAddFormRouteName]="AddFormRouteName"
+  ></app-generic-list>
 </div>

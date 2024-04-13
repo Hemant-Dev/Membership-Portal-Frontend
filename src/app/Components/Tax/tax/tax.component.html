@@ -1,3 +1,9 @@
 <div class="list-display">
-    <app-tax-list></app-tax-list>
+  <!-- <app-tax-list></app-tax-list> -->
+  <app-generic-list
+    [itemsList]="taxList"
+    [itemsKeys]="taxKeys"
+    [itemsTitle]="Title"
+    [itemAddFormRouteName]="AddFormRouteName"
+  ></app-generic-list>
 </div>

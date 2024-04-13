@@ -1,31 +1,51 @@
 import { Component, OnInit } from '@angular/core';
-import { ShowListComponent } from "../show-list/show-list.component";
+import { ShowListComponent } from '../show-list/show-list.component';
 import { User } from '../../../Models/user';
 import { UserService } from '../../../Services/user.service';
 import { GenericListComponent } from '../../generic-list/generic-list.component';
+import { TableHeaderData } from '../../../Models/table-header-data';
 
 @Component({
-    selector: 'app-user',
-    standalone: true,
-    templateUrl: './user.component.html',
-    styleUrl: './user.component.css',
-    imports: [ShowListComponent, GenericListComponent]
+  selector: 'app-user',
+  standalone: true,
+  templateUrl: './user.component.html',
+  styleUrl: './user.component.css',
+  imports: [ShowListComponent, GenericListComponent],
 })
-export class UserComponent implements OnInit{
-
+export class UserComponent implements OnInit {
   usersList: User[] = [];
-  usersKeys: String[] = ['First Name', 'Last Name', 'Email', 'Password', 'Contact Number'];
-  usersValues: String[] = [];
-  Title: String = 'User';
-  constructor(private _userService: UserService){
+  usersKeys: TableHeaderData[] = [
+    {
+      HeaderName: 'First Name',
+      FieldName: 'firstName',
+    },
+    {
+      HeaderName: 'Last Name',
+      FieldName: 'lastName',
+    },
+    {
+      HeaderName: 'Email',
+      FieldName: 'email',
+    },
+    {
+      HeaderName: 'Password',
+      FieldName: 'password',
+    },
+    {
+      HeaderName: 'Contact No.',
+      FieldName: 'contactNumber',
+    },
+  ];
 
-  }
+  Title: string = 'User';
+  AddFormRouteName: string = 'user-form';
+
+  constructor(private _userService: UserService) {}
   ngOnInit(): void {
     this.getAllUserDataOnInit();
-    this.extractValuesFromUsers();
   }
 
-  getAllUserDataOnInit(){
+  getAllUserDataOnInit() {
     this._userService.getAllUserData().subscribe({
       next: (data) => {
         this.usersList = data;
@@ -34,10 +54,4 @@ export class UserComponent implements OnInit{
       error: (err) => console.log(err),
     });
   }
-
-  extractValuesFromUsers(){
-
-  }
-  
-  
 }

@@ -1,3 +1,9 @@
 <div class="list-display">
-    <app-subscriber-list></app-subscriber-list>
+  <!-- <app-subscriber-list></app-subscriber-list> -->
+  <app-generic-list
+    [itemsList]="subscribersList"
+    [itemsKeys]="subscriberKeys"
+    [itemsTitle]="Title"
+    [itemAddFormRouteName]="AddFormRouteName"
+  ></app-generic-list>
 </div>

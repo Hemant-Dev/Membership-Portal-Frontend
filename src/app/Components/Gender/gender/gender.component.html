@@ -1,3 +1,9 @@
 <div class="list-display">
-    <app-gender-list></app-gender-list>
+  <!-- <app-gender-list></app-gender-list> -->
+  <app-generic-list
+    [itemsList]="genderList"
+    [itemsKeys]="genderKeys"
+    [itemsTitle]="Title"
+    [itemAddFormRouteName]="AddFormRouteName"
+  ></app-generic-list>
 </div>
