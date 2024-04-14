@@ -5,5 +5,7 @@
     [itemsKeys]="usersKeys"
     [itemsTitle]="Title"
     [itemAddFormRouteName]="AddFormRouteName"
+    (onEdit)="handleEditUser($event)"
+    (onDelete)="handleDeleteUser($event)"
   ></app-generic-list>
 </div>

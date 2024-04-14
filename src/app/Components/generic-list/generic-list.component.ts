@@ -1,5 +1,5 @@
-import { CommonModule, NgFor, NgIf } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { TableHeaderData } from '../../Models/table-header-data';
 
@@ -10,14 +10,21 @@ import { TableHeaderData } from '../../Models/table-header-data';
   templateUrl: './generic-list.component.html',
   styleUrl: './generic-list.component.css',
 })
-export class GenericListComponent<T> implements OnInit {
+export class GenericListComponent {
   @Input() itemsList: any[] = [];
   @Input() itemsKeys!: TableHeaderData[];
   @Input() itemsTitle!: string;
   @Input() itemAddFormRouteName!: string;
 
-  ngOnInit(): void {}
+  @Output() onEdit = new EventEmitter<number>();
+  @Output() onDelete = new EventEmitter<number>();
 
-  handleEdit() {}
-  handleDelete() {}
+  handleEdit(obj: number) {
+    // console.log(obj);
+    this.onEdit.emit(obj);
+  }
+  handleDelete(obj: number) {
+    // console.log(obj);
+    this.onDelete.emit(obj);
+  }
 }

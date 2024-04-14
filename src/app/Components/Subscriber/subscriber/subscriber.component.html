@@ -5,5 +5,7 @@
     [itemsKeys]="subscriberKeys"
     [itemsTitle]="Title"
     [itemAddFormRouteName]="AddFormRouteName"
+    (onEdit)="handleEditSubscriber($event)"
+    (onDelete)="handleDeleteSubscriber($event)"
   ></app-generic-list>
 </div>

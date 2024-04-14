@@ -4,6 +4,8 @@ import { Subscriber } from '../../../Models/subscriber';
 import { SubscriberService } from '../../../Services/subscriber.service';
 import { TableHeaderData } from '../../../Models/table-header-data';
 import { GenericListComponent } from '../../generic-list/generic-list.component';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-subscriber',
@@ -38,7 +40,11 @@ export class SubscriberComponent implements OnInit {
   ];
   Title: string = 'Subscriber';
   AddFormRouteName: string = 'subscriber-form';
-  constructor(private _subscriberService: SubscriberService) {}
+  constructor(
+    private _subscriberService: SubscriberService,
+    private _toastr: ToastrService,
+    private _route: Router
+  ) {}
   ngOnInit(): void {
     this.getAllSubscriberDataOnInit();
   }
@@ -51,5 +57,25 @@ export class SubscriberComponent implements OnInit {
       },
       error: (err) => console.log(err),
     });
+  }
+
+  handleEditSubscriber(subscriberId: number) {
+    this._route.navigate(['/subscriber-form', subscriberId]);
+  }
+  handleDeleteSubscriber(subscriberId: number) {
+    if (confirm('Are you sure you want to delete this subscriber?')) {
+      this._subscriberService.deleteSubscriberData(subscriberId).subscribe({
+        next: (res) => {
+          // console.log(res);
+          this.getAllSubscriberDataOnInit();
+          this.showSuccess();
+        },
+        error: (err) => console.log(err),
+      });
+    }
+  }
+
+  showSuccess() {
+    this._toastr.success('Data Deleted Successfully!', 'Deletion');
   }
 }

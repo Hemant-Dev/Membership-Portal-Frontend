@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { User } from '../../../Models/user';
 import { UserService } from '../../../Services/user.service';
-import { NgFor, NgIf } from '@angular/common';
+import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { ActivatedRoute, Route, Router, RouterModule } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ValidationService } from '../../../Services/validation.service';
@@ -10,7 +10,7 @@ import { ValidationService } from '../../../Services/validation.service';
 @Component({
   selector: 'app-user-form',
   standalone: true,
-  imports: [FormsModule, NgIf, NgFor, RouterModule],
+  imports: [FormsModule, CommonModule, RouterModule],
   templateUrl: './user-form.component.html',
   styleUrl: './user-form.component.css',
 })
@@ -56,7 +56,7 @@ export class UserFormComponent implements OnInit {
         this._userService.addUserData(this.initialUserObj).subscribe({
           next: (res) => {
             // console.log(res);
-            this._router.navigate(['/showList']);
+            this._router.navigate(['/user']);
             this.showCreationSuccess();
           },
           error: (err) => console.log(err),
@@ -68,7 +68,7 @@ export class UserFormComponent implements OnInit {
           .subscribe({
             next: (res) => {
               // console.log(res);
-              this._router.navigate(['/showList']);
+              this._router.navigate(['/user']);
               this.showUpdationSuccess();
             },
             error: (err) => console.log(err),

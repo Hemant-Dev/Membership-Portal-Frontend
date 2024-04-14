@@ -67,7 +67,7 @@
         <td class="flex gap-2">
           <button
             class="btn btn-circle btn-outline bg-green-400 hover:bg-green-300"
-            (click)="handleEdit()"
+            (click)="handleEdit(item['id'])"
           >
             <!-- Your SVG content here -->
             <svg
@@ -94,7 +94,7 @@
           </button>
           <button
             class="btn btn-circle btn-outline bg-red-400 hover:bg-red-300"
-            (click)="handleDelete()"
+            (click)="handleDelete(item['id'])"
           >
             <!-- Your SVG content here -->
             <svg

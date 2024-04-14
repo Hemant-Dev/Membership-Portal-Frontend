@@ -50,7 +50,7 @@ export class ProductFormComponent implements OnInit {
         this._productService.addProductData(this.initialProductObj).subscribe({
           next: (res) => {
             // console.log(res);
-            this._router.navigate(['/product-list']);
+            this._router.navigate(['/product']);
             this.showCreationSuccess();
           },
           error: (err) => console.log(err),
@@ -62,7 +62,7 @@ export class ProductFormComponent implements OnInit {
           .subscribe({
             next: (res) => {
               // console.log(res);
-              this._router.navigate(['/product-list']);
+              this._router.navigate(['/product']);
               this.showUpdationSuccess();
             },
             error: (err) => console.log(err),

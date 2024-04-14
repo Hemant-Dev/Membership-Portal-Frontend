@@ -5,5 +5,7 @@
     [itemsKeys]="productKeys"
     [itemsTitle]="Title"
     [itemAddFormRouteName]="AddFormRouteName"
+    (onEdit)="handleEditProduct($event)"
+    (onDelete)="handleDeleteProduct($event)"
   ></app-generic-list>
 </div>

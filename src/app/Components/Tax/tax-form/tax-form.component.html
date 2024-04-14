@@ -1,58 +1,192 @@
 <div class="form-container flex flex-1 justify-center mt-4">
-    
-    <form class="flex flex-col flex-shrink-0 gap-4" (ngSubmit)="handleSubmit()">
-        <div class="heading-content font-bold" *ngIf="this.initialTaxObj.id == 0; else elseUpdate">
-            <h1 class="text-3xl mb-4 text-center">Create Tax Form</h1>
-            <p>To Add Tax please complete all below fields.</p>
-        </div>
-        <ng-template #elseUpdate>
-            <div class="heading-content font-bold">
-                <h1 class="text-3xl mb-4 text-center">Update Tax Form</h1>
-                <p>To Update please complete all below fields.</p>
-            </div>
-        </ng-template>
-        <label [class.invalid]="!isSGSTValid" class="input input-bordered flex items-center gap-2 bg-gray-100">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none">
-                <path d="M9 2H15C20 2 22 4 22 9V15C22 20 20 22 15 22H9C4 22 2 20 2 15V9C2 4 4 2 9 2Z" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M8.57007 15.27L15.11 8.72998" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M8.98001 10.3699C9.65932 10.3699 10.21 9.81923 10.21 9.13992C10.21 8.46061 9.65932 7.90991 8.98001 7.90991C8.3007 7.90991 7.75 8.46061 7.75 9.13992C7.75 9.81923 8.3007 10.3699 8.98001 10.3699Z" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M15.52 16.0899C16.1993 16.0899 16.75 15.5392 16.75 14.8599C16.75 14.1806 16.1993 13.6299 15.52 13.6299C14.8407 13.6299 14.29 14.1806 14.29 14.8599C14.29 15.5392 14.8407 16.0899 15.52 16.0899Z" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-            <input [(ngModel)]="initialTaxObj.sgst" name="sgst" type="number" autocomplete="off" class="grow" placeholder="SGST %" (ngModelChange)="handleTotalTaxChange()" />
-        </label>
-        <span [class.hide]="isSGSTValid" class="text-red-500">Please enter valid SGST%</span>
+  <form class="flex flex-col flex-shrink-0 gap-4" (ngSubmit)="handleSubmit()">
+    <div
+      class="heading-content font-bold"
+      *ngIf="this.initialTaxObj.id == 0; else elseUpdate"
+    >
+      <h1 class="text-3xl mb-4 text-center">Create Tax Form</h1>
+      <p>To Add Tax please complete all below fields.</p>
+    </div>
+    <ng-template #elseUpdate>
+      <div class="heading-content font-bold">
+        <h1 class="text-3xl mb-4 text-center">Update Tax Form</h1>
+        <p>To Update please complete all below fields.</p>
+      </div>
+    </ng-template>
+    <label
+      [class.invalid]="!isSGSTValid"
+      class="input input-bordered flex items-center gap-2 bg-gray-100"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-6 w-6"
+        viewBox="0 0 24 24"
+        fill="none"
+      >
+        <path
+          d="M9 2H15C20 2 22 4 22 9V15C22 20 20 22 15 22H9C4 22 2 20 2 15V9C2 4 4 2 9 2Z"
+          stroke="#292D32"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <path
+          d="M8.57007 15.27L15.11 8.72998"
+          stroke="#292D32"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <path
+          d="M8.98001 10.3699C9.65932 10.3699 10.21 9.81923 10.21 9.13992C10.21 8.46061 9.65932 7.90991 8.98001 7.90991C8.3007 7.90991 7.75 8.46061 7.75 9.13992C7.75 9.81923 8.3007 10.3699 8.98001 10.3699Z"
+          stroke="#292D32"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <path
+          d="M15.52 16.0899C16.1993 16.0899 16.75 15.5392 16.75 14.8599C16.75 14.1806 16.1993 13.6299 15.52 13.6299C14.8407 13.6299 14.29 14.1806 14.29 14.8599C14.29 15.5392 14.8407 16.0899 15.52 16.0899Z"
+          stroke="#292D32"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+      <input
+        [(ngModel)]="initialTaxObj.sgst"
+        name="sgst"
+        type="number"
+        autocomplete="off"
+        class="grow"
+        placeholder="SGST %"
+        (ngModelChange)="handleTotalTaxChange()"
+      />
+    </label>
+    <span [class.hide]="isSGSTValid" class="text-red-500"
+      >Please enter valid SGST%</span
+    >
 
-        <label [class.invalid]="!isCGSTValid" class="input input-bordered flex items-center gap-2 bg-gray-100">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none">
-                <path d="M9 2H15C20 2 22 4 22 9V15C22 20 20 22 15 22H9C4 22 2 20 2 15V9C2 4 4 2 9 2Z" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M8.57007 15.27L15.11 8.72998" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M8.98001 10.3699C9.65932 10.3699 10.21 9.81923 10.21 9.13992C10.21 8.46061 9.65932 7.90991 8.98001 7.90991C8.3007 7.90991 7.75 8.46061 7.75 9.13992C7.75 9.81923 8.3007 10.3699 8.98001 10.3699Z" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M15.52 16.0899C16.1993 16.0899 16.75 15.5392 16.75 14.8599C16.75 14.1806 16.1993 13.6299 15.52 13.6299C14.8407 13.6299 14.29 14.1806 14.29 14.8599C14.29 15.5392 14.8407 16.0899 15.52 16.0899Z" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-            <input [(ngModel)]="initialTaxObj.cgst" name="cgst" type="number" autocomplete="off" class="grow" placeholder="CGST %" (ngModelChange)="handleTotalTaxChange()" />
-        </label>
-        <span [class.hide]="isCGSTValid" class="text-red-500">Please enter valid CGST%</span>
-        
-        <label [class.invalid]="!isTotalTaxValid" class="input input-bordered flex items-center gap-2 bg-gray-100">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none">
-                <path d="M9 2H15C20 2 22 4 22 9V15C22 20 20 22 15 22H9C4 22 2 20 2 15V9C2 4 4 2 9 2Z" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M8.57007 15.27L15.11 8.72998" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M8.98001 10.3699C9.65932 10.3699 10.21 9.81923 10.21 9.13992C10.21 8.46061 9.65932 7.90991 8.98001 7.90991C8.3007 7.90991 7.75 8.46061 7.75 9.13992C7.75 9.81923 8.3007 10.3699 8.98001 10.3699Z" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M15.52 16.0899C16.1993 16.0899 16.75 15.5392 16.75 14.8599C16.75 14.1806 16.1993 13.6299 15.52 13.6299C14.8407 13.6299 14.29 14.1806 14.29 14.8599C14.29 15.5392 14.8407 16.0899 15.52 16.0899Z" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-            <input [(ngModel)]="initialTaxObj.totalTax" [disabled]="true" name="totalTax" type="number" autocomplete="off" class="grow" placeholder="Total Tax %" />
-        </label>
-        <span [class.hide]="isTotalTaxValid" class="text-red-500">Please enter valid SGST and CGST for valid Total Tax%</span>
+    <label
+      [class.invalid]="!isCGSTValid"
+      class="input input-bordered flex items-center gap-2 bg-gray-100"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-6 w-6"
+        viewBox="0 0 24 24"
+        fill="none"
+      >
+        <path
+          d="M9 2H15C20 2 22 4 22 9V15C22 20 20 22 15 22H9C4 22 2 20 2 15V9C2 4 4 2 9 2Z"
+          stroke="#292D32"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <path
+          d="M8.57007 15.27L15.11 8.72998"
+          stroke="#292D32"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <path
+          d="M8.98001 10.3699C9.65932 10.3699 10.21 9.81923 10.21 9.13992C10.21 8.46061 9.65932 7.90991 8.98001 7.90991C8.3007 7.90991 7.75 8.46061 7.75 9.13992C7.75 9.81923 8.3007 10.3699 8.98001 10.3699Z"
+          stroke="#292D32"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <path
+          d="M15.52 16.0899C16.1993 16.0899 16.75 15.5392 16.75 14.8599C16.75 14.1806 16.1993 13.6299 15.52 13.6299C14.8407 13.6299 14.29 14.1806 14.29 14.8599C14.29 15.5392 14.8407 16.0899 15.52 16.0899Z"
+          stroke="#292D32"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+      <input
+        [(ngModel)]="initialTaxObj.cgst"
+        name="cgst"
+        type="number"
+        autocomplete="off"
+        class="grow"
+        placeholder="CGST %"
+        (ngModelChange)="handleTotalTaxChange()"
+      />
+    </label>
+    <span [class.hide]="isCGSTValid" class="text-red-500"
+      >Please enter valid CGST%</span
+    >
 
-        <button *ngIf="this.initialTaxObj.id === 0; else elseBlock" type="submit" class="btn w-full">Submit</button>
-        <button [routerLink]="['/tax-list']" class="btn w-full" >Back</button>
-        <ng-template #elseBlock>
-            <button type="submit" class="btn w-full">Update</button>
-            <!-- <button [routerLink]="['/product-list']" class="btn w-full" >Back</button> -->
-        </ng-template>
-    </form>
+    <label
+      [class.invalid]="!isTotalTaxValid"
+      class="input input-bordered flex items-center gap-2 bg-gray-100"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-6 w-6"
+        viewBox="0 0 24 24"
+        fill="none"
+      >
+        <path
+          d="M9 2H15C20 2 22 4 22 9V15C22 20 20 22 15 22H9C4 22 2 20 2 15V9C2 4 4 2 9 2Z"
+          stroke="#292D32"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <path
+          d="M8.57007 15.27L15.11 8.72998"
+          stroke="#292D32"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <path
+          d="M8.98001 10.3699C9.65932 10.3699 10.21 9.81923 10.21 9.13992C10.21 8.46061 9.65932 7.90991 8.98001 7.90991C8.3007 7.90991 7.75 8.46061 7.75 9.13992C7.75 9.81923 8.3007 10.3699 8.98001 10.3699Z"
+          stroke="#292D32"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <path
+          d="M15.52 16.0899C16.1993 16.0899 16.75 15.5392 16.75 14.8599C16.75 14.1806 16.1993 13.6299 15.52 13.6299C14.8407 13.6299 14.29 14.1806 14.29 14.8599C14.29 15.5392 14.8407 16.0899 15.52 16.0899Z"
+          stroke="#292D32"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+      <input
+        [(ngModel)]="initialTaxObj.totalTax"
+        [disabled]="true"
+        name="totalTax"
+        type="number"
+        autocomplete="off"
+        class="grow"
+        placeholder="Total Tax %"
+      />
+    </label>
+    <span [class.hide]="isTotalTaxValid" class="text-red-500"
+      >Please enter valid SGST and CGST for valid Total Tax%</span
+    >
 
-    <!-- <div *ngIf="errorMessages.length > 0" class="errorMessages mt-2">
+    <button
+      *ngIf="this.initialTaxObj.id === 0; else elseBlock"
+      type="submit"
+      class="btn w-full"
+    >
+      Submit
+    </button>
+    <button [routerLink]="['/tax']" class="btn w-full">Back</button>
+    <ng-template #elseBlock>
+      <button type="submit" class="btn w-full">Update</button>
+      <!-- <button [routerLink]="['/product-list']" class="btn w-full" >Back</button> -->
+    </ng-template>
+  </form>
+
+  <!-- <div *ngIf="errorMessages.length > 0" class="errorMessages mt-2">
         <ul>
           <li *ngFor="let err of errorMessages">
             {{ err }}
@@ -60,4 +194,3 @@
         </ul>
       </div> -->
 </div>
-

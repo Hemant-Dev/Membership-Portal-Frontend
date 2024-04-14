@@ -5,5 +5,7 @@
     [itemsKeys]="taxKeys"
     [itemsTitle]="Title"
     [itemAddFormRouteName]="AddFormRouteName"
+    (onEdit)="handleEditTax($event)"
+    (onDelete)="handleDeleteTax($event)"
   ></app-generic-list>
 </div>

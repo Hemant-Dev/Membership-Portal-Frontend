@@ -5,5 +5,7 @@
     [itemsKeys]="genderKeys"
     [itemsTitle]="Title"
     [itemAddFormRouteName]="AddFormRouteName"
+    (onEdit)="handleEditGender($event)"
+    (onDelete)="handleDeleteGender($event)"
   ></app-generic-list>
 </div>

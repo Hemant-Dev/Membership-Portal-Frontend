@@ -68,7 +68,7 @@ export class SubscriberFormComponent implements OnInit {
           .subscribe({
             next: (res) => {
               // console.log(res);
-              this._router.navigate(['/subscriber-list']);
+              this._router.navigate(['/subscriber']);
               this.showCreationSuccess();
             },
             error: (err) => console.log(err),
@@ -80,7 +80,7 @@ export class SubscriberFormComponent implements OnInit {
           .subscribe({
             next: (res) => {
               // console.log(res);
-              this._router.navigate(['/subscriber-list']);
+              this._router.navigate(['/subscriber']);
               this.showUpdationSuccess();
             },
             error: (err) => console.log(err),

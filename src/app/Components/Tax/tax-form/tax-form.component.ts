@@ -52,7 +52,7 @@ export class TaxFormComponent {
         this._taxService.addTaxData(this.initialTaxObj).subscribe({
           next: (res) => {
             // console.log(res);
-            this._router.navigate(['/tax-list']);
+            this._router.navigate(['/tax']);
             this.showCreationSuccess();
           },
           error: (err) => console.log(err),
@@ -64,7 +64,7 @@ export class TaxFormComponent {
           .subscribe({
             next: (res) => {
               // console.log(res);
-              this._router.navigate(['/tax-list']);
+              this._router.navigate(['/tax']);
               this.showUpdationSuccess();
             },
             error: (err) => console.log(err),
