@@ -5,6 +5,7 @@ import { Gender } from '../Models/gender';
 import { Tax } from '../Models/tax';
 import { Subscriber } from '../Models/subscriber';
 import { CreateSubscriber } from '../Models/create-subscriber';
+import { Discount } from '../Models/discount';
 
 @Injectable({
   providedIn: 'root',
@@ -266,6 +267,11 @@ export class ValidationService {
       this.isValid = false;
     }
 
+    return this.isValid;
+  }
+
+  validateDiscountForm(discountoObj: Discount): boolean {
+    this.isValid = true;
     return this.isValid;
   }
 }

@@ -1,0 +1,107 @@
+<div class="form-container flex flex-1 justify-center mt-4">
+  <form class="flex flex-col flex-shrink-0 gap-4" (ngSubmit)="handleSubmit()">
+    <div
+      class="heading-content font-bold"
+      *ngIf="this.initialDiscountObj.id == 0; else elseUpdate"
+    >
+      <h1 class="text-3xl mb-4 text-center">Create Discount Form</h1>
+      <p>To Add Product please complete all below fields.</p>
+    </div>
+    <ng-template #elseUpdate>
+      <div class="heading-content font-bold">
+        <h1 class="text-3xl mb-4 text-center">Update Discount Form</h1>
+        <p>To Update please complete all below fields.</p>
+      </div>
+    </ng-template>
+    <label
+      [class.invalid]="!isDiscountCodeValid"
+      class="input input-bordered flex items-center gap-2 bg-gray-100"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="#000000"
+        class="w-6 h-6"
+        viewBox="0 0 100 100"
+      >
+        <path
+          d="m74 42a2 2 0 0 1 2 1.85v28.15a6 6 0 0 1 -5.78 6h-40.22a6 6 0 0 1 -6-5.78v-28.22a2 2 0 0 1 1.85-2zm-15.5 8.34-.12.1-11.45 12.41-5.2-5a1.51 1.51 0 0 0 -2-.1l-.11.1-2.14 1.92a1.2 1.2 0 0 0 -.1 1.81l.1.11 7.33 6.94a3.07 3.07 0 0 0 2.14.89 2.81 2.81 0 0 0 2.13-.89l5.92-6.29.43-.44.42-.45.55-.58.21-.22.42-.44 5.62-5.93a1.54 1.54 0 0 0 .08-1.82l-.08-.1-2.14-1.92a1.51 1.51 0 0 0 -2.01-.1zm15.5-28.34a6 6 0 0 1 6 6v6a2 2 0 0 1 -2 2h-56a2 2 0 0 1 -2-2v-6a6 6 0 0 1 6-6z"
+        />
+      </svg>
+      <input
+        [(ngModel)]="initialDiscountObj.discountCode"
+        name="discountCode"
+        type="text"
+        autocomplete="off"
+        class="grow"
+        placeholder="Discount Code"
+      />
+    </label>
+    <span [class.hide]="isDiscountCodeValid" class="text-red-500"
+      >Please enter valid Discount Code</span
+    >
+
+    <label
+      [class.invalid]="!isDiscountAmountValid"
+      class="input input-bordered flex items-center gap-2 bg-gray-100"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="w-6 h-6"
+        viewBox="0 0 64 64"
+        stroke-width="3"
+        stroke="#000000"
+        fill="none"
+      >
+        <path
+          d="M42.45,56.47H21.55a2.19,2.19,0,0,1-2.19-2.19V29.08a1.1,1.1,0,0,1,.34-.8L30.8,17.86a1.1,1.1,0,0,1,1.47,0l12,10.44a1.12,1.12,0,0,1,.37.82V54.28A2.19,2.19,0,0,1,42.45,56.47Z"
+          stroke-linecap="round"
+        />
+        <path
+          d="M32,25.61c-4.13,0-7.48-4.05-7.48-9s3.35-9,7.48-9,7.48,4.05,7.48,9"
+          stroke-linecap="round"
+        />
+        <path
+          d="M26.36,31.68H29c2.62,0,5.51.87,5.51,4.86,0,4.32-3.67,6-7.56,5.53a.23.23,0,0,0-.19.39l8.28,8.89"
+          stroke-linecap="round"
+        />
+        <line
+          x1="37.71"
+          y1="31.68"
+          x2="28.45"
+          y2="31.68"
+          stroke-linecap="round"
+        />
+        <line
+          x1="26.49"
+          y1="36.67"
+          x2="37.77"
+          y2="36.67"
+          stroke-linecap="round"
+        />
+      </svg>
+      <input
+        [(ngModel)]="initialDiscountObj.discountAmount"
+        name="discountAmount"
+        type="number"
+        autocomplete="off"
+        class="grow"
+        placeholder="Discount Amount"
+      />
+    </label>
+    <span [class.hide]="isDiscountAmountValid" class="text-red-500"
+      >Please enter valid Discount Amount
+    </span>
+
+    <button
+      *ngIf="this.initialDiscountObj.id === 0; else elseBlock"
+      type="submit"
+      class="btn w-full"
+    >
+      Submit
+    </button>
+    <button [routerLink]="['/discount']" class="btn w-full">Back</button>
+    <ng-template #elseBlock>
+      <button type="submit" class="btn w-full">Update</button>
+    </ng-template>
+  </form>
+</div>

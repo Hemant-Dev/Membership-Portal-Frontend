@@ -1,0 +1,11 @@
+<div class="list-display">
+  <!-- <app-gender-list></app-gender-list> -->
+  <app-generic-list
+    [itemsList]="discountList"
+    [itemsKeys]="discountKeys"
+    [itemsTitle]="Title"
+    [itemAddFormRouteName]="AddFormRouteName"
+    (onEdit)="handleEditDiscount($event)"
+    (onDelete)="handleDeleteDiscount($event)"
+  ></app-generic-list>
+</div>

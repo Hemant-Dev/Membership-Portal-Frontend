@@ -13,98 +13,111 @@ import { GenderListComponent } from './Components/Gender/gender-list/gender-list
 import { TaxComponent } from './Components/Tax/tax/tax.component';
 import { TaxFormComponent } from './Components/Tax/tax-form/tax-form.component';
 import { TaxListComponent } from './Components/Tax/tax-list/tax-list.component';
-import { Subscriber } from 'rxjs';
 import { SubscriberComponent } from './Components/Subscriber/subscriber/subscriber.component';
 import { SubscriberFormComponent } from './Components/Subscriber/subscriber-form/subscriber-form.component';
 import { SubscriberListComponent } from './Components/Subscriber/subscriber-list/subscriber-list.component';
+import { DiscountComponent } from './Components/Discount/discount/discount.component';
+import { DiscountFormComponent } from './Components/Discount/discount-form/discount-form.component';
 
 export const routes: Routes = [
-    {
-        path: '',
-        component: WelcomeComponent
-    },
-    {
-        path: 'showList',
-        component: ShowListComponent
-    },
-    {
-        path: 'user',
-        component: UserComponent
-    },
-    {
-        path: 'user-form',
-        component: UserFormComponent
-    },
-    {
-        path: 'user-form/:id',
-        component: UserFormComponent
-    },
-    {
-        path: 'product',
-        component: ProductComponent
-    },
-    {
-        path: 'product-form',
-        component: ProductFormComponent
-    },
-    {
-        path: 'product-form/:id',
-        component: ProductFormComponent
-    },
-    {
-        path: 'product-list',
-        component: ProductListComponent
-    },
-    {
-        path: 'gender',
-        component: GenderComponent
-    },
-    {
-        path: 'gender-form',
-        component: GenderFormComponent
-    },
-    {
-        path: 'gender-form/:id',
-        component: GenderFormComponent
-    },
-    {
-        path: 'gender-list',
-        component: GenderListComponent
-    },
-    {
-        path: 'tax',
-        component: TaxComponent
-    },
-    {
-        path: 'tax-form',
-        component: TaxFormComponent
-    },
-    {
-        path: 'tax-form/:id',
-        component: TaxFormComponent
-    },
-    {
-        path: 'tax-list',
-        component: TaxListComponent
-    },
-    {
-        path: 'subscriber',
-        component: SubscriberComponent
-    },
-    {
-        path: 'subscriber-form',
-        component: SubscriberFormComponent
-    },
-    {
-        path: 'subscriber-form/:id',
-        component: SubscriberFormComponent
-    },
-    {
-        path: 'subscriber-list',
-        component: SubscriberListComponent
-    },
-    {
-        path: '**',
-        component: NotFoundComponent
-    }
+  {
+    path: '',
+    component: WelcomeComponent,
+  },
+  {
+    path: 'showList',
+    component: ShowListComponent,
+  },
+  {
+    path: 'user',
+    component: UserComponent,
+  },
+  {
+    path: 'user-form',
+    component: UserFormComponent,
+  },
+  {
+    path: 'user-form/:id',
+    component: UserFormComponent,
+  },
+  {
+    path: 'product',
+    component: ProductComponent,
+  },
+  {
+    path: 'product-form',
+    component: ProductFormComponent,
+  },
+  {
+    path: 'product-form/:id',
+    component: ProductFormComponent,
+  },
+  {
+    path: 'product-list',
+    component: ProductListComponent,
+  },
+  {
+    path: 'gender',
+    component: GenderComponent,
+  },
+  {
+    path: 'gender-form',
+    component: GenderFormComponent,
+  },
+  {
+    path: 'gender-form/:id',
+    component: GenderFormComponent,
+  },
+  {
+    path: 'gender-list',
+    component: GenderListComponent,
+  },
+  {
+    path: 'tax',
+    component: TaxComponent,
+  },
+  {
+    path: 'tax-form',
+    component: TaxFormComponent,
+  },
+  {
+    path: 'tax-form/:id',
+    component: TaxFormComponent,
+  },
+  {
+    path: 'tax-list',
+    component: TaxListComponent,
+  },
+  {
+    path: 'subscriber',
+    component: SubscriberComponent,
+  },
+  {
+    path: 'subscriber-form',
+    component: SubscriberFormComponent,
+  },
+  {
+    path: 'subscriber-form/:id',
+    component: SubscriberFormComponent,
+  },
+  {
+    path: 'subscriber-list',
+    component: SubscriberListComponent,
+  },
+  {
+    path: 'discount',
+    component: DiscountComponent,
+  },
+  {
+    path: 'discount-form',
+    component: DiscountFormComponent,
+  },
+  {
+    path: 'discount-form/:id',
+    component: DiscountFormComponent,
+  },
+  {
+    path: '**',
+    component: NotFoundComponent,
+  },
 ];
