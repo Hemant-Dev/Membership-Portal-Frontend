@@ -1,1 +1,178 @@
-<p>subscription-form works!</p>
+<div class="form-container flex flex-1 justify-center mt-4">
+  <form class="flex flex-col flex-shrink-0 gap-4" (ngSubmit)="handleSubmit()">
+    <div
+      class="heading-content font-bold"
+      *ngIf="this.createSubscriptionObj.id === 0; else elseUpdate"
+    >
+      <h1 class="text-3xl mb-4 text-center">Registration Subscription Form</h1>
+      <p>To Register please complete all below fields.</p>
+    </div>
+    <ng-template #elseUpdate>
+      <div class="heading-content font-bold">
+        <h1 class="text-3xl mb-4 text-center">Update Subscription Form</h1>
+        <p>To Update please complete all below fields.</p>
+      </div>
+    </ng-template>
+
+    <!-- Add Drop down for subscriber  -->
+    <label class="form-control w-full">
+      <div class="label">
+        <span class="label-text">Select the Subscriber</span>
+      </div>
+
+      <select
+        [class.invalid]=""
+        [(ngModel)]="createSubscriptionObj.subscriberId"
+        name="subscriberId"
+        class="select select-bordered select-info bg-gray-100"
+      >
+        <option [value]="0" disabled selected>Pick one</option>
+        @for (subscriber of subscriberList; track subscriber) {
+        <option [value]="subscriber.id">{{ subscriber.id }}</option>
+        }
+      </select>
+    </label>
+    <span [class.hide]="" class="text-red-500"
+      >Please Choose valid SubscriberId</span
+    >
+
+    <!-- Add Drop down for Product  -->
+    <label class="form-control w-full">
+      <div class="label">
+        <span class="label-text">Select the Product</span>
+      </div>
+
+      <select
+        [class.invalid]=""
+        [(ngModel)]="createSubscriptionObj.productId"
+        name="productId"
+        class="select select-bordered select-info bg-gray-100"
+      >
+        <option [value]="0" disabled selected>Pick one</option>
+        @for (product of productList; track product) {
+        <option [value]="product.id">{{ product.productName }}</option>
+        }
+      </select>
+    </label>
+    <span [class.hide]="" class="text-red-500"
+      >Please Choose valid ProductId</span
+    >
+
+    <!-- Add Drop down for Discount  -->
+    <label class="form-control w-full">
+      <div class="label">
+        <span class="label-text">Select the Discount</span>
+      </div>
+
+      <select
+        [class.invalid]=""
+        [(ngModel)]="createSubscriptionObj.discountId"
+        name="subscriberId"
+        class="select select-bordered select-info bg-gray-100"
+      >
+        <option [value]="0" disabled selected>Pick one</option>
+        @for (discount of discountList; track discount) {
+        <option [value]="discount.id">{{ discount.discountCode }}</option>
+        }
+      </select>
+    </label>
+    <span [class.hide]="" class="text-red-500"
+      >Please Choose valid discountId</span
+    >
+
+    <!-- Add Drop down for tax  -->
+    <label
+      [class.hide]="createSubscriptionObj.id !== 0"
+      class="form-control w-full"
+    >
+      <div class="label">
+        <span class="label-text">Select the Tax</span>
+      </div>
+
+      <select
+        [disabled]="createSubscriptionObj.id !== 0"
+        [class.invalid]=""
+        [(ngModel)]="createSubscriptionObj.taxId"
+        name="taxId"
+        class="select select-bordered select-info bg-gray-100 disabled:bg-white"
+      >
+        <option [value]="0" disabled selected>Pick one</option>
+        @for (tax of taxList; track tax) {
+        <option [value]="tax.id">{{ tax.id }}</option>
+        }
+      </select>
+    </label>
+    <span [class.hide]="" class="text-red-500">Please Choose valid taxId</span>
+    <span [class.hide]="createSubscriptionObj.id === 0" class="text-red-500"
+      >Cant Choose Tax in Edit Mode</span
+    >
+
+    <label
+      [class.invalid]="!isStartDateValid"
+      class="input input-bordered flex items-center gap-2 bg-gray-100"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 16 16"
+        fill="currentColor"
+        class="w-4 h-4 opacity-70"
+      >
+        <path
+          d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z"
+        />
+      </svg>
+      <input
+        [(ngModel)]="createSubscriptionObj.startDate"
+        name="firstName"
+        type="date"
+        autocomplete="off"
+        class="grow"
+        placeholder="First name"
+      />
+    </label>
+    <span [class.hide]="isStartDateValid" class="text-red-500"
+      >Please enter valid Start Date</span
+    >
+
+    <label
+      [class.invalid]="!isExpiryDateValid"
+      class="input input-bordered flex items-center gap-2 bg-gray-100"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 16 16"
+        fill="currentColor"
+        class="w-4 h-4 opacity-70"
+      >
+        <path
+          d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z"
+        />
+      </svg>
+      <input
+        [(ngModel)]="createSubscriptionObj.expiryDate"
+        name="lastName"
+        type="date"
+        autocomplete="off"
+        class="grow"
+        placeholder="Last name"
+      />
+    </label>
+    <span [class.hide]="isExpiryDateValid" class="text-red-500"
+      >Please enter valid Expiry Date</span
+    >
+
+    <button
+      *ngIf="this.createSubscriptionObj.id === 0; else elseBlock"
+      type="submit"
+      class="btn w-full"
+    >
+      Submit
+    </button>
+    <button type="button" [routerLink]="['/subscription']" class="btn w-full">
+      Back
+    </button>
+    <ng-template #elseBlock>
+      <button type="submit" class="btn w-full">Update</button>
+    </ng-template>
+  </form>
+</div>

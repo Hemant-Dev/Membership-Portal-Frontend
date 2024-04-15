@@ -6,6 +6,8 @@ import { Tax } from '../Models/tax';
 import { Subscriber } from '../Models/subscriber';
 import { CreateSubscriber } from '../Models/create-subscriber';
 import { Discount } from '../Models/discount';
+import { Subscription } from '../Models/subscription';
+import { CreateSubscription } from '../Models/create-subscription';
 
 @Injectable({
   providedIn: 'root',
@@ -282,12 +284,17 @@ export class ValidationService {
       this.isValid = false;
     } else {
       if (discountObj.discountCode.length > 10) {
-        this.errorMessages.push('Discount Code cannot be greater than 10 chars.');
+        this.errorMessages.push(
+          'Discount Code cannot be greater than 10 chars.'
+        );
         this.isValid = false;
       }
     }
 
-    if (discountObj.discountAmount === null || discountObj.discountAmount === undefined) {
+    if (
+      discountObj.discountAmount === null ||
+      discountObj.discountAmount === undefined
+    ) {
       this.errorMessages.push('Discount Amount cannot be empty.');
       this.isValid = false;
     } else {
@@ -300,6 +307,19 @@ export class ValidationService {
       }
     }
 
+    return this.isValid;
+  }
+
+  validateCreateSubscriptionForm(subscriptionObj: CreateSubscription): boolean {
+    this.isValid = true;
+    this.errorMessages = [];
+
+    return this.isValid;
+  }
+
+  validateUpdateSubscriptionForm(subscriptionObj: Subscription): boolean {
+    this.isValid = true;
+    this.errorMessages = [];
     return this.isValid;
   }
 }

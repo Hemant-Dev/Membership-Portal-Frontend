@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 import { CreateSubscription } from '../Models/create-subscription';
+import { Subscription } from '../Models/subscription';
 
 @Injectable({
   providedIn: 'root',
