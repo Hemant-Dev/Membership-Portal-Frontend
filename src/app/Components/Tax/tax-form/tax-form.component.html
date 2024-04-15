@@ -179,18 +179,9 @@
     >
       Submit
     </button>
-    <button [routerLink]="['/tax']" class="btn w-full">Back</button>
+    <button type="button" [routerLink]="['/tax']" class="btn w-full">Back</button>
     <ng-template #elseBlock>
       <button type="submit" class="btn w-full">Update</button>
-      <!-- <button [routerLink]="['/product-list']" class="btn w-full" >Back</button> -->
     </ng-template>
   </form>
-
-  <!-- <div *ngIf="errorMessages.length > 0" class="errorMessages mt-2">
-        <ul>
-          <li *ngFor="let err of errorMessages">
-            {{ err }}
-          </li>
-        </ul>
-      </div> -->
 </div>

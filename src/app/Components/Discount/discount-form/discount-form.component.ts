@@ -44,6 +44,7 @@ export class DiscountFormComponent implements OnInit {
 
   handleSubmit() {
     // alert(JSON.stringify(this.initialProductObj));
+    
     if (this._validationService.validateDiscountForm(this.initialDiscountObj)) {
       // It is Valid Form
       if (this.initialDiscountObj.id === 0) {
