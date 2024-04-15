@@ -67,12 +67,12 @@ export class SubscriptionFormComponent implements OnInit {
   ngOnInit(): void {
     this.idParam = Number(this._route.snapshot.paramMap.get('id'));
     this.createSubscriptionObj.id = this.idParam;
-    this.handleUpdateForm();
     this.errorMessages = [];
     this.getAllDiscountData();
     this.getAllProductData();
     this.getAllSubscriberData();
     this.getAllTaxData();
+    this.handleUpdateForm();
   }
 
   handleSubmit() {
@@ -97,6 +97,7 @@ export class SubscriptionFormComponent implements OnInit {
           });
       } else {
         // Update Form
+
         this._subscriptionService
           .updateSubscriptionData(this.idParam, this.createSubscriptionObj)
           .subscribe({
@@ -122,13 +123,14 @@ export class SubscriptionFormComponent implements OnInit {
         .getSubscriptionDataById(this.createSubscriptionObj.id)
         .subscribe({
           next: (data) => {
+            console.log(data);
+            this.createSubscriptionObj.id = data.id;
+            this.createSubscriptionObj.subscriberId = data.subscriberId;
+            this.createSubscriptionObj.productId = data.productId;
+            this.createSubscriptionObj.discountId = data.discountId;
+            this.createSubscriptionObj.startDate = data.startDate;
+            this.createSubscriptionObj.expiryDate = data.expiryDate;
             // this.initialSubscriptionObj = data;
-            (this.createSubscriptionObj.id = data.id),
-              (this.createSubscriptionObj.subscriberId = data.subscriberId),
-              (this.createSubscriptionObj.productId = data.productId),
-              (this.createSubscriptionObj.discountId = data.discountId),
-              (this.createSubscriptionObj.startDate = data.startDate),
-              (this.createSubscriptionObj.expiryDate = data.expiryDate);
           },
           error: (err) => console.log(err),
         });
@@ -164,6 +166,14 @@ export class SubscriptionFormComponent implements OnInit {
     this.isExpiryDateValid = !errorMessages.some((error) =>
       error.includes('Expiry Date')
     );
+    if (
+      errorMessages.some((error) =>
+        error.includes('Expiry Date cannot be earlier than Start Date.')
+      )
+    ) {
+      this.isStartDateValid = false;
+      this.isExpiryDateValid = false;
+    }
   }
 
   getAllSubscriberData() {

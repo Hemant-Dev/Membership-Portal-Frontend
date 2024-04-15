@@ -375,12 +375,19 @@ export class ValidationService {
       ) {
         this.errorMessages.push('Expiry Date Cannot be empty.');
         this.isValid = false;
-      } else if (subscriptionObj.expiryDate < subscriptionObj.startDate) {
-        this.errorMessages.push(
-          'Expiry Date cannot be earlier than Start Date.'
-        );
-        this.isValid = false;
       }
+    }
+
+    if (
+      subscriptionObj.expiryDate instanceof Date &&
+      !isNaN(subscriptionObj.expiryDate.getTime()) &&
+      subscriptionObj.startDate instanceof Date &&
+      !isNaN(subscriptionObj.startDate.getTime()) &&
+      subscriptionObj.expiryDate.getTime() < subscriptionObj.startDate.getTime()
+    ) {
+      console.log('Date check');
+      this.errorMessages.push('Expiry Date cannot be earlier than Start Date.');
+      this.isValid = false;
     }
 
     return this.isValid;

@@ -26,7 +26,7 @@
         name="subscriberId"
         class="select select-bordered select-info bg-gray-100"
       >
-        <option [value]="0" disabled selected>Pick one</option>
+        <!-- <option [value]="0" disabled selected>Pick one</option> -->
         @for (subscriber of subscriberList; track subscriber) {
         <option [value]="subscriber.id">{{ subscriber.id }}</option>
         }
