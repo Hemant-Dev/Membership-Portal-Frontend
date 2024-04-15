@@ -18,6 +18,8 @@ import { SubscriberFormComponent } from './Components/Subscriber/subscriber-form
 import { SubscriberListComponent } from './Components/Subscriber/subscriber-list/subscriber-list.component';
 import { DiscountComponent } from './Components/Discount/discount/discount.component';
 import { DiscountFormComponent } from './Components/Discount/discount-form/discount-form.component';
+import { SubscriptionComponent } from './Components/Subscription/subscription/subscription.component';
+import { SubscriptionFormComponent } from './Components/Subscription/subscription-form/subscription-form.component';
 
 export const routes: Routes = [
   {
@@ -115,6 +117,18 @@ export const routes: Routes = [
   {
     path: 'discount-form/:id',
     component: DiscountFormComponent,
+  },
+  {
+    path: 'subscription',
+    component: SubscriptionComponent,
+  },
+  {
+    path: 'subscription-form',
+    component: SubscriptionFormComponent,
+  },
+  {
+    path: 'subscription-form/:id',
+    component: SubscriptionFormComponent,
   },
   {
     path: '**',

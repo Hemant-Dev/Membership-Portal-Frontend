@@ -1,0 +1,11 @@
+<div class="list-display">
+  <!-- <app-subscriber-list></app-subscriber-list> -->
+  <app-generic-list
+    [itemsList]="subscriptionsList"
+    [itemsKeys]="subscriptionKeys"
+    [itemsTitle]="Title"
+    [itemAddFormRouteName]="AddFormRouteName"
+    (onEdit)="handleEditSubscription($event)"
+    (onDelete)="handleDeleteSubscription($event)"
+  ></app-generic-list>
+</div>
