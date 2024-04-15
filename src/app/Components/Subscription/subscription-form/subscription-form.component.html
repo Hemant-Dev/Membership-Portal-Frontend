@@ -21,7 +21,7 @@
       </div>
 
       <select
-        [class.invalid]=""
+        [class.invalid]="!isSubscriberIdValid"
         [(ngModel)]="createSubscriptionObj.subscriberId"
         name="subscriberId"
         class="select select-bordered select-info bg-gray-100"
@@ -32,7 +32,7 @@
         }
       </select>
     </label>
-    <span [class.hide]="" class="text-red-500"
+    <span [class.hide]="isSubscriberIdValid" class="text-red-500"
       >Please Choose valid SubscriberId</span
     >
 
@@ -43,7 +43,7 @@
       </div>
 
       <select
-        [class.invalid]=""
+        [class.invalid]="!isProductIdValid"
         [(ngModel)]="createSubscriptionObj.productId"
         name="productId"
         class="select select-bordered select-info bg-gray-100"
@@ -54,7 +54,7 @@
         }
       </select>
     </label>
-    <span [class.hide]="" class="text-red-500"
+    <span [class.hide]="isProductIdValid" class="text-red-500"
       >Please Choose valid ProductId</span
     >
 
@@ -65,7 +65,7 @@
       </div>
 
       <select
-        [class.invalid]=""
+        [class.invalid]="!isDiscountIdValid"
         [(ngModel)]="createSubscriptionObj.discountId"
         name="subscriberId"
         class="select select-bordered select-info bg-gray-100"
@@ -76,7 +76,7 @@
         }
       </select>
     </label>
-    <span [class.hide]="" class="text-red-500"
+    <span [class.hide]="isDiscountIdValid" class="text-red-500"
       >Please Choose valid discountId</span
     >
 
@@ -91,7 +91,7 @@
 
       <select
         [disabled]="createSubscriptionObj.id !== 0"
-        [class.invalid]=""
+        [class.invalid]="!isTaxIdValid"
         [(ngModel)]="createSubscriptionObj.taxId"
         name="taxId"
         class="select select-bordered select-info bg-gray-100 disabled:bg-white"
@@ -102,7 +102,9 @@
         }
       </select>
     </label>
-    <span [class.hide]="" class="text-red-500">Please Choose valid taxId</span>
+    <span [class.hide]="isTaxIdValid" class="text-red-500"
+      >Please Choose valid taxId</span
+    >
     <span [class.hide]="createSubscriptionObj.id === 0" class="text-red-500"
       >Cant Choose Tax in Edit Mode</span
     >

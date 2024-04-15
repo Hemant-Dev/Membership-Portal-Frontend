@@ -313,13 +313,76 @@ export class ValidationService {
   validateCreateSubscriptionForm(subscriptionObj: CreateSubscription): boolean {
     this.isValid = true;
     this.errorMessages = [];
+    if (
+      subscriptionObj.subscriberId === 0 ||
+      subscriptionObj.subscriberId === null ||
+      subscriptionObj.subscriberId === undefined
+    ) {
+      this.errorMessages.push('SubscriberId is required.');
+      this.isValid = false;
+    }
+    if (
+      subscriptionObj.productId === 0 ||
+      subscriptionObj.productId === null ||
+      subscriptionObj.productId === undefined
+    ) {
+      this.errorMessages.push('ProductId is required.');
+      this.isValid = false;
+    }
+    if (
+      subscriptionObj.discountId === 0 ||
+      subscriptionObj.discountId === null ||
+      subscriptionObj.discountId === undefined
+    ) {
+      this.errorMessages.push('DiscountId is required.');
+      this.isValid = false;
+    }
+    if (
+      (subscriptionObj.taxId === 0 ||
+        subscriptionObj.taxId === null ||
+        subscriptionObj.taxId === undefined) &&
+      subscriptionObj.id === 0
+    ) {
+      this.errorMessages.push('TaxId is required.');
+      this.isValid = false;
+    }
 
-    return this.isValid;
-  }
+    if (
+      subscriptionObj.startDate instanceof Date &&
+      !isNaN(subscriptionObj.startDate.getTime())
+    ) {
+      if (
+        subscriptionObj.startDate.getFullYear() ===
+          new Date(0, 0, 0).getFullYear() &&
+        subscriptionObj.startDate.getMonth() === new Date(0, 0, 0).getMonth() &&
+        subscriptionObj.startDate.getDate() === new Date(0, 0, 0).getDate()
+      ) {
+        this.errorMessages.push('Start Date Cannot be empty.');
+        this.isValid = false;
+      }
+    }
 
-  validateUpdateSubscriptionForm(subscriptionObj: Subscription): boolean {
-    this.isValid = true;
-    this.errorMessages = [];
+    if (
+      subscriptionObj.expiryDate instanceof Date &&
+      !isNaN(subscriptionObj.expiryDate.getTime())
+    ) {
+      if (
+        subscriptionObj.expiryDate.getFullYear() ===
+          new Date(0, 0, 0).getFullYear() &&
+        subscriptionObj.expiryDate.getMonth() ===
+          new Date(0, 0, 0).getMonth() &&
+        subscriptionObj.expiryDate.getDate() === new Date(0, 0, 0).getDate()
+      ) {
+        this.errorMessages.push('Expiry Date Cannot be empty.');
+        this.isValid = false;
+      } else if (subscriptionObj.expiryDate < subscriptionObj.startDate) {
+        this.errorMessages.push(
+          'Expiry Date cannot be earlier than Start Date.'
+        );
+        this.isValid = false;
+      }
+    }
+
     return this.isValid;
   }
 }

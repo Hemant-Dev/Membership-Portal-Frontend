@@ -26,12 +26,12 @@ import { Subscription } from '../../../Models/subscription';
 export class SubscriptionFormComponent implements OnInit {
   createSubscriptionObj: CreateSubscription = {
     id: 0,
-    subscriberId: null,
-    productId: null,
-    discountId: null,
-    taxId: null,
-    startDate: new Date(),
-    expiryDate: new Date(),
+    subscriberId: 0,
+    productId: 0,
+    discountId: 0,
+    taxId: 0,
+    startDate: new Date(0, 0, 0),
+    expiryDate: new Date(0, 0, 0),
   };
 
   idParam!: number;
@@ -42,6 +42,10 @@ export class SubscriptionFormComponent implements OnInit {
   taxList: Tax[] = [];
 
   //Invalid Inputs Marking
+  isSubscriberIdValid = true;
+  isProductIdValid = true;
+  isDiscountIdValid = true;
+  isTaxIdValid = true;
   isStartDateValid = true;
   isExpiryDateValid = true;
 
@@ -54,7 +58,7 @@ export class SubscriptionFormComponent implements OnInit {
     private _router: Router,
     private _toastr: ToastrService,
     private _validationService: ValidationService,
-    private _subsciberService: SubscriberService,
+    private _subscriberService: SubscriberService,
     private _productService: ProductService,
     private _discountService: DiscountService,
     private _taxService: TaxService
@@ -144,6 +148,16 @@ export class SubscriptionFormComponent implements OnInit {
   }
 
   markInvalidInputs(errorMessages: string[]) {
+    this.isSubscriberIdValid = !errorMessages.some((error) =>
+      error.includes('SubscriberId')
+    );
+    this.isProductIdValid = !errorMessages.some((error) =>
+      error.includes('ProductId')
+    );
+    this.isDiscountIdValid = !errorMessages.some((error) =>
+      error.includes('DiscountId')
+    );
+    this.isTaxIdValid = !errorMessages.some((error) => error.includes('TaxId'));
     this.isStartDateValid = !errorMessages.some((error) =>
       error.includes('Start Date')
     );
@@ -153,7 +167,7 @@ export class SubscriptionFormComponent implements OnInit {
   }
 
   getAllSubscriberData() {
-    this._subsciberService.getAllSubscriberData().subscribe({
+    this._subscriberService.getAllSubscriberData().subscribe({
       next: (data) => {
         this.subscriberList = data;
       },
