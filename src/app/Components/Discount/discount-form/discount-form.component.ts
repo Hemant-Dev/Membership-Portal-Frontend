@@ -18,7 +18,7 @@ export class DiscountFormComponent implements OnInit {
   initialDiscountObj: Discount = {
     id: 0,
     discountCode: '',
-    discountAmount: 0,
+    discountAmount: null,
     isDiscountInPercentage: false,
   };
   idParam!: number;
@@ -52,7 +52,7 @@ export class DiscountFormComponent implements OnInit {
           .addDiscountData(this.initialDiscountObj)
           .subscribe({
             next: (res) => {
-              // console.log(res);
+              console.log(res);
               this._router.navigate(['/discount']);
               this.showCreationSuccess();
             },

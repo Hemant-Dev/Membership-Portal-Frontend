@@ -136,7 +136,7 @@ export class ValidationService {
       this.errorMessages.push('Gender Name cannot be empty.');
       this.isValid = false;
     } else {
-      if (genderObj.genderName.length > 11) {
+      if (genderObj.genderName.length > 10) {
         this.errorMessages.push('Gender Name cannot exceed 10 chars');
         this.isValid = false;
       }
@@ -270,8 +270,36 @@ export class ValidationService {
     return this.isValid;
   }
 
-  validateDiscountForm(discountoObj: Discount): boolean {
+  validateDiscountForm(discountObj: Discount): boolean {
+    this.errorMessages = [];
     this.isValid = true;
+    discountObj.discountCode = discountObj.discountCode.trim();
+    if (
+      discountObj.discountCode.length === 0 ||
+      discountObj.discountCode === null
+    ) {
+      this.errorMessages.push('Discount Code cannot be empty.');
+      this.isValid = false;
+    } else {
+      if (discountObj.discountCode.length > 10) {
+        this.errorMessages.push('Discount Code cannot be greater than 10 chars.');
+        this.isValid = false;
+      }
+    }
+
+    if (discountObj.discountAmount === null || discountObj.discountAmount === undefined) {
+      this.errorMessages.push('Discount Amount cannot be empty.');
+      this.isValid = false;
+    } else {
+      if (discountObj.discountAmount === 0) {
+        this.errorMessages.push('Discount Amount cannot be 0.');
+      }
+      if (discountObj.discountAmount > 9999) {
+        this.errorMessages.push('Discount Amount cannot be greater than 9999');
+        this.isValid = false;
+      }
+    }
+
     return this.isValid;
   }
 }

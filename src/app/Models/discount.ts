@@ -1,6 +1,6 @@
 export interface Discount {
   id: number;
   discountCode: string;
-  discountAmount: number;
+  discountAmount: number | null;
   isDiscountInPercentage: boolean;
 }
