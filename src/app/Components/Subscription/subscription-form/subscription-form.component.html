@@ -26,11 +26,14 @@
         name="subscriberId"
         class="select select-bordered select-info bg-gray-100"
       >
-        <!-- <option [value]="0" disabled selected>Pick one</option> -->
+        <option [value]="0" disabled selected>Pick one</option>
         @for (subscriber of subscriberList; track subscriber) {
-        <option [value]="subscriber.id">{{ subscriber.id }}</option>
+        <option [value]="subscriber.id">{{ subscriber.firstName }}</option>
         }
       </select>
+      @for (item of subscriberList; track item) {
+      {{ item.id }}
+      }
     </label>
     <span [class.hide]="isSubscriberIdValid" class="text-red-500"
       >Please Choose valid SubscriberId</span
@@ -125,17 +128,16 @@
       </svg>
       <input
         [(ngModel)]="createSubscriptionObj.startDate"
-        name="firstName"
+        name="startDate"
         type="date"
         autocomplete="off"
         class="grow"
-        placeholder="First name"
       />
     </label>
     <span [class.hide]="isStartDateValid" class="text-red-500"
       >Please enter valid Start Date</span
     >
-
+    {{ createSubscriptionObj.startDate }}
     <label
       [class.invalid]="!isExpiryDateValid"
       class="input input-bordered flex items-center gap-2 bg-gray-100"
@@ -152,16 +154,16 @@
       </svg>
       <input
         [(ngModel)]="createSubscriptionObj.expiryDate"
-        name="lastName"
+        name="expiryDate"
         type="date"
         autocomplete="off"
         class="grow"
-        placeholder="Last name"
       />
     </label>
     <span [class.hide]="isExpiryDateValid" class="text-red-500"
       >Please enter valid Expiry Date</span
     >
+    {{ createSubscriptionObj.expiryDate }}
 
     <button
       *ngIf="this.createSubscriptionObj.id === 0; else elseBlock"

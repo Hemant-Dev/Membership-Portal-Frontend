@@ -12,9 +12,8 @@ import { SubscriberService } from '../../../Services/subscriber.service';
 import { ProductService } from '../../../Services/product.service';
 import { DiscountService } from '../../../Services/discount.service';
 import { TaxService } from '../../../Services/tax.service';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Subscription } from '../../../Models/subscription';
 
 @Component({
   selector: 'app-subscription-form',
@@ -22,6 +21,7 @@ import { Subscription } from '../../../Models/subscription';
   imports: [CommonModule, RouterModule, FormsModule],
   templateUrl: './subscription-form.component.html',
   styleUrl: './subscription-form.component.css',
+  providers: [DatePipe],
 })
 export class SubscriptionFormComponent implements OnInit {
   createSubscriptionObj: CreateSubscription = {
@@ -51,6 +51,7 @@ export class SubscriptionFormComponent implements OnInit {
 
   // Var to identify when the form is in edit mode
   isInEditMode = false;
+  formattedDate!: any;
 
   constructor(
     private _subscriptionService: SubscriptionService,
@@ -61,17 +62,21 @@ export class SubscriptionFormComponent implements OnInit {
     private _subscriberService: SubscriberService,
     private _productService: ProductService,
     private _discountService: DiscountService,
-    private _taxService: TaxService
+    private _taxService: TaxService,
+    private datePipe: DatePipe
   ) {}
 
   ngOnInit(): void {
-    this.idParam = Number(this._route.snapshot.paramMap.get('id'));
-    this.createSubscriptionObj.id = this.idParam;
-    this.errorMessages = [];
+    // debugger;
     this.getAllDiscountData();
     this.getAllProductData();
     this.getAllSubscriberData();
     this.getAllTaxData();
+
+    this.idParam = Number(this._route.snapshot.paramMap.get('id'));
+    this.createSubscriptionObj.id = this.idParam;
+
+    this.errorMessages = [];
     this.handleUpdateForm();
   }
 
@@ -118,12 +123,17 @@ export class SubscriptionFormComponent implements OnInit {
   }
 
   handleUpdateForm() {
+    // debugger;
     if (this.createSubscriptionObj.id !== 0) {
+      // this.getAllTaxData();
       this._subscriptionService
         .getSubscriptionDataById(this.createSubscriptionObj.id)
         .subscribe({
           next: (data) => {
-            console.log(data);
+            console.log(
+              'Initial:' + JSON.stringify(this.createSubscriptionObj)
+            );
+
             this.createSubscriptionObj.id = data.id;
             this.createSubscriptionObj.subscriberId = data.subscriberId;
             this.createSubscriptionObj.productId = data.productId;
@@ -131,6 +141,8 @@ export class SubscriptionFormComponent implements OnInit {
             this.createSubscriptionObj.startDate = data.startDate;
             this.createSubscriptionObj.expiryDate = data.expiryDate;
             // this.initialSubscriptionObj = data;
+            console.log('Response data: ' + JSON.stringify(data));
+            console.log('After Setting: ', this.createSubscriptionObj);
           },
           error: (err) => console.log(err),
         });
