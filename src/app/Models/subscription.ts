@@ -11,7 +11,7 @@ export interface Subscription {
   taxId: number;
   cgst: number | null;
   sgst: number | null;
-  totalTaxPercentage: number | null;
+  totalTax: number | null;
   taxAmount: number | null;
   finalAmount: number | null;
   startDate: Date;

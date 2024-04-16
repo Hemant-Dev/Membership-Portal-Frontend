@@ -31,9 +31,6 @@
         <option [value]="subscriber.id">{{ subscriber.firstName }}</option>
         }
       </select>
-      @for (item of subscriberList; track item) {
-      {{ item.id }}
-      }
     </label>
     <span [class.hide]="isSubscriberIdValid" class="text-red-500"
       >Please Choose valid SubscriberId</span
