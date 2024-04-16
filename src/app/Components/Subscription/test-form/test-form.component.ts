@@ -5,7 +5,7 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { SubscriberService } from '../../../Services/subscriber.service';
 import { SubscriptionService } from '../../../Services/subscription.service';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Product } from '../../../Models/product';
 import { ProductService } from '../../../Services/product.service';
@@ -22,6 +22,7 @@ import { Subscription } from '../../../Models/subscription';
   imports: [CommonModule, RouterModule, FormsModule],
   templateUrl: './test-form.component.html',
   styleUrl: './test-form.component.css',
+  providers: [DatePipe],
 })
 export class TestFormComponent {
   createSubscriptionObj: CreateSubscription = {
@@ -30,8 +31,8 @@ export class TestFormComponent {
     productId: 0,
     discountId: 0,
     taxId: 0,
-    startDate: new Date(0, 0, 0),
-    expiryDate: new Date(0, 0, 0),
+    startDate: new Date(0, 0, 1),
+    expiryDate: new Date(0, 0, 1),
   };
 
   intermediateCalculation: Subscription = {
