@@ -151,6 +151,17 @@ export class SubscriptionFormComponent implements OnInit {
     }
   }
 
+  formatDate(date: Date): Date {
+    if (date instanceof Date) {
+      const day = date.getDate();
+      console.log(day);
+      const month = date.getMonth();
+      const year = date.getFullYear();
+      return new Date(year, month, day);
+    }
+    return new Date();
+  }
+
   showCreationSuccess() {
     this._toastr.success('Subscription Added Successfully!', 'Creation');
   }

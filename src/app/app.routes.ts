@@ -20,6 +20,8 @@ import { DiscountComponent } from './Components/Discount/discount/discount.compo
 import { DiscountFormComponent } from './Components/Discount/discount-form/discount-form.component';
 import { SubscriptionComponent } from './Components/Subscription/subscription/subscription.component';
 import { SubscriptionFormComponent } from './Components/Subscription/subscription-form/subscription-form.component';
+import { TestFormComponent } from './Components/Subscription/test-form/test-form.component';
+import { SubscriptionListComponent } from './Components/Subscription/subscription-list/subscription-list.component';
 
 export const routes: Routes = [
   {
@@ -129,6 +131,18 @@ export const routes: Routes = [
   {
     path: 'subscription-form/:id',
     component: SubscriptionFormComponent,
+  },
+  {
+    path: 'subscription-list',
+    component: SubscriptionListComponent,
+  },
+  {
+    path: 'test-form',
+    component: TestFormComponent,
+  },
+  {
+    path: 'test-form/:id',
+    component: TestFormComponent,
   },
   {
     path: '**',

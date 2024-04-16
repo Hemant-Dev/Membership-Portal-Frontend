@@ -21,7 +21,6 @@
       </div>
 
       <select
-        [class.invalid]="!isSubscriberIdValid"
         [(ngModel)]="createSubscriptionObj.subscriberId"
         name="subscriberId"
         class="select select-bordered select-info bg-gray-100"
@@ -31,14 +30,7 @@
         <option [value]="subscriber.id">{{ subscriber.firstName }}</option>
         }
       </select>
-      @for (item of subscriberList; track item) {
-      {{ item.id }}
-      }
     </label>
-    <span [class.hide]="isSubscriberIdValid" class="text-red-500"
-      >Please Choose valid SubscriberId</span
-    >
-
     <!-- Add Drop down for Product  -->
     <label class="form-control w-full">
       <div class="label">
@@ -46,7 +38,6 @@
       </div>
 
       <select
-        [class.invalid]="!isProductIdValid"
         [(ngModel)]="createSubscriptionObj.productId"
         name="productId"
         class="select select-bordered select-info bg-gray-100"
@@ -57,9 +48,6 @@
         }
       </select>
     </label>
-    <span [class.hide]="isProductIdValid" class="text-red-500"
-      >Please Choose valid ProductId</span
-    >
 
     <!-- Add Drop down for Discount  -->
     <label class="form-control w-full">
@@ -68,9 +56,8 @@
       </div>
 
       <select
-        [class.invalid]="!isDiscountIdValid"
         [(ngModel)]="createSubscriptionObj.discountId"
-        name="subscriberId"
+        name="discountId"
         class="select select-bordered select-info bg-gray-100"
       >
         <option [value]="0" disabled selected>Pick one</option>
@@ -79,43 +66,26 @@
         }
       </select>
     </label>
-    <span [class.hide]="isDiscountIdValid" class="text-red-500"
-      >Please Choose valid discountId</span
-    >
 
-    <!-- Add Drop down for tax  -->
-    <label
-      [class.hide]="createSubscriptionObj.id !== 0"
-      class="form-control w-full"
-    >
+    <!-- Add Drop down for Tax  -->
+    <label class="form-control w-full">
       <div class="label">
         <span class="label-text">Select the Tax</span>
       </div>
 
       <select
-        [disabled]="createSubscriptionObj.id !== 0"
-        [class.invalid]="!isTaxIdValid"
         [(ngModel)]="createSubscriptionObj.taxId"
         name="taxId"
-        class="select select-bordered select-info bg-gray-100 disabled:bg-white"
+        class="select select-bordered select-info bg-gray-100"
       >
         <option [value]="0" disabled selected>Pick one</option>
         @for (tax of taxList; track tax) {
-        <option [value]="tax.id">{{ tax.id }}</option>
+        <option [value]="tax.id">{{ tax.totalTax }}</option>
         }
       </select>
     </label>
-    <span [class.hide]="isTaxIdValid" class="text-red-500"
-      >Please Choose valid taxId</span
-    >
-    <span [class.hide]="createSubscriptionObj.id === 0" class="text-red-500"
-      >Cant Choose Tax in Edit Mode</span
-    >
 
-    <label
-      [class.invalid]="!isStartDateValid"
-      class="input input-bordered flex items-center gap-2 bg-gray-100"
-    >
+    <label class="input input-bordered flex items-center gap-2 bg-gray-100">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 16 16"
@@ -134,14 +104,9 @@
         class="grow"
       />
     </label>
-    <span [class.hide]="isStartDateValid" class="text-red-500"
-      >Please enter valid Start Date</span
-    >
     {{ createSubscriptionObj.startDate }}
-    <label
-      [class.invalid]="!isExpiryDateValid"
-      class="input input-bordered flex items-center gap-2 bg-gray-100"
-    >
+
+    <label class="input input-bordered flex items-center gap-2 bg-gray-100">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 16 16"
@@ -160,9 +125,6 @@
         class="grow"
       />
     </label>
-    <span [class.hide]="isExpiryDateValid" class="text-red-500"
-      >Please enter valid Expiry Date</span
-    >
     {{ createSubscriptionObj.expiryDate }}
 
     <button

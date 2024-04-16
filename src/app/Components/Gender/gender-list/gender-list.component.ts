@@ -4,24 +4,27 @@ import { GenderService } from '../../../Services/gender.service';
 import { ToastrService } from 'ngx-toastr';
 import { Gender } from '../../../Models/gender';
 import { NgFor, NgIf } from '@angular/common';
-import { GenderFormComponent } from "../gender-form/gender-form.component";
+import { GenderFormComponent } from '../gender-form/gender-form.component';
 
 @Component({
-    selector: 'app-gender-list',
-    standalone: true,
-    templateUrl: './gender-list.component.html',
-    styleUrl: './gender-list.component.css',
-    imports: [RouterModule, NgIf, NgFor, GenderFormComponent]
+  selector: 'app-gender-list',
+  standalone: true,
+  templateUrl: './gender-list.component.html',
+  styleUrl: './gender-list.component.css',
+  imports: [RouterModule, NgIf, NgFor, GenderFormComponent],
 })
 export class GenderListComponent implements OnInit {
   @Input() genderList!: Gender[];
-  constructor(private _router: Router, private _genderService: GenderService, private _toastr: ToastrService
-  ){}
+  constructor(
+    private _router: Router,
+    private _genderService: GenderService,
+    private _toastr: ToastrService
+  ) {}
   ngOnInit(): void {
     this.getAllGenderData();
   }
 
-  getAllGenderData(){
+  getAllGenderData() {
     this._genderService.getAllGenderData().subscribe({
       next: (data) => {
         this.genderList = data;
@@ -29,12 +32,12 @@ export class GenderListComponent implements OnInit {
       error: (err) => console.log(err),
     });
   }
-  handleEdit(genderId: number){
+  handleEdit(genderId: number) {
     this._router.navigate(['/gender-form', genderId]);
   }
 
-  handleDelete(genderId: number){
-    if(confirm('Are you sure you want to delete this Gender?')){
+  handleDelete(genderId: number) {
+    if (confirm('Are you sure you want to delete this Gender?')) {
       this._genderService.deleteGenderData(genderId).subscribe({
         next: (res) => {
           // console.log(res);
@@ -47,7 +50,7 @@ export class GenderListComponent implements OnInit {
     }
   }
 
-  showSuccess(){
-    this._toastr.success('Data Deleted Successfully!', 'Deletion')
+  showSuccess() {
+    this._toastr.success('Data Deleted Successfully!', 'Deletion');
   }
 }

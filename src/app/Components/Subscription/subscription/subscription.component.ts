@@ -4,13 +4,19 @@ import { SubscriptionService } from '../../../Services/subscription.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { GenericListComponent } from '../../generic-list/generic-list.component';
+import { SubscriberListComponent } from '../../Subscriber/subscriber-list/subscriber-list.component';
+import { SubscriptionListComponent } from '../subscription-list/subscription-list.component';
 
 @Component({
   selector: 'app-subscription',
   standalone: true,
   templateUrl: './subscription.component.html',
   styleUrl: './subscription.component.css',
-  imports: [GenericListComponent],
+  imports: [
+    GenericListComponent,
+    SubscriberListComponent,
+    SubscriptionListComponent,
+  ],
 })
 export class SubscriptionComponent implements OnInit {
   subscriptionsList: any[] = [];
