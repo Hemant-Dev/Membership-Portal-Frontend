@@ -11,8 +11,14 @@ export class SubscriptionService {
   constructor(private _http: HttpClient) {}
   private subscriptionAPIUrl = 'http://localhost:5224/api/subscription';
 
-  getAllSubscriptionData(): Observable<Subscription[]> {
-    return this._http.get<Subscription[]>(this.subscriptionAPIUrl);
+  getAllSubscriptionData(
+    sortColumn: string | null,
+    sortOrder: string | null
+  ): Observable<Subscription[]> {
+    return this._http.get<Subscription[]>(
+      this.subscriptionAPIUrl +
+        `?sortColumn=${sortColumn}&sortOrder=${sortOrder}`
+    );
   }
 
   getSubscriptionDataById(subscriptionId: number): Observable<Subscription> {

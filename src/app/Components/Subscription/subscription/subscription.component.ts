@@ -76,6 +76,8 @@ export class SubscriptionComponent implements OnInit {
   ];
   Title: string = 'Subscription';
   AddFormRouteName: string = 'subscription-form';
+  sortColumn: string | null = null;
+  sortOrder: string | null = null;
 
   constructor(
     private _subscriptionService: SubscriptionService,
@@ -87,13 +89,15 @@ export class SubscriptionComponent implements OnInit {
   }
 
   getAllSubscriptionDataOnInit() {
-    this._subscriptionService.getAllSubscriptionData().subscribe({
-      next: (data) => {
-        this.subscriptionsList = data;
-        // console.log(data);
-      },
-      error: (err) => console.log(err),
-    });
+    this._subscriptionService
+      .getAllSubscriptionData(this.sortColumn, this.sortOrder)
+      .subscribe({
+        next: (data) => {
+          this.subscriptionsList = data;
+          // console.log(data);
+        },
+        error: (err) => console.log(err),
+      });
   }
 
   handleEditSubscription(subscriptionId: number) {

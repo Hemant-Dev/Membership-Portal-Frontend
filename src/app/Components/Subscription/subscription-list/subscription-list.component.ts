@@ -14,6 +14,9 @@ import { CommonModule } from '@angular/common';
 })
 export class SubscriptionListComponent implements OnInit {
   @Input() subscriptionList!: Subscription[];
+  sortColumn: string | null = null;
+  sortOrder: string | null = 'asc';
+
   constructor(
     private _router: Router,
     private _subscriptionService: SubscriptionService,
@@ -24,12 +27,14 @@ export class SubscriptionListComponent implements OnInit {
   }
 
   getAllSubscriptionData() {
-    this._subscriptionService.getAllSubscriptionData().subscribe({
-      next: (data) => {
-        this.subscriptionList = data;
-      },
-      error: (err) => console.log(err),
-    });
+    this._subscriptionService
+      .getAllSubscriptionData(this.sortColumn, this.sortOrder)
+      .subscribe({
+        next: (data) => {
+          this.subscriptionList = data;
+        },
+        error: (err) => console.log(err),
+      });
   }
   handleEdit(subscriptionId: number) {
     this._router.navigate(['/test-form', subscriptionId]);
@@ -49,6 +54,14 @@ export class SubscriptionListComponent implements OnInit {
           error: (err) => console.log(err),
         });
     }
+  }
+
+  handleSort(sortColumn: string) {
+    this.sortColumn = sortColumn;
+    this.sortOrder === 'asc'
+      ? (this.sortOrder = 'desc')
+      : (this.sortOrder = 'asc');
+    this.getAllSubscriptionData();
   }
 
   showSuccess() {
