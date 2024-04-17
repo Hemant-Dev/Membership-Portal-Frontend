@@ -114,43 +114,11 @@ export class TestFormComponent {
             this.intermediateCalculation.finalAmount = data.finalAmount;
             this.createSubscriptionObj.startDate = data.startDate;
             this.createSubscriptionObj.expiryDate = data.expiryDate;
+            this.intermediateCalculation = data;
           },
           error: (err) => console.log(err),
         });
     }
-  }
-
-  getAllSubscriberData() {
-    this._subscriberService.getAllSubscriberData().subscribe({
-      next: (data) => {
-        this.subscriberList = data;
-      },
-      error: (err) => console.log(err),
-    });
-  }
-  getAllProductData() {
-    this._productService.getAllProductData().subscribe({
-      next: (data) => {
-        this.productList = data;
-      },
-      error: (err) => console.log(err),
-    });
-  }
-  getAllDiscountData() {
-    this._discountService.getAllDiscountData().subscribe({
-      next: (data) => {
-        this.discountList = data;
-      },
-      error: (err) => console.log(err),
-    });
-  }
-  getAllTaxData() {
-    this._taxService.getAllTaxData().subscribe({
-      next: (data) => {
-        this.taxList = data;
-      },
-      error: (err) => console.log(err),
-    });
   }
 
   handleSubmit() {
@@ -194,6 +162,116 @@ export class TestFormComponent {
       this.showError();
     }
   }
+  handleProductChange(productId: number | null) {
+    const selectedProductId = Number(productId);
+
+    if (typeof selectedProductId === 'number') {
+      this._productService.getProductDataById(selectedProductId).subscribe({
+        next: (data) => {
+          // debugger;
+          this.intermediateCalculation.productPrice = data.price;
+          this.intermediateCalculation.priceAfterDiscount =
+            this.intermediateCalculation.productPrice;
+          if (
+            this.intermediateCalculation.productId !== 0 &&
+            this.intermediateCalculation.productId !== null
+          ) {
+            if (
+              this.intermediateCalculation.discountId !== 0 &&
+              this.intermediateCalculation.discountId !== null
+            ) {
+              this.handleDiscountChange(this.intermediateCalculation.productId);
+            }
+            if (
+              this.intermediateCalculation.totalTaxPercentage !== 0 &&
+              this.intermediateCalculation.totalTaxPercentage !== null
+            ) {
+              var taxAmount =
+                (Number(this.intermediateCalculation.priceAfterDiscount) *
+                  Number(this.intermediateCalculation.totalTaxPercentage)) /
+                100;
+              this.intermediateCalculation.taxAmount = taxAmount;
+              this.intermediateCalculation.finalAmount =
+                Number(this.intermediateCalculation.priceAfterDiscount) +
+                taxAmount;
+            }
+          }
+        },
+        error: (err) => console.log(err),
+      });
+    } else {
+      console.error('productId is not a number.');
+    }
+  }
+
+  handleDiscountChange(discountId: number | null) {
+    const selectedDiscountId = Number(discountId);
+
+    if (typeof selectedDiscountId === 'number') {
+      this._discountService.getDiscountDataById(selectedDiscountId).subscribe({
+        next: (data) => {
+          // this.discountObj = data;
+          // this.intermediateCalculation.discountAmount = data.discountAmount;
+          var discountAmount = 0;
+          if (data.isDiscountInPercentage) {
+            discountAmount =
+              (Number(this.intermediateCalculation.productPrice) *
+                Number(data.discountAmount)) /
+              100;
+            // console.log('Discount Amount in percentage: ', discountAmount);
+          } else {
+            discountAmount = Number(data.discountAmount);
+            // console.log('Discount Amount : ', discountAmount);
+          }
+          this.intermediateCalculation.discountAmount = discountAmount;
+          this.intermediateCalculation.priceAfterDiscount =
+            Number(this.intermediateCalculation.productPrice) -
+            Number(this.intermediateCalculation.discountAmount);
+          if (
+            this.intermediateCalculation.totalTaxPercentage !== 0 ||
+            this.intermediateCalculation.totalTaxPercentage !== null
+          ) {
+            var taxAmount =
+              (Number(this.intermediateCalculation.priceAfterDiscount) *
+                Number(this.intermediateCalculation.totalTaxPercentage)) /
+              100;
+            this.intermediateCalculation.taxAmount = taxAmount;
+            this.intermediateCalculation.finalAmount =
+              Number(this.intermediateCalculation.priceAfterDiscount) +
+              taxAmount;
+          }
+        },
+        error: (err) => console.log(err),
+      });
+    } else {
+      console.log('DiscountId is not a number.');
+    }
+  }
+
+  handleTaxChange(taxId: number | null) {
+    const selectedTaxId = Number(taxId);
+
+    if (typeof selectedTaxId === 'number') {
+      this._taxService.getTaxDataById(selectedTaxId).subscribe({
+        next: (data) => {
+          // this.taxObj = data;
+          this.intermediateCalculation.cgst = data.cgst;
+          this.intermediateCalculation.sgst = data.sgst;
+          this.intermediateCalculation.totalTaxPercentage = data.totalTax;
+          var taxAmount =
+            (Number(this.intermediateCalculation.priceAfterDiscount) *
+              Number(this.intermediateCalculation.totalTaxPercentage)) /
+            100;
+          this.intermediateCalculation.taxAmount = taxAmount;
+          this.intermediateCalculation.finalAmount =
+            Number(this.intermediateCalculation.priceAfterDiscount) + taxAmount;
+        },
+        error: (err) => console.log(err),
+      });
+    } else {
+      console.log('TaxId is not a number.');
+    }
+  }
 
   showCreationSuccess() {
     this._toastr.success('Subscription Added Successfully!', 'Creation');
@@ -232,76 +310,36 @@ export class TestFormComponent {
     }
   }
 
-  handleProductChange(productId: number | null) {
-    const selectedProductId = Number(productId);
-
-    if (typeof selectedProductId === 'number') {
-      this._productService.getProductDataById(selectedProductId).subscribe({
-        next: (data) => {
-          this.intermediateCalculation.productPrice = data.price;
-          this.intermediateCalculation.priceAfterDiscount =
-            this.intermediateCalculation.productPrice;
-        },
-        error: (err) => console.log(err),
-      });
-    } else {
-      console.error('productId is not a number.');
-    }
+  getAllSubscriberData() {
+    this._subscriberService.getAllSubscriberData().subscribe({
+      next: (data) => {
+        this.subscriberList = data;
+      },
+      error: (err) => console.log(err),
+    });
   }
-
-  handleDiscountChange(discountId: number | null) {
-    const selectedDiscountId = Number(discountId);
-
-    if (typeof selectedDiscountId === 'number') {
-      this._discountService.getDiscountDataById(selectedDiscountId).subscribe({
-        next: (data) => {
-          // this.discountObj = data;
-          // this.intermediateCalculation.discountAmount = data.discountAmount;
-          var discountAmount = 0;
-          if (data.isDiscountInPercentage) {
-            discountAmount =
-              (Number(this.intermediateCalculation.productPrice) *
-                Number(data.discountAmount)) /
-              100;
-            // console.log('Discount Amount in percentage: ', discountAmount);
-          } else {
-            discountAmount = Number(data.discountAmount);
-            // console.log('Discount Amount : ', discountAmount);
-          }
-          this.intermediateCalculation.discountAmount = discountAmount;
-          this.intermediateCalculation.priceAfterDiscount =
-            Number(this.intermediateCalculation.productPrice) -
-            Number(this.intermediateCalculation.discountAmount);
-        },
-        error: (err) => console.log(err),
-      });
-    } else {
-      console.log('DiscountId is not a number.');
-    }
+  getAllProductData() {
+    this._productService.getAllProductData().subscribe({
+      next: (data) => {
+        this.productList = data;
+      },
+      error: (err) => console.log(err),
+    });
   }
-
-  handleTaxChange(taxId: number | null) {
-    const selectedTaxId = Number(taxId);
-
-    if (typeof selectedTaxId === 'number') {
-      this._taxService.getTaxDataById(selectedTaxId).subscribe({
-        next: (data) => {
-          // this.taxObj = data;
-          this.intermediateCalculation.cgst = data.cgst;
-          this.intermediateCalculation.sgst = data.sgst;
-          this.intermediateCalculation.totalTaxPercentage = data.totalTax;
-          var taxAmount =
-            (Number(this.intermediateCalculation.priceAfterDiscount) *
-              Number(this.intermediateCalculation.totalTaxPercentage)) /
-            100;
-          this.intermediateCalculation.taxAmount = taxAmount;
-          this.intermediateCalculation.finalAmount =
-            Number(this.intermediateCalculation.priceAfterDiscount) + taxAmount;
-        },
-        error: (err) => console.log(err),
-      });
-    } else {
-      console.log('TaxId is not a number.');
-    }
+  getAllDiscountData() {
+    this._discountService.getAllDiscountData().subscribe({
+      next: (data) => {
+        this.discountList = data;
+      },
+      error: (err) => console.log(err),
+    });
+  }
+  getAllTaxData() {
+    this._taxService.getAllTaxData().subscribe({
+      next: (data) => {
+        this.taxList = data;
+      },
+      error: (err) => console.log(err),
+    });
   }
 }
