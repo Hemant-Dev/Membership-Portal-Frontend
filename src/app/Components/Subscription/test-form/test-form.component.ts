@@ -103,11 +103,15 @@ export class TestFormComponent {
             this.intermediateCalculation.productPrice = data.productPrice;
             this.createSubscriptionObj.discountId = data.discountId;
             this.intermediateCalculation.discountAmount = data.discountAmount;
+            this.intermediateCalculation.priceAfterDiscount =
+              data.priceAfterDiscount;
             // this.createSubscriptionObj.taxId = data.taxId;
             this.intermediateCalculation.cgst = data.cgst;
             this.intermediateCalculation.sgst = data.sgst;
             this.intermediateCalculation.totalTaxPercentage =
               data.totalTaxPercentage;
+            this.intermediateCalculation.taxAmount = data.taxAmount;
+            this.intermediateCalculation.finalAmount = data.finalAmount;
             this.createSubscriptionObj.startDate = data.startDate;
             this.createSubscriptionObj.expiryDate = data.expiryDate;
           },
@@ -286,6 +290,13 @@ export class TestFormComponent {
           this.intermediateCalculation.cgst = data.cgst;
           this.intermediateCalculation.sgst = data.sgst;
           this.intermediateCalculation.totalTaxPercentage = data.totalTax;
+          var taxAmount =
+            (Number(this.intermediateCalculation.priceAfterDiscount) *
+              Number(this.intermediateCalculation.totalTaxPercentage)) /
+            100;
+          this.intermediateCalculation.taxAmount = taxAmount;
+          this.intermediateCalculation.finalAmount =
+            Number(this.intermediateCalculation.priceAfterDiscount) + taxAmount;
         },
         error: (err) => console.log(err),
       });
