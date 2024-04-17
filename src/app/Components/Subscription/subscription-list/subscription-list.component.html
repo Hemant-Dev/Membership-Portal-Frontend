@@ -43,18 +43,18 @@
   <!-- <app-gender-form></app-gender-form> -->
   <h1 class="text-center text-3xl font-bold mt-4">Subscription List</h1>
   <table
-    class="table"
+    class="table border-2 border-black"
     *ngIf="
       subscriptionList !== undefined && subscriptionList.length > 0;
       else elseTable
     "
   >
     <!-- head -->
-    <thead class="text-blue-500">
-      <tr>
+    <thead class="text-blue-500 font-bold border-2 border-black">
+      <tr class="text-wrap">
         <!-- <th></th> -->
-        <th>Subscriber Id</th>
-        <th>
+        <th class="text-center border-x border-black">Subscriber Id</th>
+        <th class="text-center border-x border-black">
           Product Name
           <span class="btn btn-xs btn-info" (click)="handleSort('productName')">
             <svg
@@ -82,7 +82,7 @@
             </svg>
           </span>
         </th>
-        <th>
+        <th class="text-center border-x border-black">
           Product Price
           <span
             class="btn btn-xs btn-info"
@@ -113,7 +113,7 @@
             </svg>
           </span>
         </th>
-        <th>
+        <th class="text-center border-x border-black">
           Discount Code
           <span
             class="btn btn-xs btn-info"
@@ -144,7 +144,7 @@
             </svg>
           </span>
         </th>
-        <th>
+        <th class="text-center border-x border-black">
           Discount Amount
           <span
             class="btn btn-xs btn-info"
@@ -175,7 +175,7 @@
             </svg>
           </span>
         </th>
-        <th>
+        <th class="text-center border-x border-black">
           Price After Discount
           <span
             class="btn btn-xs btn-info"
@@ -206,7 +206,7 @@
             </svg>
           </span>
         </th>
-        <th>
+        <th class="text-center border-x border-black">
           CSGT
           <span class="btn btn-xs btn-info" (click)="handleSort('cgst')">
             <svg
@@ -234,7 +234,7 @@
             </svg>
           </span>
         </th>
-        <th>
+        <th class="text-center border-x border-black">
           SGST
           <span class="btn btn-xs btn-info" (click)="handleSort('sgst')">
             <svg
@@ -262,7 +262,7 @@
             </svg>
           </span>
         </th>
-        <th>
+        <th class="text-center border-x border-black">
           Total Tax
           <span
             class="btn btn-xs btn-info"
@@ -293,7 +293,7 @@
             </svg>
           </span>
         </th>
-        <th>
+        <th class="text-center border-x border-black">
           Start Date
           <span class="btn btn-xs btn-info" (click)="handleSort('startDate')">
             <svg
@@ -321,7 +321,7 @@
             </svg>
           </span>
         </th>
-        <th>
+        <th class="text-center border-x border-black">
           Expiry Date
           <span class="btn btn-xs btn-info" (click)="handleSort('expiryDate')">
             <svg
@@ -349,7 +349,7 @@
             </svg>
           </span>
         </th>
-        <th>
+        <th class="text-center border-x border-black">
           Final Amount
           <span class="btn btn-xs btn-info" (click)="handleSort('finalAmount')">
             <svg
@@ -378,31 +378,34 @@
           </span>
         </th>
 
-        <th>Actions</th>
+        <th class="text-center border-x border-black">Actions</th>
       </tr>
     </thead>
     <tbody>
       @for (subscription of subscriptionList; track subscription) {
-      <tr class="hover:bg-blue-200">
+      <tr class="hover:bg-blue-200 text-center">
         <!-- <th>1</th> -->
-        <td>{{ subscription.subscriberId }}</td>
-        <td>{{ subscription.productName }}</td>
-        <td>{{ subscription.productPrice }}</td>
-        <td>{{ subscription.discountCode }}</td>
-        <td>{{ subscription.discountAmount }}</td>
-        <td>{{ subscription.priceAfterDiscount }}</td>
-        <td>{{ subscription.cgst }}</td>
-        <td>{{ subscription.sgst }}</td>
-        <td>{{ subscription.totalTaxPercentage }}</td>
-        <td>{{ subscription.startDate }}</td>
-        <td>{{ subscription.expiryDate }}</td>
-        <td>{{ subscription.finalAmount }}</td>
+        <td class="border-x border-black">{{ subscription.subscriberId }}</td>
+        <td class="border-x border-black">{{ subscription.productName }}</td>
+        <td class="border-x border-black">{{ subscription.productPrice }}</td>
+        <td class="border-x border-black">{{ subscription.discountCode }}</td>
+        <td class="border-x border-black">{{ subscription.discountAmount }}</td>
+        <td class="border-x border-black">
+          {{ subscription.priceAfterDiscount }}
+        </td>
+        <td class="border-x border-black">{{ subscription.cgst }}</td>
+        <td class="border-x border-black">{{ subscription.sgst }}</td>
+        <td class="border-x border-black">
+          {{ subscription.totalTaxPercentage }}
+        </td>
+        <td class="border-x border-black">{{ subscription.startDate }}</td>
+        <td class="border-x border-black">{{ subscription.expiryDate }}</td>
+        <td class="border-x border-black">{{ subscription.finalAmount }}</td>
         <td class="flex gap-2">
           <button
             class="btn btn-circle btn-outline bg-green-400 hover:bg-green-300"
             (click)="handleEdit(subscription.id)"
           >
-            <!-- <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg> -->
             <svg
               xmlns="http://www.w3.org/2000/svg"
               class="h-6 w-6"
@@ -429,7 +432,6 @@
             class="btn btn-circle btn-outline bg-red-400 hover:bg-red-300"
             (click)="handleDelete(subscription.id)"
           >
-            <!-- <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg> -->
             <svg
               xmlns="http://www.w3.org/2000/svg"
               class="h-6 w-6"
