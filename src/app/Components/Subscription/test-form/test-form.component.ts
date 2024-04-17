@@ -48,7 +48,7 @@ export class TestFormComponent {
     taxId: 0,
     cgst: null,
     sgst: null,
-    totalTax: null,
+    totalTaxPercentage: null,
     taxAmount: null,
     finalAmount: null,
     startDate: new Date(0, 0, 0),
@@ -100,8 +100,14 @@ export class TestFormComponent {
           next: (data) => {
             this.createSubscriptionObj.subscriberId = data.subscriberId;
             this.createSubscriptionObj.productId = data.productId;
+            this.intermediateCalculation.productPrice = data.productPrice;
             this.createSubscriptionObj.discountId = data.discountId;
-            this.createSubscriptionObj.taxId = data.taxId;
+            this.intermediateCalculation.discountAmount = data.discountAmount;
+            // this.createSubscriptionObj.taxId = data.taxId;
+            this.intermediateCalculation.cgst = data.cgst;
+            this.intermediateCalculation.sgst = data.sgst;
+            this.intermediateCalculation.totalTaxPercentage =
+              data.totalTaxPercentage;
             this.createSubscriptionObj.startDate = data.startDate;
             this.createSubscriptionObj.expiryDate = data.expiryDate;
           },
@@ -229,6 +235,8 @@ export class TestFormComponent {
       this._productService.getProductDataById(selectedProductId).subscribe({
         next: (data) => {
           this.intermediateCalculation.productPrice = data.price;
+          this.intermediateCalculation.priceAfterDiscount =
+            this.intermediateCalculation.productPrice;
         },
         error: (err) => console.log(err),
       });
@@ -244,7 +252,22 @@ export class TestFormComponent {
       this._discountService.getDiscountDataById(selectedDiscountId).subscribe({
         next: (data) => {
           // this.discountObj = data;
-          this.intermediateCalculation.discountAmount = data.discountAmount;
+          // this.intermediateCalculation.discountAmount = data.discountAmount;
+          var discountAmount = 0;
+          if (data.isDiscountInPercentage) {
+            discountAmount =
+              (Number(this.intermediateCalculation.productPrice) *
+                Number(data.discountAmount)) /
+              100;
+            // console.log('Discount Amount in percentage: ', discountAmount);
+          } else {
+            discountAmount = Number(data.discountAmount);
+            // console.log('Discount Amount : ', discountAmount);
+          }
+          this.intermediateCalculation.discountAmount = discountAmount;
+          this.intermediateCalculation.priceAfterDiscount =
+            Number(this.intermediateCalculation.productPrice) -
+            Number(this.intermediateCalculation.discountAmount);
         },
         error: (err) => console.log(err),
       });
@@ -262,7 +285,7 @@ export class TestFormComponent {
           // this.taxObj = data;
           this.intermediateCalculation.cgst = data.cgst;
           this.intermediateCalculation.sgst = data.sgst;
-          this.intermediateCalculation.totalTax = data.totalTax;
+          this.intermediateCalculation.totalTaxPercentage = data.totalTax;
         },
         error: (err) => console.log(err),
       });
