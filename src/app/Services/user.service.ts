@@ -4,27 +4,31 @@ import { Observable } from 'rxjs';
 import { User } from '../Models/user';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserService {
-
-  constructor(private _http: HttpClient) { }
+  constructor(private _http: HttpClient) {}
   private userAPIUrl = 'http://localhost:5224/api/user';
-  
-  getAllUserData() : Observable<User[]> {
-    return this._http.get<User[]>(this.userAPIUrl);
+
+  getAllUserData(
+    sortColumn: string | null,
+    sortOrder: string | null
+  ): Observable<User[]> {
+    return this._http.get<User[]>(
+      this.userAPIUrl + `?sortColumn=${sortColumn}&sortOrder=${sortOrder}`
+    );
   }
 
-  getUserDataById(userId: number) : Observable<User> {
+  getUserDataById(userId: number): Observable<User> {
     return this._http.get<User>(this.userAPIUrl + `/${userId}`);
   }
-  addUserData(userObj: User) : Observable<User> {
+  addUserData(userObj: User): Observable<User> {
     return this._http.post<User>(this.userAPIUrl, userObj);
   }
-  updateUserData(userId: number, userObj: User) : Observable<User> {
-    return this._http.put<User>(this.userAPIUrl+`/${userId}`, userObj);
+  updateUserData(userId: number, userObj: User): Observable<User> {
+    return this._http.put<User>(this.userAPIUrl + `/${userId}`, userObj);
   }
-  deleteUserData(userId: number) : Observable<boolean> {
+  deleteUserData(userId: number): Observable<boolean> {
     return this._http.delete<boolean>(this.userAPIUrl + `/${userId}`);
   }
 }

@@ -10,19 +10,21 @@ import { NgFor, NgIf } from '@angular/common';
   standalone: true,
   imports: [NgFor, NgIf, RouterModule],
   templateUrl: './product-list.component.html',
-  styleUrl: './product-list.component.css'
+  styleUrl: './product-list.component.css',
 })
-export class ProductListComponent implements OnInit{
+export class ProductListComponent implements OnInit {
   @Input() productList!: Product[];
-  constructor(private _router: Router, private _productService: ProductService, private _toastr: ToastrService){
-
-  }
+  constructor(
+    private _router: Router,
+    private _productService: ProductService,
+    private _toastr: ToastrService
+  ) {}
   ngOnInit(): void {
     this.getAllProductData();
   }
 
-  getAllProductData(){
-    this._productService.getAllProductData().subscribe({
+  getAllProductData() {
+    this._productService.getAllProductData(null, null).subscribe({
       next: (data) => {
         this.productList = data;
       },
@@ -30,12 +32,12 @@ export class ProductListComponent implements OnInit{
     });
   }
 
-  handleEdit(productId: number){
+  handleEdit(productId: number) {
     this._router.navigate(['/product-form', productId]);
   }
 
-  handleDelete(productId: number){
-    if(confirm('Are you sure you want to delete this Product?')){
+  handleDelete(productId: number) {
+    if (confirm('Are you sure you want to delete this Product?')) {
       this._productService.deleteProductData(productId).subscribe({
         next: (res) => {
           // console.log(res);
@@ -48,7 +50,7 @@ export class ProductListComponent implements OnInit{
     }
   }
 
-  showSuccess(){
-    this._toastr.success('Data Deleted Successfully!', 'Deletion')
+  showSuccess() {
+    this._toastr.success('Data Deleted Successfully!', 'Deletion');
   }
 }

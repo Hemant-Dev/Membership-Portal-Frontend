@@ -42,6 +42,9 @@ export class UserComponent implements OnInit {
   Title: string = 'User';
   AddFormRouteName: string = 'user-form';
 
+  sortOrder: string | null = null;
+  sortColumn: string | null = null;
+
   constructor(
     private _userService: UserService,
     private _route: Router,
@@ -52,13 +55,15 @@ export class UserComponent implements OnInit {
   }
 
   getAllUserDataOnInit() {
-    this._userService.getAllUserData().subscribe({
-      next: (data) => {
-        this.usersList = data;
-        // console.log(data);
-      },
-      error: (err) => console.log(err),
-    });
+    this._userService
+      .getAllUserData(this.sortColumn, this.sortOrder)
+      .subscribe({
+        next: (data) => {
+          this.usersList = data;
+          // console.log(data);
+        },
+        error: (err) => console.log(err),
+      });
   }
 
   handleEditUser(userId: number) {
@@ -75,6 +80,17 @@ export class UserComponent implements OnInit {
         error: (err) => console.log(err),
       });
     }
+  }
+
+  handleSortColumn(sortColumn: string) {
+    this.sortColumn = sortColumn;
+    // this.getAllProductDataOnInit();
+    // console.log(this.sortColumn);
+  }
+  handleSortOrder(sortOrder: string) {
+    this.sortOrder = sortOrder;
+    // console.log(this.sortOrder);
+    this.getAllUserDataOnInit();
   }
 
   showSuccess() {

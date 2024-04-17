@@ -319,7 +319,7 @@ export class TestFormComponent {
     });
   }
   getAllProductData() {
-    this._productService.getAllProductData().subscribe({
+    this._productService.getAllProductData(null, null).subscribe({
       next: (data) => {
         this.productList = data;
       },

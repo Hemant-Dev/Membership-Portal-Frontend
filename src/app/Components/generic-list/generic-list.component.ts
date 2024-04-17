@@ -18,6 +18,10 @@ export class GenericListComponent {
 
   @Output() onEdit = new EventEmitter<number>();
   @Output() onDelete = new EventEmitter<number>();
+  @Output() onSortColumn = new EventEmitter<string>();
+  @Output() onSortOrder = new EventEmitter<string>();
+
+  sortOrder: string = 'asc';
 
   handleEdit(obj: number) {
     // console.log(obj);
@@ -26,5 +30,16 @@ export class GenericListComponent {
   handleDelete(obj: number) {
     // console.log(obj);
     this.onDelete.emit(obj);
+  }
+  handleSortColumn(sortColumn: string) {
+    // console.log(sortColumn);
+    this.onSortColumn.emit(sortColumn);
+  }
+  handleSortOrder() {
+    this.sortOrder === 'asc'
+      ? (this.sortOrder = 'desc')
+      : (this.sortOrder = 'asc');
+    // console.log(this.sortOrder);
+    this.onSortOrder.emit(this.sortOrder);
   }
 }

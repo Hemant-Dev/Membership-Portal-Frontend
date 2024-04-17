@@ -23,6 +23,9 @@ export class ProductComponent implements OnInit {
   Title: string = 'Product';
   AddFormRouteName: string = 'product-form';
 
+  sortOrder: string | null = null;
+  sortColumn: string | null = null;
+
   constructor(
     private _productService: ProductService,
     private _toastr: ToastrService,
@@ -34,12 +37,14 @@ export class ProductComponent implements OnInit {
   }
 
   getAllProductDataOnInit() {
-    this._productService.getAllProductData().subscribe({
-      next: (data) => {
-        this.productList = data;
-      },
-      error: (err) => console.log(err),
-    });
+    this._productService
+      .getAllProductData(this.sortColumn, this.sortOrder)
+      .subscribe({
+        next: (data) => {
+          this.productList = data;
+        },
+        error: (err) => console.log(err),
+      });
   }
 
   handleEditProduct(productId: number) {
@@ -56,6 +61,17 @@ export class ProductComponent implements OnInit {
         error: (err) => console.log(err),
       });
     }
+  }
+
+  handleSortColumn(sortColumn: string) {
+    this.sortColumn = sortColumn;
+    // this.getAllProductDataOnInit();
+    // console.log(this.sortColumn);
+  }
+  handleSortOrder(sortOrder: string) {
+    this.sortOrder = sortOrder;
+    // console.log(this.sortOrder);
+    this.getAllProductDataOnInit();
   }
 
   showSuccess() {
