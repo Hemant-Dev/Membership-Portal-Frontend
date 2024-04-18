@@ -22,12 +22,15 @@ export class ProductService {
   }
 
   getPaginatedAdvanceProductData(
+    sortColumn: string | null = null,
+    sortOrder: string | null = null,
     page: number,
     pageSize: number,
     product: Product
   ): Observable<Paginated<Product>> {
     return this._http.post<Paginated<Product>>(
-      this.productAPIUrl + `/paginated?page=${page}&pageSize=${pageSize}`,
+      this.productAPIUrl +
+        `/paginated?sortColumn=${sortColumn}&sortOrder=${sortOrder}&page=${page}&pageSize=${pageSize}`,
       product
     );
   }

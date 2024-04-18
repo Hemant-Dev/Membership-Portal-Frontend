@@ -49,12 +49,31 @@ export class ProductComponent implements OnInit {
     // this.isInSearchMode = false;
   }
 
+  // getAllProductDataOnInit() {
+  //   this._productService
+  //     .getAllProductData(this.sortColumn, this.sortOrder)
+  //     .subscribe({
+  //       next: (data) => {
+  //         this.productList = data;
+  //       },
+  //       error: (err) => console.log(err),
+  //     });
+  // }
   getAllProductDataOnInit() {
     this._productService
-      .getAllProductData(this.sortColumn, this.sortOrder)
+      .getPaginatedAdvanceProductData(
+        this.sortColumn,
+        this.sortOrder,
+        this.page,
+        this.pageSize,
+        this.initialProductObj
+      )
       .subscribe({
         next: (data) => {
-          this.productList = data;
+          this.productList = data.dataArray;
+          this.totalPages = data.totalPages;
+          // console.log(data);
+          // console.log(this.sortColumn, this.sortOrder);
         },
         error: (err) => console.log(err),
       });
@@ -89,23 +108,13 @@ export class ProductComponent implements OnInit {
 
   handleSubmit() {
     // console.log(this.initialProductObj);
+    if (this.initialProductObj.price === null) {
+      this.initialProductObj.price = 0;
+    }
     this.isInSearchMode = true;
-    console.log('Before:', this.productList);
-    this._productService
-      .getPaginatedAdvanceProductData(
-        this.page,
-        this.pageSize,
-        this.initialProductObj
-      )
-      .subscribe({
-        next: (data) => {
-          this.productList = data.dataArray;
-          this.totalPages = data.totalPages;
-          console.log(data);
-        },
-        error: (err) => console.log(err),
-      });
-    console.log('After:', this.productList);
+    // console.log('Before:', this.productList);
+    this.getAllProductDataOnInit();
+    // console.log('After:', this.productList);
   }
 
   showSuccess() {
