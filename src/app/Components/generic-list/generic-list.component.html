@@ -46,12 +46,12 @@
     *ngIf="itemsList && itemsList.length > 0; else elseTable"
   >
     <!-- head -->
-    <thead class="text-blue-500">
-      <tr>
-        <th>Sr.</th>
+    <thead class="text-blue-500 font-bold border-2 border-black">
+      <tr class="text-wrap">
+        <th class="text-center border-x border-black">Sr.</th>
         <!-- Loop through itemsKeys to dynamically generate table headers -->
         <ng-container *ngFor="let key of itemsKeys">
-          <th>
+          <th class="text-center border-x border-black">
             {{ key.HeaderName }}
             <span
               class="btn btn-xs btn-info"
@@ -85,17 +85,22 @@
           </th>
         </ng-container>
         <!-- Add a static column for Actions -->
-        <th>Actions</th>
+        <th class="text-center border-x border-black">Actions</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let item of itemsList; index as i" class="hover:bg-blue-200">
+      <tr
+        *ngFor="let item of itemsList; index as i"
+        class="hover:bg-blue-200 border-y border-black"
+      >
         <!-- Loop through itemsKeys to dynamically generate table cells -->
-        <td>{{ i + 1 }}</td>
+        <td class="text-center border-x border-y border-black">{{ i + 1 }}</td>
         <ng-container *ngFor="let key of itemsKeys">
-          <td>{{ item[key.FieldName] }}</td>
+          <td class="text-center border-x border-y border-black">
+            {{ item[key.FieldName] }}
+          </td>
         </ng-container>
-        <td class="flex gap-2">
+        <td class="flex gap-2 justify-center border-black">
           <button
             class="btn btn-circle btn-outline bg-green-400 hover:bg-green-300"
             (click)="handleEdit(item['id'])"

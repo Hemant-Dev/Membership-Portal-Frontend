@@ -40,6 +40,10 @@ export class SubscriberComponent implements OnInit {
   ];
   Title: string = 'Subscriber';
   AddFormRouteName: string = 'subscriber-form';
+
+  sortOrder: string | null = null;
+  sortColumn: string | null = null;
+
   constructor(
     private _subscriberService: SubscriberService,
     private _toastr: ToastrService,
@@ -50,13 +54,15 @@ export class SubscriberComponent implements OnInit {
   }
 
   getAllSubscriberDataOnInit() {
-    this._subscriberService.getAllSubscriberData().subscribe({
-      next: (data) => {
-        this.subscribersList = data;
-        // console.log(data);
-      },
-      error: (err) => console.log(err),
-    });
+    this._subscriberService
+      .getAllSubscriberData(this.sortColumn, this.sortOrder)
+      .subscribe({
+        next: (data) => {
+          this.subscribersList = data;
+          // console.log(data);
+        },
+        error: (err) => console.log(err),
+      });
   }
 
   handleEditSubscriber(subscriberId: number) {
@@ -73,6 +79,17 @@ export class SubscriberComponent implements OnInit {
         error: (err) => console.log(err),
       });
     }
+  }
+
+  handleSortColumn(sortColumn: string) {
+    this.sortColumn = sortColumn;
+    // this.getAllProductDataOnInit();
+    // console.log(this.sortColumn);
+  }
+  handleSortOrder(sortOrder: string) {
+    this.sortOrder = sortOrder;
+    // console.log(this.sortOrder);
+    this.getAllSubscriberDataOnInit();
   }
 
   showSuccess() {

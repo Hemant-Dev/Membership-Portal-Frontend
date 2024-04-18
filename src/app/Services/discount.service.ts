@@ -11,8 +11,13 @@ export class DiscountService {
 
   private discountAPIURL = 'http://localhost:5224/api/discount';
 
-  getAllDiscountData(): Observable<Discount[]> {
-    return this._http.get<Discount[]>(this.discountAPIURL);
+  getAllDiscountData(
+    sortColumn: string | null,
+    sortOrder: string | null
+  ): Observable<Discount[]> {
+    return this._http.get<Discount[]>(
+      this.discountAPIURL + `?sortColumn=${sortColumn}&sortOrder=${sortOrder}`
+    );
   }
   getDiscountDataById(discountId: number): Observable<Discount> {
     return this._http.get<Discount>(this.discountAPIURL + `/${discountId}`);

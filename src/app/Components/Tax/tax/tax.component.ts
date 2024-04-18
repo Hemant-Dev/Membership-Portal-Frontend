@@ -24,6 +24,9 @@ export class TaxComponent implements OnInit {
   Title: string = 'Tax';
   AddFormRouteName: string = 'tax-form';
 
+  sortOrder: string | null = null;
+  sortColumn: string | null = null;
+
   constructor(
     private _taxService: TaxService,
     private _toastr: ToastrService,
@@ -35,7 +38,7 @@ export class TaxComponent implements OnInit {
   }
 
   getAllTaxData() {
-    this._taxService.getAllTaxData().subscribe({
+    this._taxService.getAllTaxData(this.sortColumn, this.sortOrder).subscribe({
       next: (data) => {
         this.taxList = data;
       },
@@ -57,6 +60,17 @@ export class TaxComponent implements OnInit {
         error: (err) => console.log(err),
       });
     }
+  }
+
+  handleSortColumn(sortColumn: string) {
+    this.sortColumn = sortColumn;
+    // this.getAllProductDataOnInit();
+    // console.log(this.sortColumn);
+  }
+  handleSortOrder(sortOrder: string) {
+    this.sortOrder = sortOrder;
+    // console.log(this.sortOrder);
+    this.getAllTaxData();
   }
 
   showSuccess() {

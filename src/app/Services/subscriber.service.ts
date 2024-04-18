@@ -12,8 +12,13 @@ export class SubscriberService {
   constructor(private _http: HttpClient) {}
   private subscriberAPIUrl = 'http://localhost:5224/api/subscriber';
 
-  getAllSubscriberData(): Observable<Subscriber[]> {
-    return this._http.get<Subscriber[]>(this.subscriberAPIUrl);
+  getAllSubscriberData(
+    sortColumn: string | null,
+    sortOrder: string | null
+  ): Observable<Subscriber[]> {
+    return this._http.get<Subscriber[]>(
+      this.subscriberAPIUrl + `?sortColumn=${sortColumn}&sortOrder=${sortOrder}`
+    );
   }
 
   getSubscriberDataById(subscriberId: number): Observable<Subscriber> {

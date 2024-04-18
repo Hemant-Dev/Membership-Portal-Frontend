@@ -311,7 +311,7 @@ export class TestFormComponent {
   }
 
   getAllSubscriberData() {
-    this._subscriberService.getAllSubscriberData().subscribe({
+    this._subscriberService.getAllSubscriberData(null, null).subscribe({
       next: (data) => {
         this.subscriberList = data;
       },
@@ -327,7 +327,7 @@ export class TestFormComponent {
     });
   }
   getAllDiscountData() {
-    this._discountService.getAllDiscountData().subscribe({
+    this._discountService.getAllDiscountData(null, null).subscribe({
       next: (data) => {
         this.discountList = data;
       },
@@ -335,7 +335,7 @@ export class TestFormComponent {
     });
   }
   getAllTaxData() {
-    this._taxService.getAllTaxData().subscribe({
+    this._taxService.getAllTaxData(null, null).subscribe({
       next: (data) => {
         this.taxList = data;
       },

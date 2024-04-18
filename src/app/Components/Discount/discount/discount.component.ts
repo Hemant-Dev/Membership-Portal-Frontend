@@ -32,6 +32,9 @@ export class DiscountComponent implements OnInit {
   Title: string = 'Discount';
   AddFormRouteName: string = 'discount-form';
 
+  sortOrder: string | null = null;
+  sortColumn: string | null = null;
+
   constructor(
     private _discountService: DiscountService,
     private _toastr: ToastrService,
@@ -43,12 +46,14 @@ export class DiscountComponent implements OnInit {
   }
 
   getAllDiscountDataOnInit() {
-    this._discountService.getAllDiscountData().subscribe({
-      next: (data) => {
-        this.discountList = data;
-      },
-      error: (err) => console.log(err),
-    });
+    this._discountService
+      .getAllDiscountData(this.sortColumn, this.sortOrder)
+      .subscribe({
+        next: (data) => {
+          this.discountList = data;
+        },
+        error: (err) => console.log(err),
+      });
   }
 
   handleEditDiscount(discountId: number) {
@@ -65,6 +70,17 @@ export class DiscountComponent implements OnInit {
         error: (err) => console.log(err),
       });
     }
+  }
+
+  handleSortColumn(sortColumn: string) {
+    this.sortColumn = sortColumn;
+    // this.getAllProductDataOnInit();
+    // console.log(this.sortColumn);
+  }
+  handleSortOrder(sortOrder: string) {
+    this.sortOrder = sortOrder;
+    // console.log(this.sortOrder);
+    this.getAllDiscountDataOnInit();
   }
 
   showSuccess() {

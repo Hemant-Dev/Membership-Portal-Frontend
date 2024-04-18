@@ -10,18 +10,22 @@ import { SubscriberService } from '../../../Services/subscriber.service';
   standalone: true,
   imports: [RouterModule, CommonModule],
   templateUrl: './subscriber-list.component.html',
-  styleUrl: './subscriber-list.component.css'
+  styleUrl: './subscriber-list.component.css',
 })
-export class SubscriberListComponent implements OnInit{
+export class SubscriberListComponent implements OnInit {
   @Input() subscriberList!: Subscriber[];
   // @Input() genericLists!: T[];
-  
-  constructor(private _router: Router, private _subscriberService: SubscriberService, private _toastr: ToastrService){}
+
+  constructor(
+    private _router: Router,
+    private _subscriberService: SubscriberService,
+    private _toastr: ToastrService
+  ) {}
   ngOnInit(): void {
     this.getAllSubscriberData();
   }
   getAllSubscriberData() {
-    this._subscriberService.getAllSubscriberData().subscribe({
+    this._subscriberService.getAllSubscriberData(null, null).subscribe({
       next: (data) => {
         this.subscriberList = data;
       },
@@ -29,12 +33,12 @@ export class SubscriberListComponent implements OnInit{
     });
   }
 
-  handleEdit(subscriberId: number){
+  handleEdit(subscriberId: number) {
     this._router.navigate(['/subscriber-form', subscriberId]);
   }
 
-  handleDelete(subscriberId: number){
-    if(confirm('Are you sure you want to delete this subscriber?')){
+  handleDelete(subscriberId: number) {
+    if (confirm('Are you sure you want to delete this subscriber?')) {
       this._subscriberService.deleteSubscriberData(subscriberId).subscribe({
         next: (res) => {
           // console.log(res);
@@ -47,7 +51,7 @@ export class SubscriberListComponent implements OnInit{
     }
   }
 
-  showSuccess(){
-    this._toastr.success('Data Deleted Successfully!', 'Deletion')
+  showSuccess() {
+    this._toastr.success('Data Deleted Successfully!', 'Deletion');
   }
 }

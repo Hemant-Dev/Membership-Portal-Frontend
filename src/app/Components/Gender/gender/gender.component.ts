@@ -22,6 +22,9 @@ export class GenderComponent implements OnInit {
   Title: string = 'Gender';
   AddFormRouteName: string = 'gender-form';
 
+  sortOrder: string | null = null;
+  sortColumn: string | null = null;
+
   constructor(
     private _genderService: GenderService,
     private _toastr: ToastrService,
@@ -33,12 +36,14 @@ export class GenderComponent implements OnInit {
   }
 
   getAllGenderDataOnInit() {
-    this._genderService.getAllGenderData().subscribe({
-      next: (data) => {
-        this.genderList = data;
-      },
-      error: (err) => console.log(err),
-    });
+    this._genderService
+      .getAllGenderData(this.sortColumn, this.sortOrder)
+      .subscribe({
+        next: (data) => {
+          this.genderList = data;
+        },
+        error: (err) => console.log(err),
+      });
   }
 
   handleEditGender(genderId: number) {
@@ -55,6 +60,17 @@ export class GenderComponent implements OnInit {
         error: (err) => console.log(err),
       });
     }
+  }
+
+  handleSortColumn(sortColumn: string) {
+    this.sortColumn = sortColumn;
+    // this.getAllProductDataOnInit();
+    // console.log(this.sortColumn);
+  }
+  handleSortOrder(sortOrder: string) {
+    this.sortOrder = sortOrder;
+    // console.log(this.sortOrder);
+    this.getAllGenderDataOnInit();
   }
 
   showSuccess() {

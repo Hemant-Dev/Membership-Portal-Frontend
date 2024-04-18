@@ -25,7 +25,7 @@ export class GenderListComponent implements OnInit {
   }
 
   getAllGenderData() {
-    this._genderService.getAllGenderData().subscribe({
+    this._genderService.getAllGenderData(null, null).subscribe({
       next: (data) => {
         this.genderList = data;
       },
