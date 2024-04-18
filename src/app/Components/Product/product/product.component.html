@@ -95,3 +95,25 @@
     [isInSearchMode]="this.isInSearchMode"
   ></app-generic-list>
 </div>
+
+<!-- Pagination -->
+
+<div class="pagination flex justify-center m-2">
+  <div class="join">
+    <button
+      class="bg-blue-400 text-black join-item btn hover:bg-gray-600"
+      (click)="handlePreviousPage()"
+    >
+      «
+    </button>
+    <button class="bg-blue-400 text-black join-item btn hover:bg-gray-600">
+      {{ this.page }}
+    </button>
+    <button
+      class="bg-blue-400 text-black join-item btn hover:bg-gray-600"
+      (click)="handleNextPage()"
+    >
+      »
+    </button>
+  </div>
+</div>

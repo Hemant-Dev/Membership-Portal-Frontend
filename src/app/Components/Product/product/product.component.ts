@@ -117,7 +117,29 @@ export class ProductComponent implements OnInit {
     // console.log('After:', this.productList);
   }
 
+  handlePreviousPage() {
+    if (this.page > 1) {
+      this.page--;
+      this.getAllProductDataOnInit();
+    } else {
+      this.showError();
+    }
+  }
+
+  handleNextPage() {
+    if (this.page < this.totalPages) {
+      this.page++;
+      this.getAllProductDataOnInit();
+    } else {
+      this.showError();
+    }
+  }
+
   showSuccess() {
     this._toastr.success('Data Deleted Successfully!', 'Deletion');
+  }
+
+  showError() {
+    this._toastr.error('Page does not exist!', 'Pagination');
   }
 }
