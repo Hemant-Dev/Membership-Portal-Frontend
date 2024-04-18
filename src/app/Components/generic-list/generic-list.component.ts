@@ -15,6 +15,7 @@ export class GenericListComponent {
   @Input() itemsKeys!: TableHeaderData[];
   @Input() itemsTitle!: string;
   @Input() itemAddFormRouteName!: string;
+  @Input() isInSearchMode!: boolean;
 
   @Output() onEdit = new EventEmitter<number>();
   @Output() onDelete = new EventEmitter<number>();

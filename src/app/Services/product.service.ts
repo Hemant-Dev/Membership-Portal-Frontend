@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Product } from '../Models/product';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { Paginated } from '../Models/paginated';
 
 @Injectable({
   providedIn: 'root',
@@ -17,6 +18,17 @@ export class ProductService {
   ): Observable<Product[]> {
     return this._http.get<Product[]>(
       this.productAPIUrl + `?sortColumn=${sortColumn}&sortOrder=${sortOrder}`
+    );
+  }
+
+  getPaginatedAdvanceProductData(
+    page: number,
+    pageSize: number,
+    product: Product
+  ): Observable<Paginated<Product>> {
+    return this._http.post<Paginated<Product>>(
+      this.productAPIUrl + `/paginated?page=${page}&pageSize=${pageSize}`,
+      product
     );
   }
   getProductDataById(productId: number): Observable<Product> {

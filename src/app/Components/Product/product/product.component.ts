@@ -6,13 +6,14 @@ import { TableHeaderData } from '../../../Models/table-header-data';
 import { GenericListComponent } from '../../generic-list/generic-list.component';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-product',
   standalone: true,
   templateUrl: './product.component.html',
   styleUrl: './product.component.css',
-  imports: [ProductListComponent, GenericListComponent],
+  imports: [ProductListComponent, GenericListComponent, FormsModule],
 })
 export class ProductComponent implements OnInit {
   productList: any[] = [];
@@ -25,6 +26,17 @@ export class ProductComponent implements OnInit {
 
   sortOrder: string | null = null;
   sortColumn: string | null = null;
+  page = 1;
+  pageSize = 5;
+  totalPages: number = 0;
+
+  isInSearchMode: boolean = false;
+
+  initialProductObj: Product = {
+    id: 0,
+    productName: '',
+    price: 0,
+  };
 
   constructor(
     private _productService: ProductService,
@@ -34,6 +46,7 @@ export class ProductComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllProductDataOnInit();
+    // this.isInSearchMode = false;
   }
 
   getAllProductDataOnInit() {
@@ -72,6 +85,27 @@ export class ProductComponent implements OnInit {
     this.sortOrder = sortOrder;
     // console.log(this.sortOrder);
     this.getAllProductDataOnInit();
+  }
+
+  handleSubmit() {
+    // console.log(this.initialProductObj);
+    this.isInSearchMode = true;
+    console.log('Before:', this.productList);
+    this._productService
+      .getPaginatedAdvanceProductData(
+        this.page,
+        this.pageSize,
+        this.initialProductObj
+      )
+      .subscribe({
+        next: (data) => {
+          this.productList = data.dataArray;
+          this.totalPages = data.totalPages;
+          console.log(data);
+        },
+        error: (err) => console.log(err),
+      });
+    console.log('After:', this.productList);
   }
 
   showSuccess() {
