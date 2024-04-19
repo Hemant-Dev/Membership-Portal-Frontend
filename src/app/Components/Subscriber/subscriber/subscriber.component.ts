@@ -6,13 +6,16 @@ import { TableHeaderData } from '../../../Models/table-header-data';
 import { GenericListComponent } from '../../generic-list/generic-list.component';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { GenderService } from '../../../Services/gender.service';
+import { Gender } from '../../../Models/gender';
 
 @Component({
   selector: 'app-subscriber',
   standalone: true,
   templateUrl: './subscriber.component.html',
   styleUrl: './subscriber.component.css',
-  imports: [SubscriberListComponent, GenericListComponent],
+  imports: [SubscriberListComponent, GenericListComponent, FormsModule],
 })
 export class SubscriberComponent implements OnInit {
   subscribersList: any[] = [];
@@ -43,23 +46,47 @@ export class SubscriberComponent implements OnInit {
 
   sortOrder: string | null = null;
   sortColumn: string | null = null;
+  page = 1;
+  pageSize = 5;
+  totalPages: number = 0;
+
+  isInSearchMode: boolean = false;
+  initialSubscriberObj: Subscriber = {
+    id: 0,
+    firstName: '',
+    lastName: '',
+    contactNumber: '',
+    email: '',
+    genderId: 0,
+    genderName: '',
+  };
+  genderList: Gender[] = [];
 
   constructor(
     private _subscriberService: SubscriberService,
+    private _genderService: GenderService,
     private _toastr: ToastrService,
     private _route: Router
   ) {}
   ngOnInit(): void {
+    this.getAllGenderData();
     this.getAllSubscriberDataOnInit();
   }
 
   getAllSubscriberDataOnInit() {
     this._subscriberService
-      .getAllSubscriberData(this.sortColumn, this.sortOrder)
+      .getPaginatedAdvanceUserData(
+        this.sortColumn,
+        this.sortOrder,
+        this.page,
+        this.pageSize,
+        this.initialSubscriberObj
+      )
       .subscribe({
         next: (data) => {
-          this.subscribersList = data;
-          // console.log(data);
+          this.subscribersList = data.dataArray;
+          this.totalPages = data.totalPages;
+          console.log(data);
         },
         error: (err) => console.log(err),
       });
@@ -92,7 +119,46 @@ export class SubscriberComponent implements OnInit {
     this.getAllSubscriberDataOnInit();
   }
 
+  handleSubmit() {
+    // console.log(this.initialProductObj);
+
+    this.isInSearchMode = true;
+    // console.log('Before:', this.productList);
+    this.getAllSubscriberDataOnInit();
+    // console.log('After:', this.productList);
+  }
+
+  handlePreviousPage() {
+    if (this.page > 1) {
+      this.page--;
+      this.getAllSubscriberDataOnInit();
+    } else {
+      this.showError();
+    }
+  }
+
+  handleNextPage() {
+    if (this.page < this.totalPages) {
+      this.page++;
+      this.getAllSubscriberDataOnInit();
+    } else {
+      this.showError();
+    }
+  }
+
   showSuccess() {
     this._toastr.success('Data Deleted Successfully!', 'Deletion');
+  }
+  showError() {
+    this._toastr.error('Page does not exist!', 'Pagination');
+  }
+
+  getAllGenderData() {
+    this._genderService.getAllGenderData(null, null).subscribe({
+      next: (data) => {
+        this.genderList = data;
+      },
+      error: (err) => console.log(err),
+    });
   }
 }

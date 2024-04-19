@@ -25,13 +25,14 @@ import { Subscription } from '../../../Models/subscription';
   providers: [DatePipe],
 })
 export class TestFormComponent {
+  date: DatePipe = new DatePipe('en-US');
   createSubscriptionObj: CreateSubscription = {
     id: 0,
     subscriberId: 0,
     productId: 0,
     discountId: 0,
     taxId: 0,
-    startDate: new Date(0, 0, 1),
+    startDate: new Date(0, 0, 0),
     expiryDate: new Date(0, 0, 1),
   };
 
@@ -82,6 +83,10 @@ export class TestFormComponent {
   ) {}
 
   ngOnInit(): void {
+    this.date.transform(this.createSubscriptionObj.startDate, 'yyyy/MM/dd');
+    this.date.transform(this.createSubscriptionObj.expiryDate, 'yyyy/MM/dd');
+    // this.createSubscriptionObj.startDate = temp;
+
     this.getAllSubscriberData();
     this.getAllProductData();
     this.getAllDiscountData();

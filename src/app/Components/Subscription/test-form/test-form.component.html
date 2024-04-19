@@ -542,7 +542,7 @@
     <span [class.hide]="isStartDateValid" class="text-red-500"
       >Please enter valid Start Date</span
     >
-    <!-- {{ createSubscriptionObj.startDate }} -->
+    {{ createSubscriptionObj.startDate | date : "yyyy/MM/dd" }}
 
     <label
       [class.invalid]="!isExpiryDateValid"

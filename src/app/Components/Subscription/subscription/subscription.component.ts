@@ -6,6 +6,17 @@ import { Router } from '@angular/router';
 import { GenericListComponent } from '../../generic-list/generic-list.component';
 import { SubscriberListComponent } from '../../Subscriber/subscriber-list/subscriber-list.component';
 import { SubscriptionListComponent } from '../subscription-list/subscription-list.component';
+import { Subscription } from '../../../Models/subscription';
+import { FormsModule } from '@angular/forms';
+import { Discount } from '../../../Models/discount';
+import { Product } from '../../../Models/product';
+import { Tax } from '../../../Models/tax';
+import { Subscriber } from '../../../Models/subscriber';
+import { SubscriberService } from '../../../Services/subscriber.service';
+import { ProductService } from '../../../Services/product.service';
+import { DiscountService } from '../../../Services/discount.service';
+import { TaxService } from '../../../Services/tax.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-subscription',
@@ -16,6 +27,7 @@ import { SubscriptionListComponent } from '../subscription-list/subscription-lis
     GenericListComponent,
     SubscriberListComponent,
     SubscriptionListComponent,
+    FormsModule,
   ],
 })
 export class SubscriptionComponent implements OnInit {
@@ -76,24 +88,70 @@ export class SubscriptionComponent implements OnInit {
   ];
   Title: string = 'Subscription';
   AddFormRouteName: string = 'subscription-form';
-  sortColumn: string | null = null;
-  sortOrder: string | null = null;
 
+  sortOrder: string | null = null;
+  sortColumn: string | null = null;
+  page = 1;
+  pageSize = 5;
+  totalPages: number = 0;
+  isInSearchMode: boolean = false;
+  initialSubscriptionObj: Subscription = {
+    id: 0,
+    subscriberId: 0,
+    productId: 0,
+    productName: '',
+    productPrice: 0,
+    discountId: 0,
+    discountCode: '',
+    discountAmount: 0,
+    priceAfterDiscount: 0,
+    taxId: 0,
+    cgst: 0,
+    sgst: 0,
+    totalTaxPercentage: 0,
+    taxAmount: 0,
+    finalAmount: 0,
+    startDate: new Date(0, 0, 0),
+    expiryDate: new Date(0, 0, 0),
+  };
+
+  subscriberList: Subscriber[] = [];
+  productList: Product[] = [];
+  discountList: Discount[] = [];
+  taxList: Tax[] = [];
+  date: DatePipe = new DatePipe('en-US');
   constructor(
     private _subscriptionService: SubscriptionService,
     private _toastr: ToastrService,
-    private _route: Router
+    private _route: Router,
+    private _subscriberService: SubscriberService,
+    private _productService: ProductService,
+    private _discountService: DiscountService,
+    private _taxService: TaxService
   ) {}
   ngOnInit(): void {
+    this.date.transform(this.initialSubscriptionObj.startDate, 'yyyy/MM/dd');
+    this.date.transform(this.initialSubscriptionObj.expiryDate, 'yyyy/MM/dd');
+    this.getAllSubscriberData();
+    this.getAllProductData();
+    this.getAllDiscountData();
+    // this.getAllTaxData();
     this.getAllSubscriptionDataOnInit();
   }
 
   getAllSubscriptionDataOnInit() {
     this._subscriptionService
-      .getAllSubscriptionData(this.sortColumn, this.sortOrder)
+      .getPaginatedAdvanceSubscriptionData(
+        this.sortColumn,
+        this.sortOrder,
+        this.page,
+        this.pageSize,
+        this.initialSubscriptionObj
+      )
       .subscribe({
         next: (data) => {
-          this.subscriptionsList = data;
+          this.subscriptionsList = data.dataArray;
+          this.totalPages = data.totalPages;
           // console.log(data);
         },
         error: (err) => console.log(err),
@@ -118,7 +176,70 @@ export class SubscriptionComponent implements OnInit {
     }
   }
 
+  handleSubmit() {
+    // console.log(this.initialProductObj);
+
+    this.isInSearchMode = true;
+    // console.log('Before:', this.productList);
+    this.getAllSubscriptionDataOnInit();
+    // console.log('After:', this.productList);
+  }
+
+  handlePreviousPage() {
+    if (this.page > 1) {
+      this.page--;
+      this.getAllSubscriptionDataOnInit();
+    } else {
+      this.showError();
+    }
+  }
+
+  handleNextPage() {
+    if (this.page < this.totalPages) {
+      this.page++;
+      this.getAllSubscriptionDataOnInit();
+    } else {
+      this.showError();
+    }
+  }
+
   showSuccess() {
     this._toastr.success('Data Deleted Successfully!', 'Deletion');
+  }
+  showError() {
+    this._toastr.error('Page does not exist!', 'Pagination');
+  }
+
+  getAllSubscriberData() {
+    this._subscriberService.getAllSubscriberData(null, null).subscribe({
+      next: (data) => {
+        this.subscriberList = data;
+      },
+      error: (err) => console.log(err),
+    });
+  }
+  getAllProductData() {
+    this._productService.getAllProductData(null, null).subscribe({
+      next: (data) => {
+        this.productList = data;
+      },
+      error: (err) => console.log(err),
+    });
+  }
+  getAllDiscountData() {
+    this._discountService.getAllDiscountData(null, null).subscribe({
+      next: (data) => {
+        this.discountList = data;
+      },
+      error: (err) => console.log(err),
+    });
+  }
+  getAllTaxData() {
+    this._taxService.getAllTaxData(null, null).subscribe({
+      next: (data) => {
+        this.taxList = data;
+      },
+      error: (err) => console.log(err),
+    });
   }
 }

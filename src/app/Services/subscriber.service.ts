@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { User } from '../Models/user';
 import { Subscriber } from '../Models/subscriber';
 import { CreateSubscriber } from '../Models/create-subscriber';
+import { Paginated } from '../Models/paginated';
 
 @Injectable({
   providedIn: 'root',
@@ -18,6 +19,20 @@ export class SubscriberService {
   ): Observable<Subscriber[]> {
     return this._http.get<Subscriber[]>(
       this.subscriberAPIUrl + `?sortColumn=${sortColumn}&sortOrder=${sortOrder}`
+    );
+  }
+
+  getPaginatedAdvanceUserData(
+    sortColumn: string | null = null,
+    sortOrder: string | null = null,
+    page: number,
+    pageSize: number,
+    subscriber: Subscriber
+  ): Observable<Paginated<Subscriber>> {
+    return this._http.post<Paginated<Subscriber>>(
+      this.subscriberAPIUrl +
+        `/paginated?sortColumn=${sortColumn}&sortOrder=${sortOrder}&page=${page}&pageSize=${pageSize}`,
+      subscriber
     );
   }
 

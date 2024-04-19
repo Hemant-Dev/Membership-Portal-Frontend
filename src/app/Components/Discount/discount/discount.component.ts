@@ -5,13 +5,14 @@ import { DiscountService } from '../../../Services/discount.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { GenericListComponent } from '../../generic-list/generic-list.component';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-discount',
   standalone: true,
   templateUrl: './discount.component.html',
   styleUrl: './discount.component.css',
-  imports: [GenericListComponent],
+  imports: [GenericListComponent, FormsModule],
 })
 export class DiscountComponent implements OnInit {
   discountList: any[] = [];
@@ -34,6 +35,17 @@ export class DiscountComponent implements OnInit {
 
   sortOrder: string | null = null;
   sortColumn: string | null = null;
+  page = 1;
+  pageSize = 5;
+  totalPages: number = 0;
+
+  isInSearchMode: boolean = false;
+  initialDiscountObj: Discount = {
+    id: 0,
+    discountCode: '',
+    discountAmount: 0,
+    isDiscountInPercentage: false,
+  };
 
   constructor(
     private _discountService: DiscountService,
@@ -46,11 +58,21 @@ export class DiscountComponent implements OnInit {
   }
 
   getAllDiscountDataOnInit() {
+    if (this.initialDiscountObj.discountAmount === null) {
+      this.initialDiscountObj.discountAmount = 0;
+    }
     this._discountService
-      .getAllDiscountData(this.sortColumn, this.sortOrder)
+      .getPaginatedAdvanceDiscountData(
+        this.sortColumn,
+        this.sortOrder,
+        this.page,
+        this.pageSize,
+        this.initialDiscountObj
+      )
       .subscribe({
         next: (data) => {
-          this.discountList = data;
+          this.discountList = data.dataArray;
+          this.totalPages = data.totalPages;
         },
         error: (err) => console.log(err),
       });
@@ -83,7 +105,37 @@ export class DiscountComponent implements OnInit {
     this.getAllDiscountDataOnInit();
   }
 
+  handleSubmit() {
+    // console.log(this.initialProductObj);
+
+    this.isInSearchMode = true;
+    // console.log('Before:', this.productList);
+    this.getAllDiscountDataOnInit();
+    // console.log('After:', this.productList);
+  }
+
+  handlePreviousPage() {
+    if (this.page > 1) {
+      this.page--;
+      this.getAllDiscountDataOnInit();
+    } else {
+      this.showError();
+    }
+  }
+
+  handleNextPage() {
+    if (this.page < this.totalPages) {
+      this.page++;
+      this.getAllDiscountDataOnInit();
+    } else {
+      this.showError();
+    }
+  }
+
   showSuccess() {
     this._toastr.success('Data Deleted Successfully!', 'Deletion');
+  }
+  showError() {
+    this._toastr.error('Page does not exist!', 'Pagination');
   }
 }

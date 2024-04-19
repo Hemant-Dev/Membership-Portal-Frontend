@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Discount } from '../Models/discount';
 import { Observable } from 'rxjs';
+import { Paginated } from '../Models/paginated';
 
 @Injectable({
   providedIn: 'root',
@@ -17,6 +18,19 @@ export class DiscountService {
   ): Observable<Discount[]> {
     return this._http.get<Discount[]>(
       this.discountAPIURL + `?sortColumn=${sortColumn}&sortOrder=${sortOrder}`
+    );
+  }
+  getPaginatedAdvanceDiscountData(
+    sortColumn: string | null = null,
+    sortOrder: string | null = null,
+    page: number,
+    pageSize: number,
+    discount: Discount
+  ): Observable<Paginated<Discount>> {
+    return this._http.post<Paginated<Discount>>(
+      this.discountAPIURL +
+        `/paginated?sortColumn=${sortColumn}&sortOrder=${sortOrder}&page=${page}&pageSize=${pageSize}`,
+      discount
     );
   }
   getDiscountDataById(discountId: number): Observable<Discount> {

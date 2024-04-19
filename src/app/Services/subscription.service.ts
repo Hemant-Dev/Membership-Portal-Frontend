@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CreateSubscription } from '../Models/create-subscription';
 import { Subscription } from '../Models/subscription';
+import { Paginated } from '../Models/paginated';
 
 @Injectable({
   providedIn: 'root',
@@ -18,6 +19,20 @@ export class SubscriptionService {
     return this._http.get<Subscription[]>(
       this.subscriptionAPIUrl +
         `?sortColumn=${sortColumn}&sortOrder=${sortOrder}`
+    );
+  }
+
+  getPaginatedAdvanceSubscriptionData(
+    sortColumn: string | null = null,
+    sortOrder: string | null = null,
+    page: number,
+    pageSize: number,
+    subscription: Subscription
+  ): Observable<Paginated<Subscription>> {
+    return this._http.post<Paginated<Subscription>>(
+      this.subscriptionAPIUrl +
+        `/paginated?sortColumn=${sortColumn}&sortOrder=${sortOrder}&page=${page}&pageSize=${pageSize}`,
+      subscription
     );
   }
 
