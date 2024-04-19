@@ -88,13 +88,20 @@ export class SubscriptionComponent implements OnInit {
   ];
   Title: string = 'Subscription';
   AddFormRouteName: string = 'subscription-form';
-
+  date: DatePipe = new DatePipe('en-US');
   sortOrder: string | null = null;
   sortColumn: string | null = null;
   page = 1;
   pageSize = 5;
   totalPages: number = 0;
   isInSearchMode: boolean = false;
+  currentDate = new Date();
+  formattedDate = new Date(
+    this.currentDate.getFullYear(),
+    this.currentDate.getMonth(),
+    this.currentDate.getDate()
+  );
+
   initialSubscriptionObj: Subscription = {
     id: 0,
     subscriberId: 0,
@@ -111,15 +118,15 @@ export class SubscriptionComponent implements OnInit {
     totalTaxPercentage: 0,
     taxAmount: 0,
     finalAmount: 0,
-    startDate: new Date(0, 0, 0),
-    expiryDate: new Date(0, 0, 0),
+    startDate: null,
+    expiryDate: null,
   };
 
   subscriberList: Subscriber[] = [];
   productList: Product[] = [];
   discountList: Discount[] = [];
   taxList: Tax[] = [];
-  date: DatePipe = new DatePipe('en-US');
+
   constructor(
     private _subscriptionService: SubscriptionService,
     private _toastr: ToastrService,
@@ -130,8 +137,6 @@ export class SubscriptionComponent implements OnInit {
     private _taxService: TaxService
   ) {}
   ngOnInit(): void {
-    this.date.transform(this.initialSubscriptionObj.startDate, 'yyyy/MM/dd');
-    this.date.transform(this.initialSubscriptionObj.expiryDate, 'yyyy/MM/dd');
     this.getAllSubscriberData();
     this.getAllProductData();
     this.getAllDiscountData();

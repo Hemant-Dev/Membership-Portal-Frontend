@@ -14,6 +14,6 @@ export interface Subscription {
   totalTaxPercentage: number | null;
   taxAmount: number | null;
   finalAmount: number | null;
-  startDate: Date;
-  expiryDate: Date;
+  startDate: any;
+  expiryDate: any;
 }

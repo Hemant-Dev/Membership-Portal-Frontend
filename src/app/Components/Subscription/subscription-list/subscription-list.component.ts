@@ -29,6 +29,13 @@ export class SubscriptionListComponent implements OnInit {
   pageSize = 5;
   totalPages: number = 0;
   isInSearchMode: boolean = false;
+  currentDate = new Date();
+  formattedDate = new Date(
+    this.currentDate.getFullYear(),
+    this.currentDate.getMonth(),
+    this.currentDate.getDate()
+  );
+
   initialSubscriptionObj: Subscription = {
     id: 0,
     subscriberId: 0,
@@ -45,8 +52,8 @@ export class SubscriptionListComponent implements OnInit {
     totalTaxPercentage: 0,
     taxAmount: 0,
     finalAmount: 0,
-    startDate: new Date(0, 0, 0),
-    expiryDate: new Date(0, 0, 0),
+    startDate: null,
+    expiryDate: null,
   };
 
   subscriberList: Subscriber[] = [];
@@ -64,8 +71,6 @@ export class SubscriptionListComponent implements OnInit {
     private _taxService: TaxService
   ) {}
   ngOnInit(): void {
-    this.date.transform(this.initialSubscriptionObj.startDate, 'yyyy/MM/dd');
-    this.date.transform(this.initialSubscriptionObj.expiryDate, 'yyyy/MM/dd');
     this.getAllSubscriberData();
     this.getAllProductData();
     this.getAllDiscountData();
