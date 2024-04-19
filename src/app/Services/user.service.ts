@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from '../Models/user';
+import { Paginated } from '../Models/paginated';
 
 @Injectable({
   providedIn: 'root',
@@ -16,6 +17,19 @@ export class UserService {
   ): Observable<User[]> {
     return this._http.get<User[]>(
       this.userAPIUrl + `?sortColumn=${sortColumn}&sortOrder=${sortOrder}`
+    );
+  }
+  getPaginatedAdvanceUserData(
+    sortColumn: string | null = null,
+    sortOrder: string | null = null,
+    page: number,
+    pageSize: number,
+    user: User
+  ): Observable<Paginated<User>> {
+    return this._http.post<Paginated<User>>(
+      this.userAPIUrl +
+        `/paginated?sortColumn=${sortColumn}&sortOrder=${sortOrder}&page=${page}&pageSize=${pageSize}`,
+      user
     );
   }
 

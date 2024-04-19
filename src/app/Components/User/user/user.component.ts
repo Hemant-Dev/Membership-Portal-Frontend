@@ -6,13 +6,14 @@ import { GenericListComponent } from '../../generic-list/generic-list.component'
 import { TableHeaderData } from '../../../Models/table-header-data';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-user',
   standalone: true,
   templateUrl: './user.component.html',
   styleUrl: './user.component.css',
-  imports: [ShowListComponent, GenericListComponent],
+  imports: [ShowListComponent, GenericListComponent, FormsModule],
 })
 export class UserComponent implements OnInit {
   usersList: User[] = [];
@@ -44,6 +45,19 @@ export class UserComponent implements OnInit {
 
   sortOrder: string | null = null;
   sortColumn: string | null = null;
+  page = 1;
+  pageSize = 5;
+  totalPages: number = 0;
+
+  isInSearchMode: boolean = false;
+  initialUserObj: User = {
+    id: 0,
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    contactNumber: '',
+  };
 
   constructor(
     private _userService: UserService,
@@ -56,10 +70,17 @@ export class UserComponent implements OnInit {
 
   getAllUserDataOnInit() {
     this._userService
-      .getAllUserData(this.sortColumn, this.sortOrder)
+      .getPaginatedAdvanceUserData(
+        this.sortColumn,
+        this.sortOrder,
+        this.page,
+        this.pageSize,
+        this.initialUserObj
+      )
       .subscribe({
         next: (data) => {
-          this.usersList = data;
+          this.usersList = data.dataArray;
+          this.totalPages = data.totalPages;
           // console.log(data);
         },
         error: (err) => console.log(err),
@@ -93,7 +114,37 @@ export class UserComponent implements OnInit {
     this.getAllUserDataOnInit();
   }
 
+  handleSubmit() {
+    // console.log(this.initialProductObj);
+
+    this.isInSearchMode = true;
+    // console.log('Before:', this.productList);
+    this.getAllUserDataOnInit();
+    // console.log('After:', this.productList);
+  }
+
+  handlePreviousPage() {
+    if (this.page > 1) {
+      this.page--;
+      this.getAllUserDataOnInit();
+    } else {
+      this.showError();
+    }
+  }
+
+  handleNextPage() {
+    if (this.page < this.totalPages) {
+      this.page++;
+      this.getAllUserDataOnInit();
+    } else {
+      this.showError();
+    }
+  }
+
   showSuccess() {
     this._toastr.success('Data Deleted Successfully!', 'Deletion');
+  }
+  showError() {
+    this._toastr.error('Page does not exist!', 'Pagination');
   }
 }
