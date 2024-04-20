@@ -4,6 +4,6 @@ export interface CreateSubscription {
   productId: number | null;
   discountId: number | null;
   taxId: number | null;
-  startDate: Date;
-  expiryDate: Date;
+  startDate: any;
+  expiryDate: any;
 }

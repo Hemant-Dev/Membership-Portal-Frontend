@@ -32,8 +32,8 @@ export class TestFormComponent {
     productId: 0,
     discountId: 0,
     taxId: 0,
-    startDate: new Date(0, 0, 0),
-    expiryDate: new Date(0, 0, 1),
+    startDate: new Date(),
+    expiryDate: new Date(),
   };
 
   intermediateCalculation: Subscription = {
@@ -52,8 +52,8 @@ export class TestFormComponent {
     totalTaxPercentage: null,
     taxAmount: null,
     finalAmount: null,
-    startDate: new Date(0, 0, 0),
-    expiryDate: new Date(0, 0, 0),
+    startDate: new Date(),
+    expiryDate: new Date(),
   };
 
   //Invalid Inputs Marking
@@ -83,9 +83,16 @@ export class TestFormComponent {
   ) {}
 
   ngOnInit(): void {
-    this.date.transform(this.createSubscriptionObj.startDate, 'yyyy/MM/dd');
-    this.date.transform(this.createSubscriptionObj.expiryDate, 'yyyy/MM/dd');
-    // this.createSubscriptionObj.startDate = temp;
+    var formattedDate = this.date.transform(
+      this.createSubscriptionObj.startDate,
+      'yyyy/MM/dd'
+    );
+    this.createSubscriptionObj.startDate = formattedDate;
+    formattedDate = this.date.transform(
+      this.createSubscriptionObj.expiryDate,
+      'yyyy/MM/dd'
+    );
+    this.createSubscriptionObj.expiryDate = formattedDate;
 
     this.getAllSubscriberData();
     this.getAllProductData();

@@ -542,7 +542,7 @@
     <span [class.hide]="isStartDateValid" class="text-red-500"
       >Please enter valid Start Date</span
     >
-    {{ createSubscriptionObj.startDate | date : "yyyy/MM/dd" }}
+    <!-- {{ createSubscriptionObj.startDate | date : "yyyy/MM/dd" }} -->
 
     <label
       [class.invalid]="!isExpiryDateValid"
@@ -578,11 +578,7 @@
     >
       Submit
     </button>
-    <button
-      type="button"
-      [routerLink]="['/subscription-list']"
-      class="btn w-full"
-    >
+    <button type="button" [routerLink]="['/subscription']" class="btn w-full">
       Back
     </button>
     <ng-template #elseBlock>

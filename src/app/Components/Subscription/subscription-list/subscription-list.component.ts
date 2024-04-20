@@ -12,11 +12,12 @@ import { DiscountService } from '../../../Services/discount.service';
 import { ProductService } from '../../../Services/product.service';
 import { SubscriberService } from '../../../Services/subscriber.service';
 import { TaxService } from '../../../Services/tax.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-subscription-list',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, FormsModule],
   templateUrl: './subscription-list.component.html',
   styleUrl: './subscription-list.component.css',
 })
@@ -29,12 +30,6 @@ export class SubscriptionListComponent implements OnInit {
   pageSize = 5;
   totalPages: number = 0;
   isInSearchMode: boolean = false;
-  currentDate = new Date();
-  formattedDate = new Date(
-    this.currentDate.getFullYear(),
-    this.currentDate.getMonth(),
-    this.currentDate.getDate()
-  );
 
   initialSubscriptionObj: Subscription = {
     id: 0,
@@ -52,8 +47,8 @@ export class SubscriptionListComponent implements OnInit {
     totalTaxPercentage: 0,
     taxAmount: 0,
     finalAmount: 0,
-    startDate: null,
-    expiryDate: null,
+    startDate: new Date(),
+    expiryDate: new Date(),
   };
 
   subscriberList: Subscriber[] = [];
@@ -78,7 +73,16 @@ export class SubscriptionListComponent implements OnInit {
     this.getAllSubscriptionDataOnInit();
   }
   getAllSubscriptionDataOnInit() {
-    console.log(this.initialSubscriptionObj);
+    var formattedDate = this.date.transform(
+      this.initialSubscriptionObj.startDate,
+      'yyyy-MM-dd'
+    );
+    this.initialSubscriptionObj.startDate = formattedDate;
+    formattedDate = this.date.transform(
+      this.initialSubscriptionObj.expiryDate,
+      'yyyy-MM-dd'
+    );
+    this.initialSubscriptionObj.expiryDate = formattedDate;
     this._subscriptionService
       .getPaginatedAdvanceSubscriptionData(
         this.sortColumn,
@@ -118,7 +122,7 @@ export class SubscriptionListComponent implements OnInit {
         .subscribe({
           next: (res) => {
             // console.log(res);
-            this.getAllSubscriptionData();
+            this.getAllSubscriptionDataOnInit();
             // info('Data Deleted Successfully!');
             this.showSuccess();
           },
@@ -132,7 +136,7 @@ export class SubscriptionListComponent implements OnInit {
     this.sortOrder === 'asc'
       ? (this.sortOrder = 'desc')
       : (this.sortOrder = 'asc');
-    this.getAllSubscriptionData();
+    this.getAllSubscriptionDataOnInit();
   }
 
   handleSubmit() {
@@ -143,7 +147,6 @@ export class SubscriptionListComponent implements OnInit {
     this.getAllSubscriptionDataOnInit();
     // console.log('After:', this.productList);
   }
-
   handlePreviousPage() {
     if (this.page > 1) {
       this.page--;
@@ -161,7 +164,6 @@ export class SubscriptionListComponent implements OnInit {
       this.showError();
     }
   }
-
   showSuccess() {
     this._toastr.success('Data Deleted Successfully!', 'Deletion');
   }
