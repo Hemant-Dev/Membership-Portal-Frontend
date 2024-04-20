@@ -54,8 +54,8 @@ export class SubscriptionListComponent implements OnInit {
     totalTaxPercentage: 0,
     taxAmount: 0,
     finalAmount: 0,
-    startDate: this.formatDate('0001-01-01'),
-    expiryDate: this.formatDate('0001-01-01'),
+    startDate: '',
+    expiryDate: '',
   };
 
   subscriberList: Subscriber[] = [];
@@ -91,6 +91,12 @@ export class SubscriptionListComponent implements OnInit {
     // );
     // this.initialSubscriptionObj.expiryDate = formattedDate;
     // console.log(this.initialSubscriptionObj);
+    if (this.initialSubscriptionObj.startDate === '') {
+      this.initialSubscriptionObj.startDate = this.formatDate('0001-01-01');
+    }
+    if (this.initialSubscriptionObj.expiryDate === '') {
+      this.initialSubscriptionObj.expiryDate = this.formatDate('0001-01-01');
+    }
     this._subscriptionService
       .getPaginatedAdvanceSubscriptionData(
         this.sortColumn,
@@ -103,6 +109,8 @@ export class SubscriptionListComponent implements OnInit {
         next: (data) => {
           this.subscriptionList = data.dataArray;
           this.totalPages = data.totalPages;
+          this.initialSubscriptionObj.startDate = '';
+          this.initialSubscriptionObj.expiryDate = '';
           // console.log(data);
         },
         error: (err) => console.log(err),
@@ -172,6 +180,30 @@ export class SubscriptionListComponent implements OnInit {
       this.showError();
     }
   }
+
+  handleClear() {
+    // console.log('clear');
+    this.initialSubscriptionObj = {
+      id: 0,
+      subscriberId: 0,
+      productId: 0,
+      productName: '',
+      productPrice: 0,
+      discountId: 0,
+      discountCode: '',
+      discountAmount: 0,
+      priceAfterDiscount: 0,
+      taxId: 0,
+      cgst: 0,
+      sgst: 0,
+      totalTaxPercentage: 0,
+      taxAmount: 0,
+      finalAmount: 0,
+      startDate: '',
+      expiryDate: '',
+    };
+  }
+
   showSuccess() {
     this._toastr.success('Data Deleted Successfully!', 'Deletion');
   }

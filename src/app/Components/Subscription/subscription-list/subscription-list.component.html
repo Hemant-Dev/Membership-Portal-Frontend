@@ -203,7 +203,9 @@
           />
         </label>
         <!-- To show realtime priceAfterDiscount -->
-        <label class="input input-bordered flex items-center gap-2 bg-gray-100">
+        <label
+          class="input input-bordered flex items-center gap-2 self-end bg-gray-100"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             class="w-6 h-6"
@@ -250,7 +252,9 @@
         </label>
         <!-- Shows Real Time Tax Percentages -->
         <!-- To Show Realtime CGST -->
-        <label class="input input-bordered flex items-center gap-2 bg-gray-100">
+        <label
+          class="input input-bordered flex items-center self-end gap-2 bg-gray-100"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             class="w-6 h-6"
@@ -296,7 +300,9 @@
           />
         </label>
         <!-- To Show Realtime SGST -->
-        <label class="input input-bordered flex items-center gap-2 bg-gray-100">
+        <label
+          class="input input-bordered flex items-center self-end gap-2 bg-gray-100"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             class="w-6 h-6"
@@ -342,7 +348,9 @@
           />
         </label>
         <!-- To Show Realtime Total Tax -->
-        <label class="input input-bordered flex items-center gap-2 bg-gray-100">
+        <label
+          class="input input-bordered flex items-center self-end gap-2 bg-gray-100"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             class="w-6 h-6"
@@ -388,7 +396,9 @@
           />
         </label>
         <!-- To Show Realtime Tax Amount on Product Price -->
-        <label class="input input-bordered flex items-center gap-2 bg-gray-100">
+        <label
+          class="input input-bordered flex items-center self-end gap-2 bg-gray-100"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             class="w-6 h-6"
@@ -434,7 +444,9 @@
           />
         </label>
         <!-- To Show Realtime Price After Tax (i.e Final Amount) on Price After Discount  -->
-        <label class="input input-bordered flex items-center gap-2 bg-gray-100">
+        <label
+          class="input input-bordered flex items-center self-end gap-2 bg-gray-100"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             class="w-6 h-6"
@@ -472,7 +484,6 @@
           </svg>
           <input
             [(ngModel)]="initialSubscriptionObj.finalAmount"
-            [disabled]="true"
             name="finalAmount"
             type="number"
             autocomplete="off"
@@ -480,7 +491,9 @@
             placeholder="Final Price After Taxes"
           />
         </label>
-        <label class="input input-bordered flex items-center gap-2 bg-gray-100">
+        <label
+          class="input input-bordered flex items-center self-end gap-2 bg-gray-100"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 16 16"
@@ -499,7 +512,9 @@
             class="grow"
           />
         </label>
-        <label class="input input-bordered flex items-center gap-2 bg-gray-100">
+        <label
+          class="input input-bordered flex items-center self-end gap-2 bg-gray-100"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 16 16"
@@ -519,7 +534,7 @@
           />
         </label>
         <button type="submit" class="btn">Submit</button>
-        <button class="btn">Clear All</button>
+        <button class="btn" (click)="handleClear()">Clear All</button>
       </form>
     </div>
   </div>

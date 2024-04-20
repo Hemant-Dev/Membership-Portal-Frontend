@@ -347,45 +347,16 @@ export class ValidationService {
       this.isValid = false;
     }
 
-    if (
-      subscriptionObj.startDate instanceof Date &&
-      !isNaN(subscriptionObj.startDate.getTime())
-    ) {
-      if (
-        subscriptionObj.startDate.getFullYear() ===
-          new Date(0, 0, 0).getFullYear() &&
-        subscriptionObj.startDate.getMonth() === new Date(0, 0, 0).getMonth() &&
-        subscriptionObj.startDate.getDate() === new Date(0, 0, 0).getDate()
-      ) {
-        this.errorMessages.push('Start Date Cannot be empty.');
-        this.isValid = false;
-      }
+    if (subscriptionObj.startDate === '') {
+      this.errorMessages.push('Start Date cannot be empty.');
+      this.isValid = false;
+    }
+    if (subscriptionObj.expiryDate === '') {
+      this.errorMessages.push('Expiry Date cannot be empty.');
+      this.isValid = false;
     }
 
-    if (
-      subscriptionObj.expiryDate instanceof Date &&
-      !isNaN(subscriptionObj.expiryDate.getTime())
-    ) {
-      if (
-        subscriptionObj.expiryDate.getFullYear() ===
-          new Date(0, 0, 0).getFullYear() &&
-        subscriptionObj.expiryDate.getMonth() ===
-          new Date(0, 0, 0).getMonth() &&
-        subscriptionObj.expiryDate.getDate() === new Date(0, 0, 0).getDate()
-      ) {
-        this.errorMessages.push('Expiry Date Cannot be empty.');
-        this.isValid = false;
-      }
-    }
-
-    if (
-      subscriptionObj.expiryDate instanceof Date &&
-      !isNaN(subscriptionObj.expiryDate.getTime()) &&
-      subscriptionObj.startDate instanceof Date &&
-      !isNaN(subscriptionObj.startDate.getTime()) &&
-      subscriptionObj.expiryDate.getTime() < subscriptionObj.startDate.getTime()
-    ) {
-      console.log('Date check');
+    if (subscriptionObj.startDate > subscriptionObj.expiryDate) {
       this.errorMessages.push('Expiry Date cannot be earlier than Start Date.');
       this.isValid = false;
     }

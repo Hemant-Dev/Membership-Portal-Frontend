@@ -39,8 +39,8 @@ export class TestFormComponent {
     productId: 0,
     discountId: 0,
     taxId: 0,
-    startDate: this.formatDate('0001-01-01'),
-    expiryDate: this.formatDate('0001-01-01'),
+    startDate: '',
+    expiryDate: '',
   };
 
   intermediateCalculation: Subscription = {
@@ -59,8 +59,8 @@ export class TestFormComponent {
     totalTaxPercentage: null,
     taxAmount: null,
     finalAmount: null,
-    startDate: this.formatDate('0001-01-01'),
-    expiryDate: this.formatDate('0001-01-01'),
+    startDate: '',
+    expiryDate: '',
   };
 
   //Invalid Inputs Marking
@@ -150,6 +150,12 @@ export class TestFormComponent {
       // It is Valid Form
       if (this.createSubscriptionObj.id === 0) {
         // Add Form
+        if (this.createSubscriptionObj.startDate === '') {
+          this.createSubscriptionObj.startDate = this.formatDate('0001-01-01');
+        }
+        if (this.createSubscriptionObj.expiryDate === '') {
+          this.createSubscriptionObj.expiryDate = this.formatDate('0001-01-01');
+        }
         this._subscriptionService
           .addSubscriptionData(this.createSubscriptionObj)
           .subscribe({
