@@ -595,7 +595,7 @@
     <thead class="text-blue-500 font-bold border-2 border-black">
       <tr class="text-wrap">
         <!-- <th>Sr.</th> -->
-        <th class="text-center border-x border-black">Subscriber Id</th>
+        <th class="text-center border-x border-black">Subscriber Name</th>
         <th class="text-center border-x border-black">
           Product Name
           <span class="btn btn-xs btn-info" (click)="handleSort('productName')">
@@ -926,7 +926,9 @@
     <tbody>
       @for (subscription of subscriptionList; track subscription) {
       <tr class="hover:bg-blue-200 text-center border-y border-black">
-        <td class="border-x border-black">{{ subscription.subscriberId }}</td>
+        <td class="border-x border-black">
+          {{ this.getSubscriberNameById(subscription.subscriberId) }}
+        </td>
         <td class="border-x border-black">{{ subscription.productName }}</td>
         <td class="border-x border-black">{{ subscription.productPrice }}</td>
         <td class="border-x border-black">{{ subscription.discountCode }}</td>

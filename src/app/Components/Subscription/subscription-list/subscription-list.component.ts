@@ -116,7 +116,13 @@ export class SubscriptionListComponent implements OnInit {
         error: (err) => console.log(err),
       });
   }
-
+  getSubscriberNameById(subscriberId: number): any {
+    const subscriber = this.subscriberList.find((s) => s.id === subscriberId);
+    if (subscriber !== null && subscriber !== undefined) {
+      return subscriber?.firstName + ' ' + subscriber?.lastName;
+    }
+    return 'Unknown';
+  }
   getAllSubscriptionData() {
     this._subscriptionService
       .getAllSubscriptionData(this.sortColumn, this.sortOrder)
