@@ -86,7 +86,7 @@ export class SubscriberComponent implements OnInit {
         next: (data) => {
           this.subscribersList = data.dataArray;
           this.totalPages = data.totalPages;
-          console.log(data);
+          // console.log(data);
         },
         error: (err) => console.log(err),
       });

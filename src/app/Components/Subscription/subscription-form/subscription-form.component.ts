@@ -24,14 +24,21 @@ import { FormsModule } from '@angular/forms';
   providers: [DatePipe],
 })
 export class SubscriptionFormComponent implements OnInit {
+  formatDate(dateString: string | number | Date) {
+    const date = new Date(dateString);
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Months are zero-based
+    const year = date.getFullYear().toString().padStart(4, '0');
+    return `${year}-${month}-${day}`;
+  }
   createSubscriptionObj: CreateSubscription = {
     id: 0,
     subscriberId: 0,
     productId: 0,
     discountId: 0,
     taxId: 0,
-    startDate: new Date(0, 0, 0),
-    expiryDate: new Date(0, 0, 0),
+    startDate: this.formatDate('0001-01-01'),
+    expiryDate: this.formatDate('0001-01-01'),
   };
 
   idParam!: number;
@@ -51,8 +58,6 @@ export class SubscriptionFormComponent implements OnInit {
 
   // Var to identify when the form is in edit mode
   isInEditMode = false;
-  formattedDate!: any;
-
   constructor(
     private _subscriptionService: SubscriptionService,
     private _route: ActivatedRoute,
@@ -62,8 +67,7 @@ export class SubscriptionFormComponent implements OnInit {
     private _subscriberService: SubscriberService,
     private _productService: ProductService,
     private _discountService: DiscountService,
-    private _taxService: TaxService,
-    private datePipe: DatePipe
+    private _taxService: TaxService
   ) {}
 
   ngOnInit(): void {
@@ -149,17 +153,6 @@ export class SubscriptionFormComponent implements OnInit {
     } else {
       // console.log('Some Error Occured in User Form');
     }
-  }
-
-  formatDate(date: Date): Date {
-    if (date instanceof Date) {
-      const day = date.getDate();
-      console.log(day);
-      const month = date.getMonth();
-      const year = date.getFullYear();
-      return new Date(year, month, day);
-    }
-    return new Date();
   }
 
   showCreationSuccess() {

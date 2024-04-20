@@ -26,14 +26,21 @@ import { Subscription } from '../../../Models/subscription';
 })
 export class TestFormComponent {
   date: DatePipe = new DatePipe('en-US');
+  formatDate(dateString: string | number | Date) {
+    const date = new Date(dateString);
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Months are zero-based
+    const year = date.getFullYear().toString().padStart(4, '0');
+    return `${year}-${month}-${day}`;
+  }
   createSubscriptionObj: CreateSubscription = {
     id: 0,
     subscriberId: 0,
     productId: 0,
     discountId: 0,
     taxId: 0,
-    startDate: new Date(),
-    expiryDate: new Date(),
+    startDate: this.formatDate('0001-01-01'),
+    expiryDate: this.formatDate('0001-01-01'),
   };
 
   intermediateCalculation: Subscription = {
@@ -52,8 +59,8 @@ export class TestFormComponent {
     totalTaxPercentage: null,
     taxAmount: null,
     finalAmount: null,
-    startDate: new Date(),
-    expiryDate: new Date(),
+    startDate: this.formatDate('0001-01-01'),
+    expiryDate: this.formatDate('0001-01-01'),
   };
 
   //Invalid Inputs Marking
@@ -83,16 +90,16 @@ export class TestFormComponent {
   ) {}
 
   ngOnInit(): void {
-    var formattedDate = this.date.transform(
-      this.createSubscriptionObj.startDate,
-      'yyyy/MM/dd'
-    );
-    this.createSubscriptionObj.startDate = formattedDate;
-    formattedDate = this.date.transform(
-      this.createSubscriptionObj.expiryDate,
-      'yyyy/MM/dd'
-    );
-    this.createSubscriptionObj.expiryDate = formattedDate;
+    // var formattedDate = this.date.transform(
+    //   this.createSubscriptionObj.startDate,
+    //   'yyyy/MM/dd'
+    // );
+    // this.createSubscriptionObj.startDate = formattedDate;
+    // formattedDate = this.date.transform(
+    //   this.createSubscriptionObj.expiryDate,
+    //   'yyyy/MM/dd'
+    // );
+    // this.createSubscriptionObj.expiryDate = formattedDate;
 
     this.getAllSubscriberData();
     this.getAllProductData();

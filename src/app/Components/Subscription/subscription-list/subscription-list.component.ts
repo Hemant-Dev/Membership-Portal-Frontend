@@ -30,6 +30,13 @@ export class SubscriptionListComponent implements OnInit {
   pageSize = 5;
   totalPages: number = 0;
   isInSearchMode: boolean = false;
+  formatDate(dateString: string | number | Date) {
+    const date = new Date(dateString);
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Months are zero-based
+    const year = date.getFullYear().toString().padStart(4, '0');
+    return `${year}-${month}-${day}`;
+  }
 
   initialSubscriptionObj: Subscription = {
     id: 0,
@@ -47,8 +54,8 @@ export class SubscriptionListComponent implements OnInit {
     totalTaxPercentage: 0,
     taxAmount: 0,
     finalAmount: 0,
-    startDate: new Date(),
-    expiryDate: new Date(),
+    startDate: this.formatDate('0001-01-01'),
+    expiryDate: this.formatDate('0001-01-01'),
   };
 
   subscriberList: Subscriber[] = [];
@@ -73,16 +80,17 @@ export class SubscriptionListComponent implements OnInit {
     this.getAllSubscriptionDataOnInit();
   }
   getAllSubscriptionDataOnInit() {
-    var formattedDate = this.date.transform(
-      this.initialSubscriptionObj.startDate,
-      'yyyy-MM-dd'
-    );
-    this.initialSubscriptionObj.startDate = formattedDate;
-    formattedDate = this.date.transform(
-      this.initialSubscriptionObj.expiryDate,
-      'yyyy-MM-dd'
-    );
-    this.initialSubscriptionObj.expiryDate = formattedDate;
+    // var formattedDate = this.date.transform(
+    //   this.initialSubscriptionObj.startDate,
+    //   'yyyy-MM-dd'
+    // );
+    // this.initialSubscriptionObj.startDate = formattedDate;
+    // formattedDate = this.date.transform(
+    //   this.initialSubscriptionObj.expiryDate,
+    //   'yyyy-MM-dd'
+    // );
+    // this.initialSubscriptionObj.expiryDate = formattedDate;
+    // console.log(this.initialSubscriptionObj);
     this._subscriptionService
       .getPaginatedAdvanceSubscriptionData(
         this.sortColumn,
