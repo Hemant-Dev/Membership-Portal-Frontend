@@ -103,6 +103,17 @@ export class UserComponent implements OnInit {
     }
   }
 
+  handleClear() {
+    this.initialUserObj = {
+      id: 0,
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
+      contactNumber: '',
+    };
+  }
+
   handleSortColumn(sortColumn: string) {
     this.sortColumn = sortColumn;
     // this.getAllProductDataOnInit();

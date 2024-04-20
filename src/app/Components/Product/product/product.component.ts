@@ -95,6 +95,14 @@ export class ProductComponent implements OnInit {
     }
   }
 
+  handleClear() {
+    this.initialProductObj = {
+      id: 0,
+      productName: '',
+      price: 0,
+    };
+  }
+
   handleSortColumn(sortColumn: string) {
     this.sortColumn = sortColumn;
     // this.getAllProductDataOnInit();

@@ -108,6 +108,18 @@ export class SubscriberComponent implements OnInit {
     }
   }
 
+  handleClear() {
+    this.initialSubscriberObj = {
+      id: 0,
+      firstName: '',
+      lastName: '',
+      contactNumber: '',
+      email: '',
+      genderId: 0,
+      genderName: '',
+    };
+  }
+
   handleSortColumn(sortColumn: string) {
     this.sortColumn = sortColumn;
     // this.getAllProductDataOnInit();

@@ -93,6 +93,14 @@ export class DiscountComponent implements OnInit {
       });
     }
   }
+  handleClear() {
+    this.initialDiscountObj = {
+      id: 0,
+      discountCode: '',
+      discountAmount: 0,
+      isDiscountInPercentage: false,
+    };
+  }
 
   handleSortColumn(sortColumn: string) {
     this.sortColumn = sortColumn;
