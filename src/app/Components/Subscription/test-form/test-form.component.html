@@ -253,7 +253,7 @@
       >
         <option [value]="0" disabled selected>Pick one</option>
         @for (tax of taxList; track tax) {
-        <option [value]="tax.id">{{ tax.totalTax }}</option>
+        <option [value]="tax.id">{{ tax.taxName }}</option>
         }
       </select>
     </label>

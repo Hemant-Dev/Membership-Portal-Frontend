@@ -20,10 +20,12 @@ export class TaxFormComponent {
     sgst: null,
     cgst: null,
     totalTax: null,
+    taxName: '',
   };
   idParam!: number;
   errorMessages: string[] = [];
 
+  isTaxNameValid = true;
   isSGSTValid = true;
   isCGSTValid = true;
   isTotalTaxValid = true;
@@ -102,6 +104,9 @@ export class TaxFormComponent {
   }
 
   markInvalidInputs(errorMessages: string[]) {
+    this.isTaxNameValid = !errorMessages.some((error) =>
+      error.includes('Tax Name')
+    );
     this.isSGSTValid = !errorMessages.some((error) => error.includes('SGST'));
     this.isCGSTValid = !errorMessages.some((error) => error.includes('CGST'));
     this.isTotalTaxValid = !errorMessages.some((error) =>

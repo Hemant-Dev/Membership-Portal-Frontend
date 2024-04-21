@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Tax } from '../../../Models/tax';
 import { TaxService } from '../../../Services/tax.service';
 import { TaxListComponent } from '../tax-list/tax-list.component';
 import { TableHeaderData } from '../../../Models/table-header-data';
@@ -17,6 +16,7 @@ import { Router } from '@angular/router';
 export class TaxComponent implements OnInit {
   taxList: any[] = [];
   taxKeys: TableHeaderData[] = [
+    { HeaderName: 'Tax Name', FieldName: 'taxName' },
     { HeaderName: 'SGST %', FieldName: 'sgst' },
     { HeaderName: 'CGST %', FieldName: 'cgst' },
     { HeaderName: 'Total Tax %', FieldName: 'totalTax' },

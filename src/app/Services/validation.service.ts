@@ -150,7 +150,20 @@ export class ValidationService {
   validateTaxForm(taxObj: Tax): boolean {
     this.isValid = true;
     this.errorMessages = [];
-
+    taxObj.taxName = taxObj.taxName.trim();
+    if (
+      taxObj.taxName === undefined ||
+      taxObj.taxName === null ||
+      taxObj.taxName.length === 0
+    ) {
+      this.errorMessages.push('Tax Name cannot be empty.');
+      this.isValid = false;
+    } else {
+      if (taxObj.taxName.length > 10) {
+        this.errorMessages.push('Tax Name cannot exceed 10 chars');
+        this.isValid = false;
+      }
+    }
     if (
       taxObj.sgst === 0 ||
       taxObj.sgst === null ||

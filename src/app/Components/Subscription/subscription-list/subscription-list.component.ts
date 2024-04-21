@@ -76,7 +76,7 @@ export class SubscriptionListComponent implements OnInit {
     this.getAllSubscriberData();
     this.getAllProductData();
     this.getAllDiscountData();
-    // this.getAllTaxData();
+    this.getAllTaxData();
     this.getAllSubscriptionDataOnInit();
   }
   getAllSubscriptionDataOnInit() {
