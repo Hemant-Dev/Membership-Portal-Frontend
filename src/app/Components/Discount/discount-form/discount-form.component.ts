@@ -19,7 +19,7 @@ export class DiscountFormComponent implements OnInit {
     id: 0,
     discountCode: '',
     discountAmount: null,
-    isDiscountInPercentage: false,
+    isDiscountInPercentage: null,
   };
   idParam!: number;
   errorMessages: string[] = [];
@@ -44,7 +44,7 @@ export class DiscountFormComponent implements OnInit {
 
   handleSubmit() {
     // alert(JSON.stringify(this.initialProductObj));
-    
+
     if (this._validationService.validateDiscountForm(this.initialDiscountObj)) {
       // It is Valid Form
       if (this.initialDiscountObj.id === 0) {

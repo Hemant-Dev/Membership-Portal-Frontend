@@ -43,17 +43,17 @@ export class SubscriptionListComponent implements OnInit {
     subscriberId: 0,
     productId: 0,
     productName: '',
-    productPrice: 0,
+    productPrice: null,
     discountId: 0,
     discountCode: '',
-    discountAmount: 0,
-    priceAfterDiscount: 0,
+    discountAmount: null,
+    priceAfterDiscount: null,
     taxId: 0,
-    cgst: 0,
-    sgst: 0,
-    totalTaxPercentage: 0,
-    taxAmount: 0,
-    finalAmount: 0,
+    cgst: null,
+    sgst: null,
+    totalTaxPercentage: null,
+    taxAmount: null,
+    finalAmount: null,
     startDate: '',
     expiryDate: '',
   };
@@ -135,6 +135,14 @@ export class SubscriptionListComponent implements OnInit {
           this.totalPages = data.totalPages;
           this.initialSubscriptionObj.startDate = '';
           this.initialSubscriptionObj.expiryDate = '';
+          this.initialSubscriptionObj.productPrice = null;
+          this.initialSubscriptionObj.discountAmount = null;
+          this.initialSubscriptionObj.priceAfterDiscount = null;
+          this.initialSubscriptionObj.cgst = null;
+          this.initialSubscriptionObj.sgst = null;
+          this.initialSubscriptionObj.totalTaxPercentage = null;
+          this.initialSubscriptionObj.taxAmount = null;
+          this.initialSubscriptionObj.finalAmount = null;
           // console.log(data);
         },
         error: (err) => console.log(err),

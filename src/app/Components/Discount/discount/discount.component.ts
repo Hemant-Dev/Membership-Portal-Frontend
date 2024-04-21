@@ -43,7 +43,7 @@ export class DiscountComponent implements OnInit {
   initialDiscountObj: Discount = {
     id: 0,
     discountCode: '',
-    discountAmount: 0,
+    discountAmount: null,
     isDiscountInPercentage: false,
   };
 
@@ -73,6 +73,7 @@ export class DiscountComponent implements OnInit {
         next: (data) => {
           this.discountList = data.dataArray;
           this.totalPages = data.totalPages;
+          this.initialDiscountObj.discountAmount = null;
         },
         error: (err) => console.log(err),
       });
@@ -97,7 +98,7 @@ export class DiscountComponent implements OnInit {
     this.initialDiscountObj = {
       id: 0,
       discountCode: '',
-      discountAmount: 0,
+      discountAmount: null,
       isDiscountInPercentage: false,
     };
   }

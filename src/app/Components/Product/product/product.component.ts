@@ -35,7 +35,7 @@ export class ProductComponent implements OnInit {
   initialProductObj: Product = {
     id: 0,
     productName: '',
-    price: 0,
+    price: null,
   };
 
   constructor(
@@ -60,6 +60,9 @@ export class ProductComponent implements OnInit {
   //     });
   // }
   getAllProductDataOnInit() {
+    if (this.initialProductObj.price === null) {
+      this.initialProductObj.price = 0;
+    }
     this._productService
       .getPaginatedAdvanceProductData(
         this.sortColumn,
@@ -72,6 +75,7 @@ export class ProductComponent implements OnInit {
         next: (data) => {
           this.productList = data.dataArray;
           this.totalPages = data.totalPages;
+          this.initialProductObj.price = null;
           // console.log(data);
           // console.log(this.sortColumn, this.sortOrder);
         },
@@ -99,7 +103,7 @@ export class ProductComponent implements OnInit {
     this.initialProductObj = {
       id: 0,
       productName: '',
-      price: 0,
+      price: null,
     };
   }
 
