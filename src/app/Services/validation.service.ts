@@ -159,8 +159,8 @@ export class ValidationService {
       this.errorMessages.push('Tax Name cannot be empty.');
       this.isValid = false;
     } else {
-      if (taxObj.taxName.length > 10) {
-        this.errorMessages.push('Tax Name cannot exceed 10 chars');
+      if (taxObj.taxName.length > 15) {
+        this.errorMessages.push('Tax Name cannot exceed 15 chars');
         this.isValid = false;
       }
     }
