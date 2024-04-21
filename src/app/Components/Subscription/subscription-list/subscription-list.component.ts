@@ -91,6 +91,30 @@ export class SubscriptionListComponent implements OnInit {
     // );
     // this.initialSubscriptionObj.expiryDate = formattedDate;
     // console.log(this.initialSubscriptionObj);
+    if (this.initialSubscriptionObj.productPrice === null) {
+      this.initialSubscriptionObj.productPrice = 0;
+    }
+    if (this.initialSubscriptionObj.discountAmount === null) {
+      this.initialSubscriptionObj.discountAmount = 0;
+    }
+    if (this.initialSubscriptionObj.priceAfterDiscount === null) {
+      this.initialSubscriptionObj.priceAfterDiscount = 0;
+    }
+    if (this.initialSubscriptionObj.cgst === null) {
+      this.initialSubscriptionObj.cgst = 0;
+    }
+    if (this.initialSubscriptionObj.sgst === null) {
+      this.initialSubscriptionObj.sgst = 0;
+    }
+    if (this.initialSubscriptionObj.totalTaxPercentage === null) {
+      this.initialSubscriptionObj.totalTaxPercentage = 0;
+    }
+    if (this.initialSubscriptionObj.taxAmount === null) {
+      this.initialSubscriptionObj.taxAmount = 0;
+    }
+    if (this.initialSubscriptionObj.finalAmount === null) {
+      this.initialSubscriptionObj.finalAmount = 0;
+    }
     if (this.initialSubscriptionObj.startDate === '') {
       this.initialSubscriptionObj.startDate = this.formatDate('0001-01-01');
     }
