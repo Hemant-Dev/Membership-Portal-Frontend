@@ -4,3 +4,6 @@
 input[type="date"]::-webkit-calendar-picker-indicator {
   filter: invert(1); /* Invert the color to make it black */
 }
+.hide {
+  display: none;
+}

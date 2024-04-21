@@ -1,5 +1,7 @@
 <div class="list-display">
-  <app-subscription-list></app-subscription-list>
+  <app-subscription-list
+    [isInSearchMode]="this.isInSearchMode"
+  ></app-subscription-list>
   <!-- <app-generic-list
     [itemsList]="subscriptionsList"
     [itemsKeys]="subscriptionKeys"

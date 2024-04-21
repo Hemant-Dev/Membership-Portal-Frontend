@@ -898,7 +898,12 @@
           </span>
         </th>
 
-        <th class="text-center border-x border-black align-bottom">Actions</th>
+        <th
+          [class.hide]="this.isInSearchMode"
+          class="text-center border-x border-black align-bottom"
+        >
+          Actions
+        </th>
       </tr>
     </thead>
     <tbody>
@@ -922,7 +927,10 @@
         <td class="border-x border-black">{{ subscription.startDate }}</td>
         <td class="border-x border-black">{{ subscription.expiryDate }}</td>
         <td class="border-x border-black">{{ subscription.finalAmount }}</td>
-        <td class="flex gap-2 justify-center">
+        <td
+          [class.hide]="this.isInSearchMode"
+          class="flex gap-2 justify-center"
+        >
           <button
             class="btn btn-circle btn-outline bg-green-400 hover:bg-green-300"
             (click)="handleEdit(subscription.id)"

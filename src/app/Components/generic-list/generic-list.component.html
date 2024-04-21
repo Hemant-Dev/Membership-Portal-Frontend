@@ -85,7 +85,12 @@
           </th>
         </ng-container>
         <!-- Add a static column for Actions -->
-        <th class="text-center border-x border-black">Actions</th>
+        <th
+          [class.hide]="this.isInSearchMode"
+          class="text-center border-x border-black"
+        >
+          Actions
+        </th>
       </tr>
     </thead>
     <tbody>
@@ -100,7 +105,10 @@
             {{ item[key.FieldName] }}
           </td>
         </ng-container>
-        <td class="flex gap-2 justify-center border-black">
+        <td
+          [class.hide]="this.isInSearchMode"
+          class="flex gap-2 justify-center border-black"
+        >
           <button
             class="btn btn-circle btn-outline bg-green-400 hover:bg-green-300"
             (click)="handleEdit(item['id'])"

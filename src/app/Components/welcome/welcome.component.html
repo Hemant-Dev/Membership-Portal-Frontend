@@ -1,3 +1,47 @@
-<p>welcome works!</p>
+<div class="bg-gray-100 h-screen">
+  <div class="flex flex-col items-center justify-center h-full">
+    <!-- Header -->
+    <header class="text-center mb-10">
+      <h1 class="text-4xl font-semibold text-blue-600">
+        Welcome to Our All Purpose Membership App
+      </h1>
+      <p class="mt-4 text-lg text-gray-600">
+        Dive into the features available in the app.
+      </p>
+    </header>
 
-<button (click)="showSuccess()" class="btn btn-info">Click Me</button>
+    <!-- Membership Benefits -->
+    <section class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <!-- Benefit Card 1 -->
+      <div class="bg-white p-6 rounded-lg shadow-md">
+        <h2 class="text-xl font-semibold text-blue-600 mb-4">
+          Easily Accessible and Editable Tables
+        </h2>
+        <p class="text-gray-600">Customization as per requirement.</p>
+      </div>
+
+      <!-- Benefit Card 2 -->
+      <div class="bg-white p-6 rounded-lg shadow-md">
+        <h2 class="text-xl font-semibold text-blue-600 mb-4">
+          Scalable & Fast
+        </h2>
+        <p class="text-gray-600">It is scalable and performance is fast.</p>
+      </div>
+
+      <!-- Benefit Card 3 -->
+      <div class="bg-white p-6 rounded-lg shadow-md">
+        <h2 class="text-xl font-semibold text-blue-600 mb-4">Full Stack APP</h2>
+        <p class="text-gray-600">
+          Enjoy Frontend, Backend and Database together.
+        </p>
+      </div>
+    </section>
+
+    <!-- CTA Button -->
+    <button
+      class="mt-12 px-8 py-3 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-700 transition-colors duration-300"
+    >
+      Buy Now
+    </button>
+  </div>
+</div>

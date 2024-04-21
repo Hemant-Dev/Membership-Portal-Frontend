@@ -1,3 +1,6 @@
 .fill {
   @apply fill-black;
 }
+.hide {
+  display: none;
+}

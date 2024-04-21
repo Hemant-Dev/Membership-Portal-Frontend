@@ -139,6 +139,7 @@
     (onDelete)="handleDeleteUser($event)"
     (onSortColumn)="handleSortColumn($event)"
     (onSortOrder)="handleSortOrder($event)"
+    [isInSearchMode]="this.isInSearchMode"
   ></app-generic-list>
 </div>
 

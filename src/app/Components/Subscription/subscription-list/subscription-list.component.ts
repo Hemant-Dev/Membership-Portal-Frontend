@@ -23,13 +23,13 @@ import { FormsModule } from '@angular/forms';
 })
 export class SubscriptionListComponent implements OnInit {
   @Input() subscriptionList!: Subscription[];
-
+  @Input() isInSearchMode!: boolean;
   sortOrder: string | null = null;
   sortColumn: string | null = null;
   page = 1;
   pageSize = 5;
   totalPages: number = 0;
-  isInSearchMode: boolean = false;
+
   formatDate(dateString: string | number | Date) {
     const date = new Date(dateString);
     const day = date.getDate().toString().padStart(2, '0');
