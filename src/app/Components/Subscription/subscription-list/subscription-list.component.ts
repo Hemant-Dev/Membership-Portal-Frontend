@@ -166,6 +166,7 @@ export class SubscriptionListComponent implements OnInit {
         error: (err) => console.log(err),
       });
   }
+
   handleEdit(subscriptionId: number) {
     this._router.navigate(['/test-form', subscriptionId]);
   }

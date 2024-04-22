@@ -116,7 +116,7 @@ export class UserComponent implements OnInit {
       password: '',
       contactNumber: '',
     };
-    this.isInSearchMode = false;
+    // this.isInSearchMode = false;
     this.getAllUserDataOnInit();
     window.location.reload();
 
