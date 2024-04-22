@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ShowListComponent } from '../show-list/show-list.component';
 import { User } from '../../../Models/user';
 import { UserService } from '../../../Services/user.service';
@@ -62,13 +62,16 @@ export class UserComponent implements OnInit {
   constructor(
     private _userService: UserService,
     private _route: Router,
-    private _toastr: ToastrService
+    private _toastr: ToastrService,
+    private _cdr: ChangeDetectorRef
   ) {}
   ngOnInit(): void {
+    this.isInSearchMode = false;
     this.getAllUserDataOnInit();
   }
 
   getAllUserDataOnInit() {
+    console.log('Get Data: ' + this.isInSearchMode);
     this._userService
       .getPaginatedAdvanceUserData(
         this.sortColumn,
@@ -104,6 +107,7 @@ export class UserComponent implements OnInit {
   }
 
   handleClear() {
+    // console.log('Before Clear' + this.isInSearchMode);
     this.initialUserObj = {
       id: 0,
       firstName: '',
@@ -114,6 +118,9 @@ export class UserComponent implements OnInit {
     };
     this.isInSearchMode = false;
     this.getAllUserDataOnInit();
+    window.location.reload();
+
+    // console.log('After Clear' + this.isInSearchMode);
   }
 
   handleSortColumn(sortColumn: string) {

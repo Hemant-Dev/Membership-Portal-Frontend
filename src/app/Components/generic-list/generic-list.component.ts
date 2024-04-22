@@ -10,7 +10,7 @@ import { TableHeaderData } from '../../Models/table-header-data';
   templateUrl: './generic-list.component.html',
   styleUrl: './generic-list.component.css',
 })
-export class GenericListComponent {
+export class GenericListComponent implements OnInit {
   @Input() itemsList: any[] = [];
   @Input() itemsKeys!: TableHeaderData[];
   @Input() itemsTitle!: string;
@@ -24,6 +24,9 @@ export class GenericListComponent {
 
   sortOrder: string = 'asc';
 
+  ngOnInit(): void {
+    // console.log(this.isInSearchMode);
+  }
   handleEdit(obj: number) {
     // console.log(obj);
     this.onEdit.emit(obj);
