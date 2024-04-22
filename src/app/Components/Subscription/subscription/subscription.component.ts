@@ -200,6 +200,10 @@ export class SubscriptionComponent implements OnInit {
 
     this.isInSearchMode = true;
     // console.log('Before:', this.productList);
+    if (this.isInSearchMode) {
+      this.page = 1;
+    }
+
     this.getAllSubscriptionDataOnInit();
     // console.log('After:', this.productList);
   }

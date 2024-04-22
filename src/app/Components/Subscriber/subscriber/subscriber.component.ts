@@ -136,6 +136,9 @@ export class SubscriberComponent implements OnInit {
 
     this.isInSearchMode = true;
     // console.log('Before:', this.productList);
+    if (this.isInSearchMode) {
+      this.page = 1;
+    }
     this.getAllSubscriberDataOnInit();
     // console.log('After:', this.productList);
   }

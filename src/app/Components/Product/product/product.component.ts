@@ -63,6 +63,7 @@ export class ProductComponent implements OnInit {
     if (this.initialProductObj.price === null) {
       this.initialProductObj.price = 0;
     }
+
     this._productService
       .getPaginatedAdvanceProductData(
         this.sortColumn,
@@ -124,6 +125,9 @@ export class ProductComponent implements OnInit {
       this.initialProductObj.price = 0;
     }
     this.isInSearchMode = true;
+    if (this.isInSearchMode) {
+      this.page = 1;
+    }
     // console.log('Before:', this.productList);
     this.getAllProductDataOnInit();
     // console.log('After:', this.productList);

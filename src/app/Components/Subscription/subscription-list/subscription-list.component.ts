@@ -121,6 +121,7 @@ export class SubscriptionListComponent implements OnInit {
     if (this.initialSubscriptionObj.expiryDate === '') {
       this.initialSubscriptionObj.expiryDate = this.formatDate('0001-01-01');
     }
+
     this._subscriptionService
       .getPaginatedAdvanceSubscriptionData(
         this.sortColumn,
@@ -198,6 +199,10 @@ export class SubscriptionListComponent implements OnInit {
 
     this.isInSearchMode = true;
     // console.log('Before:', this.productList);
+    if (this.isInSearchMode) {
+      this.page = 1;
+    }
+
     this.getAllSubscriptionDataOnInit();
     // console.log('After:', this.productList);
   }

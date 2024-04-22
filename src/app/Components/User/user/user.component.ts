@@ -112,6 +112,8 @@ export class UserComponent implements OnInit {
       password: '',
       contactNumber: '',
     };
+    this.isInSearchMode = false;
+    this.getAllUserDataOnInit();
   }
 
   handleSortColumn(sortColumn: string) {
@@ -130,6 +132,9 @@ export class UserComponent implements OnInit {
 
     this.isInSearchMode = true;
     // console.log('Before:', this.productList);
+    if (this.isInSearchMode) {
+      this.page = 1;
+    }
     this.getAllUserDataOnInit();
     // console.log('After:', this.productList);
   }

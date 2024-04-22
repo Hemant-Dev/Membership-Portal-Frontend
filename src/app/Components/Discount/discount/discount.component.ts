@@ -61,6 +61,7 @@ export class DiscountComponent implements OnInit {
     if (this.initialDiscountObj.discountAmount === null) {
       this.initialDiscountObj.discountAmount = 0;
     }
+
     this._discountService
       .getPaginatedAdvanceDiscountData(
         this.sortColumn,
@@ -119,6 +120,9 @@ export class DiscountComponent implements OnInit {
 
     this.isInSearchMode = true;
     // console.log('Before:', this.productList);
+    if (this.isInSearchMode) {
+      this.page = 1;
+    }
     this.getAllDiscountDataOnInit();
     // console.log('After:', this.productList);
   }
