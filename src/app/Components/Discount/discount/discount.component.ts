@@ -22,12 +22,12 @@ export class DiscountComponent implements OnInit {
       FieldName: 'discountCode',
     },
     {
-      HeaderName: 'Discount Amount',
-      FieldName: 'discountAmount',
-    },
-    {
       HeaderName: 'Is Discount in Percentage',
       FieldName: 'isDiscountInPercentage',
+    },
+    {
+      HeaderName: 'Discount Amount',
+      FieldName: 'discountAmount',
     },
   ];
   Title: string = 'Discount';

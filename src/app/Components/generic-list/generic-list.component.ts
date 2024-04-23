@@ -46,4 +46,8 @@ export class GenericListComponent implements OnInit {
     // console.log(this.sortOrder);
     this.onSortOrder.emit(this.sortOrder);
   }
+  getType(val: any) {
+    console.log('Function call ', typeof val);
+    return typeof val;
+  }
 }

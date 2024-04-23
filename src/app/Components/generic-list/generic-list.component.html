@@ -39,7 +39,7 @@
     </button>
   </div>
 
-  <h1 class="text-center text-3xl font-bold mt-4">{{ itemsTitle }} List</h1>
+  <h1 class="text-center text-3xl font-bold mb-4">{{ itemsTitle }} List</h1>
 
   <table
     class="table w-full"
@@ -48,7 +48,7 @@
     <!-- head -->
     <thead class="text-blue-500 font-bold border-2 border-black">
       <tr class="text-wrap">
-        <th class="text-center border-x border-black">Sr.</th>
+        <!-- <th class="text-center border-x border-black">Sr.</th> -->
         <!-- Loop through itemsKeys to dynamically generate table headers -->
         <ng-container *ngFor="let key of itemsKeys">
           <th class="text-center border-x border-black">
@@ -94,9 +94,12 @@
         class="hover:bg-blue-200 border-y border-x border-black"
       >
         <!-- Loop through itemsKeys to dynamically generate table cells -->
-        <td class="text-center border-x border-y border-black">{{ i + 1 }}</td>
+        <!-- <td class="text-center border-x border-y border-black">{{ i + 1 }}</td> -->
         <ng-container *ngFor="let key of itemsKeys">
-          <td class="text-center border-x border-y border-black">
+          <td
+            class="text-center border-x border-y border-black"
+            [class.align-right]="getType(item[key.FieldName]) === 'number'"
+          >
             {{ item[key.FieldName] }}
           </td>
         </ng-container>
