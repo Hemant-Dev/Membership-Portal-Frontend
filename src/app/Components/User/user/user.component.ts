@@ -31,10 +31,6 @@ export class UserComponent implements OnInit {
       FieldName: 'email',
     },
     {
-      HeaderName: 'Password',
-      FieldName: 'password',
-    },
-    {
       HeaderName: 'Contact No.',
       FieldName: 'contactNumber',
     },
@@ -118,7 +114,7 @@ export class UserComponent implements OnInit {
     };
     // this.isInSearchMode = false;
     this.getAllUserDataOnInit();
-    window.location.reload();
+    // window.location.reload();
 
     // console.log('After Clear' + this.isInSearchMode);
   }

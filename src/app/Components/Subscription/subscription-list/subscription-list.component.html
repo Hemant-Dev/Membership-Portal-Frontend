@@ -559,7 +559,7 @@
 
   <!-- Rendering the add gender form here -->
   <!-- <app-gender-form></app-gender-form> -->
-  <h1 class="text-center text-3xl font-bold mt-4">Subscription List</h1>
+  <h1 class="text-center text-3xl font-bold mb-4">Subscription List</h1>
   <table
     class="table border-2 border-black"
     *ngIf="
@@ -573,6 +573,34 @@
         <!-- <th>Sr.</th> -->
         <th class="text-center border-x border-black align-bottom">
           Subscriber Name
+          <span
+            class="btn btn-xs bg-transparent hover:bg-transparent border-none"
+            (click)="handleSort('subscriberName')"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-4 w-4"
+              viewBox="0 0 24 24"
+              fill="none"
+            >
+              <path
+                d="M16.0686 15H7.9313C7.32548 15 7.02257 15 6.88231 15.1198C6.76061 15.2238 6.69602 15.3797 6.70858 15.5393C6.72305 15.7232 6.93724 15.9374 7.36561 16.3657L11.4342 20.4344C11.6323 20.6324 11.7313 20.7314 11.8454 20.7685C11.9458 20.8011 12.054 20.8011 12.1544 20.7685C12.2686 20.7314 12.3676 20.6324 12.5656 20.4344L16.6342 16.3657C17.0626 15.9374 17.2768 15.7232 17.2913 15.5393C17.3038 15.3797 17.2392 15.2238 17.1175 15.1198C16.9773 15 16.6744 15 16.0686 15Z"
+                [class.fill]="this.sortOrder === 'desc'"
+                class="stroke-black"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M7.9313 9.00005H16.0686C16.6744 9.00005 16.9773 9.00005 17.1175 8.88025C17.2393 8.7763 17.3038 8.62038 17.2913 8.46082C17.2768 8.27693 17.0626 8.06274 16.6342 7.63436L12.5656 3.56573C12.3676 3.36772 12.2686 3.26872 12.1544 3.23163C12.054 3.199 11.9458 3.199 11.8454 3.23163C11.7313 3.26872 11.6323 3.36772 11.4342 3.56573L7.36561 7.63436C6.93724 8.06273 6.72305 8.27693 6.70858 8.46082C6.69602 8.62038 6.76061 8.7763 6.88231 8.88025C7.02257 9.00005 7.32548 9.00005 7.9313 9.00005Z"
+                [class.fill]="this.sortOrder === 'asc'"
+                class="stroke-black"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </span>
         </th>
         <th class="text-center border-x border-black align-bottom">
           Product Name
@@ -605,11 +633,12 @@
             </svg>
           </span>
         </th>
+
         <th class="text-center border-x border-black align-bottom">
-          Product Price
+          Discount Code
           <span
             class="btn btn-xs bg-transparent hover:bg-transparent border-none"
-            (click)="handleSort('productPrice')"
+            (click)="handleSort('discountCode')"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -637,10 +666,10 @@
           </span>
         </th>
         <th class="text-center border-x border-black align-bottom">
-          Discount Code
+          Product Price
           <span
             class="btn btn-xs bg-transparent hover:bg-transparent border-none"
-            (click)="handleSort('discountCode')"
+            (click)="handleSort('productPrice')"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -823,6 +852,37 @@
           </span>
         </th>
         <th class="text-center border-x border-black align-bottom">
+          Final Amount
+          <span
+            class="btn btn-xs bg-transparent hover:bg-transparent border-none"
+            (click)="handleSort('finalAmount')"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-4 w-4"
+              viewBox="0 0 24 24"
+              fill="none"
+            >
+              <path
+                d="M16.0686 15H7.9313C7.32548 15 7.02257 15 6.88231 15.1198C6.76061 15.2238 6.69602 15.3797 6.70858 15.5393C6.72305 15.7232 6.93724 15.9374 7.36561 16.3657L11.4342 20.4344C11.6323 20.6324 11.7313 20.7314 11.8454 20.7685C11.9458 20.8011 12.054 20.8011 12.1544 20.7685C12.2686 20.7314 12.3676 20.6324 12.5656 20.4344L16.6342 16.3657C17.0626 15.9374 17.2768 15.7232 17.2913 15.5393C17.3038 15.3797 17.2392 15.2238 17.1175 15.1198C16.9773 15 16.6744 15 16.0686 15Z"
+                [class.fill]="this.sortOrder === 'desc'"
+                class="stroke-black"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M7.9313 9.00005H16.0686C16.6744 9.00005 16.9773 9.00005 17.1175 8.88025C17.2393 8.7763 17.3038 8.62038 17.2913 8.46082C17.2768 8.27693 17.0626 8.06274 16.6342 7.63436L12.5656 3.56573C12.3676 3.36772 12.2686 3.26872 12.1544 3.23163C12.054 3.199 11.9458 3.199 11.8454 3.23163C11.7313 3.26872 11.6323 3.36772 11.4342 3.56573L7.36561 7.63436C6.93724 8.06273 6.72305 8.27693 6.70858 8.46082C6.69602 8.62038 6.76061 8.7763 6.88231 8.88025C7.02257 9.00005 7.32548 9.00005 7.9313 9.00005Z"
+                [class.fill]="this.sortOrder === 'asc'"
+                class="stroke-black"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </span>
+        </th>
+        <th class="text-center border-x border-black align-bottom">
           Start Date
           <span
             class="btn btn-xs bg-transparent hover:bg-transparent border-none"
@@ -884,55 +944,23 @@
             </svg>
           </span>
         </th>
-        <th class="text-center border-x border-black align-bottom">
-          Final Amount
-          <span
-            class="btn btn-xs bg-transparent hover:bg-transparent border-none"
-            (click)="handleSort('finalAmount')"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-4 w-4"
-              viewBox="0 0 24 24"
-              fill="none"
-            >
-              <path
-                d="M16.0686 15H7.9313C7.32548 15 7.02257 15 6.88231 15.1198C6.76061 15.2238 6.69602 15.3797 6.70858 15.5393C6.72305 15.7232 6.93724 15.9374 7.36561 16.3657L11.4342 20.4344C11.6323 20.6324 11.7313 20.7314 11.8454 20.7685C11.9458 20.8011 12.054 20.8011 12.1544 20.7685C12.2686 20.7314 12.3676 20.6324 12.5656 20.4344L16.6342 16.3657C17.0626 15.9374 17.2768 15.7232 17.2913 15.5393C17.3038 15.3797 17.2392 15.2238 17.1175 15.1198C16.9773 15 16.6744 15 16.0686 15Z"
-                [class.fill]="this.sortOrder === 'desc'"
-                class="stroke-black"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-              <path
-                d="M7.9313 9.00005H16.0686C16.6744 9.00005 16.9773 9.00005 17.1175 8.88025C17.2393 8.7763 17.3038 8.62038 17.2913 8.46082C17.2768 8.27693 17.0626 8.06274 16.6342 7.63436L12.5656 3.56573C12.3676 3.36772 12.2686 3.26872 12.1544 3.23163C12.054 3.199 11.9458 3.199 11.8454 3.23163C11.7313 3.26872 11.6323 3.36772 11.4342 3.56573L7.36561 7.63436C6.93724 8.06273 6.72305 8.27693 6.70858 8.46082C6.69602 8.62038 6.76061 8.7763 6.88231 8.88025C7.02257 9.00005 7.32548 9.00005 7.9313 9.00005Z"
-                [class.fill]="this.sortOrder === 'asc'"
-                class="stroke-black"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-          </span>
-        </th>
 
-        <th
-          [class.hide]="this.isInSearchMode"
-          class="text-center border-x border-black align-bottom"
-        >
-          Actions
-        </th>
+        <th class="text-center border-x border-black align-bottom">Actions</th>
       </tr>
     </thead>
     <tbody>
       @for (subscription of subscriptionList; track subscription) {
-      <tr class="hover:bg-blue-200 text-center border-y border-black">
-        <td class="border-x border-black">
+      <tr class="hover:bg-blue-200 border-y border-black text-right">
+        <td class="border-x border-black text-left">
           {{ this.getSubscriberNameById(subscription.subscriberId) }}
         </td>
-        <td class="border-x border-black">{{ subscription.productName }}</td>
+        <td class="border-x border-black text-left">
+          {{ subscription.productName }}
+        </td>
+        <td class="border-x border-black text-left">
+          {{ subscription.discountCode }}
+        </td>
         <td class="border-x border-black">{{ subscription.productPrice }}</td>
-        <td class="border-x border-black">{{ subscription.discountCode }}</td>
         <td class="border-x border-black">{{ subscription.discountAmount }}</td>
         <td class="border-x border-black">
           {{ subscription.priceAfterDiscount }}
@@ -942,13 +970,12 @@
         <td class="border-x border-black">
           {{ subscription.totalTaxPercentage }}
         </td>
-        <td class="border-x border-black">{{ subscription.startDate }}</td>
-        <td class="border-x border-black">{{ subscription.expiryDate }}</td>
         <td class="border-x border-black">{{ subscription.finalAmount }}</td>
-        <td
-          [class.hide]="this.isInSearchMode"
-          class="flex gap-2 justify-center"
-        >
+        <td class="border-x border-black text-nowrap">
+          {{ subscription.startDate }}
+        </td>
+        <td class="border-x border-black">{{ subscription.expiryDate }}</td>
+        <td class="flex gap-2 justify-center">
           <button
             class="btn btn-circle btn-outline bg-green-400 hover:bg-green-300"
             (click)="handleEdit(subscription.id)"
@@ -1137,6 +1164,7 @@
 <div class="pagination flex justify-center m-2">
   <div class="join">
     <button
+      [disabled]="this.page <= 1"
       class="bg-blue-400 text-black join-item btn hover:bg-gray-600"
       (click)="handlePreviousPage()"
     >
@@ -1146,6 +1174,7 @@
       {{ this.page }}
     </button>
     <button
+      [disabled]="this.page >= totalPages"
       class="bg-blue-400 text-black join-item btn hover:bg-gray-600"
       (click)="handleNextPage()"
     >

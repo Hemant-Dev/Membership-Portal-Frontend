@@ -35,7 +35,7 @@ export class SubscriptionComponent implements OnInit {
   subscriptionKeys: TableHeaderData[] = [
     {
       HeaderName: 'Subscriber Name',
-      FieldName: 'subscriberId',
+      FieldName: 'subscriberName',
     },
     {
       HeaderName: 'Product Name',
